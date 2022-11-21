@@ -10,10 +10,10 @@ import "swiper/css/navigation";
 
 // import "./swiper.css"
 
-import { Pagination, Navigation, Lazy } from "swiper";
+import { Pagination, Navigation, Lazy, Autoplay } from "swiper";
 
 const modules = ref([
-    Pagination, Navigation, Lazy
+    Pagination, Navigation, Lazy, Autoplay
 ])
 
 const pagination = ref({
@@ -27,17 +27,20 @@ const pagination = ref({
     <swiper
         :slidesPerView="2"
         :spaceBetween="40"
+        :autoplay="{
+            delay: 2500,
+            disableOnInteraction: false,
+            }"
         :modules="modules"
         :loop="true"
         :lazy="true"
-        :pagination="pagination"
-        class="w-full h-96 z-10"
+        class="w-full h-full z-10"
     >
 
         
         <swiper-slide>
 
-        <div class="w-full h-72 bg-red-400"></div>
+        <TestimonialsCard />
 
         </swiper-slide>
 
