@@ -14,7 +14,6 @@ defineProps({
 
         <slot name="image"></slot>
 
-
         <CtaCard v-if="!noCard" :content="content">
             <slot name="button"></slot>
         </CtaCard>

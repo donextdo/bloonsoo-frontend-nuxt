@@ -17,7 +17,7 @@ const cta2 = {
 
     <div>
 
-        <Navbar />
+        <!-- <Navbar /> -->
 
         <Hotels />
 
@@ -88,9 +88,9 @@ const cta2 = {
 
         </Cta>
 
-        <Newsletter />
+        <!-- <Newsletter /> -->
 
-        <Footer />
+        <!-- <Footer /> -->
 
     </div>
   

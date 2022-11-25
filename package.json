@@ -19,9 +19,12 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "libphonenumber-js": "^1.10.14",
+    "maz-ui": "^3.0.8",
     "nuxt-buefy": "^0.4.24",
     "sass": "^1.55.0",
     "swiper": "^8.4.4",
+    "vue-router": "^4.1.6",
     "vuetify": "^3.0.0-beta.15"
   }
 }

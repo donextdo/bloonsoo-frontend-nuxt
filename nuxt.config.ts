@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     css: [
         '@fortawesome/fontawesome-svg-core/styles.css',
         // 'vuetify/lib/styles/main.css'
+        'maz-ui/css/main.css'
     ],
 
     plugins: [
@@ -20,7 +21,8 @@ export default defineNuxtConfig({
             "@fortawesome/free-brands-svg-icons",
             "@fortawesome/free-regular-svg-icons",
             "@fortawesome/free-solid-svg-icons",
-            'vuetify'
+            'vuetify',
+            'maz-ui'
         ]
     },
 
