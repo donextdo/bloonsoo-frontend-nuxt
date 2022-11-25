@@ -1,6 +1,6 @@
 <template>
     
-    <section class="w-full py-10 bg-gray-200 shadow-xl font-montserrat">
+    <section class="w-full py-10 bg-gray-200 border-4 border-gray-300 font-montserrat">
         <h1 class="text-3xl text-center font-semibold leading-5 mb-12">
             Why Choose Us
         </h1>

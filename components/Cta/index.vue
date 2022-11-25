@@ -1,7 +1,8 @@
 <script setup>
 
 defineProps({
-    content: Object
+    content: Object,
+    noCard: Boolean
 })
 
 </script>
@@ -13,8 +14,7 @@ defineProps({
 
         <slot name="image"></slot>
 
-
-        <CtaCard :content="content">
+        <CtaCard v-if="!noCard" :content="content">
             <slot name="button"></slot>
         </CtaCard>
 

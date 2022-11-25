@@ -1,0 +1,21 @@
+<script setup>
+
+definePageMeta({
+    layout: 'listing'
+})
+
+</script>
+
+<template>
+    <section class="md:container mx-auto px-10 py-16 flex flex-col gap-8 text-black font-montserrat">
+
+        <h2 class="text-2xl font-semibold mb-6">
+            List your property on Bloonsoo.com
+        </h2>
+
+        <ListingHotelTabs activeTab="1"/>
+
+        <ListingBasicInfo />
+
+    </section>
+</template>

@@ -14,63 +14,84 @@ const cta2 = {
 
 
 <template>
-    <Navbar />
 
-    <Hotels />
+    <div>
 
-    <WhyChooseUs />
+        <!-- <Navbar /> -->
 
-    <Hotels title="Top Rated Properties" topRated/>
+        <Hotels />
 
-    <Cta :content="cta1"> 
+        <WhyChooseUs />
 
-        <template v-slot:image>
-            <img src="../assets/cta/cta_image1.jpg" 
-            loading="lazy" 
-            class="w-full h-full object-cover" 
-            alt="">
-        </template>
+        <Hotels title="Top Rated Properties" topRated/>
 
-        <template v-slot:button>
-            <nuxt-link to="#" 
-            class="py-4 px-10 inline-block rounded-full 
-            w-max text-sm text-black 
-            font-bold bg-gradient-to-b
-            from-darkyellow to-semidarkyellow
-            hover:from-semidarkyellow
-            hover:to-darkyellow">
-                Become A Host
-            </nuxt-link>
-        </template>
-        
-    </Cta>
+        <Cta :content="cta1"> 
 
-    <Featured />
+            <template v-slot:image>
+                <img src="../assets/cta/cta_image1.jpg" 
+                loading="lazy" 
+                class="w-full h-full object-cover" 
+                alt="">
+            </template>
 
-    <Cta :content="cta2">
+            <template v-slot:button>
+                <nuxt-link to="#" 
+                class="py-4 px-10 inline-block rounded-full 
+                w-max text-sm text-black 
+                font-bold bg-gradient-to-b
+                from-darkyellow to-semidarkyellow
+                hover:from-semidarkyellow
+                hover:to-darkyellow">
+                    Become A Host
+                </nuxt-link>
+            </template>
+            
+        </Cta>
 
-        <template v-slot:image>
-            <img src="../assets/cta/cta_image2.jpg" 
-            loading="lazy" 
-            class="w-full h-full object-cover" 
-            alt="">
-        </template>
+        <Featured />
 
-        <template v-slot:button>
-            <nuxt-link to="#" 
-            class="py-4 px-10 inline-block rounded-full 
-            w-max text-sm text-black 
-            font-bold bg-gradient-to-b 
-            from-darkyellow to-semidarkyellow 
-            hover:from-semidarkyellow 
-            hover:to-darkyellow">
-                Find A Property
-            </nuxt-link>
-        </template>
-        
-    </Cta>
+        <Cta :content="cta2">
 
-    <Tips />
+            <template v-slot:image>
+                <img src="../assets/cta/cta_image2.jpg" 
+                loading="lazy" 
+                class="w-full h-full object-cover" 
+                alt="">
+            </template>
 
-    <Testimonials />
+            <template v-slot:button>
+                <nuxt-link to="#" 
+                class="py-4 px-10 inline-block rounded-full 
+                w-max text-sm text-black 
+                font-bold bg-gradient-to-b 
+                from-darkyellow to-semidarkyellow 
+                hover:from-semidarkyellow 
+                hover:to-darkyellow">
+                    Find A Property
+                </nuxt-link>
+            </template>
+            
+        </Cta>
+
+        <Tips />
+
+        <Testimonials />
+
+        <Cta noCard>
+
+            <template v-slot:image>
+                <img src="../assets/cta/cta_image3.jpg" 
+                loading="lazy" 
+                class="w-full h-full object-cover" 
+                alt="">
+            </template>
+
+        </Cta>
+
+        <!-- <Newsletter /> -->
+
+        <!-- <Footer /> -->
+
+    </div>
+  
 </template>

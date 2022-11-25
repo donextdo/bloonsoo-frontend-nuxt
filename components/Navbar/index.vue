@@ -1,9 +1,8 @@
 <script setup>
 
-const model = ref('')
-const cities = ref([
-    'Galle', 'Colombo', 'Matara', 'Anuradhapura'
-])
+defineProps({
+    short: Boolean
+})
 
 </script>
 
@@ -12,14 +11,16 @@ const cities = ref([
     <nav class="py-8 bg-darkblue text-white font-montserrat">
         <div class="px-4 flex items-center justify-between md:px-2 md:container md:mx-auto">
             
-            <h1 class="text-3xl font-bold">
-                LOGO
-            </h1>
+            <NuxtLink to="/">
+                <h1 class="text-3xl font-bold">
+                    LOGO
+                </h1>
+            </NuxtLink>
 
             <div class="flex gap-5">
 
                 <div class="flex gap-2">
-                    <NuxtLink class="py-2 px-6 rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow" to="#">Become A Host</NuxtLink>
+                    <NuxtLink to="/listing/" class="py-2 px-6 rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">Become A Host</NuxtLink>
 
                     <button class="flex gap-3 rounded-full px-1 bg-white items-center justify-between">
                         <font-awesome-icon icon="fa-solid fa-bars" class="text-blue-700 ml-3"/>
@@ -67,7 +68,7 @@ const cities = ref([
             </button>
         </div>
 
-        <div class="relative mx-auto h-44 flex flex-col justify-center md:container px-20">
+        <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center md:container px-20">
             <h1 class=" text-3xl font-bold">
                 Find your next stay
             </h1>
@@ -79,6 +80,6 @@ const cities = ref([
 
     </nav>
 
-    <NavbarForm />
+    <slot></slot>
 
 </template>
