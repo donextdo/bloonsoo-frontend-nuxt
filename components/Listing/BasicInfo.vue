@@ -4,6 +4,8 @@ import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import { ref } from 'vue'
 import '@/assets/css/phoneNumberInput.css'
 
+const router = useRouter()
+
 const name = ref('')
 const rating = ref('N/A')
 
@@ -13,6 +15,10 @@ const phoneNumber = ref()
 const results = ref()
 
 const checkvl = ref()
+
+const postData = () => {
+    router.push({path: '/listing/hotel/pricing'})
+}
 
 </script>
 
@@ -149,13 +155,50 @@ const checkvl = ref()
 
         </ListingFormCard>
 
+        <ListingFormCard label="Where is your property located?">
+
+            <div class="px-4 flex flex-col gap-6">
+                <p class="text-sm text-gray-600 font-semibold mb-4 text-justify">
+                    Please make sure you enter the full address of your property, including your building name, number, etc. Based on the information you provide, we might send a letter to verify this address,
+                </p>
+
+                <div class="w-full grid grid-cols-2 gap-6">
+
+                    <SharedTextInput 
+                    label="Street Address" 
+                    v-model="name" :error="nameErr" errorMessage="please enter name" 
+                    class="col-start-1" />
+
+                    <SharedDropDown 
+                    label="Country/Region" 
+                    v-model="name" :error="nameErr" errorMessage="please enter country" 
+                    :options="['Sri Lanka', 'Australia', 'India']" 
+                    class="col-start-1" />
+
+                    <SharedTextInput 
+                    label="Post Code" 
+                    v-model="name" :error="nameErr" errorMessage="please enter name" 
+                    class="col-start-1" />
+
+                    <div class="flex flex-col gap-2 items-start row-span-3 col-start-2 row-start-1">
+
+                        <h4 class="text-sm font-semibold text-gray-600">
+                            Select Your Location (Move the pin)
+                        </h4>
+
+                        <img src="@/assets/map/map.jpg" class="w-full h-full object-cover" alt="">
+
+                    </div>
+
+                </div>
+            </div>
+
+        </ListingFormCard>
+
+        <button @click="postData" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
+            Next
+        </button>
+
     </section>
 
 </template>
-
-
-<style scoped>
-
-
-
-</style>
