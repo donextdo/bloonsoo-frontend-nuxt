@@ -3,21 +3,91 @@
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import { ref } from 'vue'
 import '@/assets/css/phoneNumberInput.css'
+import { useHotelId } from '~~/composables/state';
 
 const router = useRouter()
 
-const name = ref('')
-const rating = ref('N/A')
+const hotelId = useHotelId()
 
-const nameErr = ref(false)
+const propertyName = ref('')
+const propertyNameError = ref(false)
+
+const startRating = ref('N/A')
+
+const contactName = ref('')
+const contactNameError = ref(false)
 
 const phoneNumber = ref()
-const results = ref()
+const phoneNumberRes = ref()
+const phoneNumberError = ref(false)
 
-const checkvl = ref()
+const phoneNumberAlt = ref()
+const phoneNumberAltRes = ref()
 
-const postData = () => {
+const ownMultipleHotels = ref()
+const ownMultipleHotelsError = ref(false)
+
+const channelManager = ref()
+const channelManagerError = ref(false)
+
+const streetAddress = ref()
+const streetAddressError = ref(false)
+
+const country = ref('Sri Lanka')
+const countryError = ref(false)
+
+const postalCode = ref('')
+const postalCodeError = ref(false)
+
+
+const createHotel = async () => {
+
+    setTimeout(() => {
+        propertyNameError.value = false
+        contactNameError.value = false
+        phoneNumberError.value = false
+        ownMultipleHotelsError.value = false
+        channelManagerError.value = false
+        streetAddressError.value = false
+        postalCodeError.value = false
+    }, 10000)
+
+
+    if(!propertyName.value) return propertyNameError.value = true
+    if(!contactName.value) return contactNameError.value = true
+    if(!phoneNumberRes.value.isValid) return phoneNumberError.value = true
+    if(!ownMultipleHotels.value) return ownMultipleHotelsError.value = true
+    if(!channelManager.value) return channelManagerError.value = true
+    if(!streetAddress.value) return streetAddressError.value = true
+    if(!postalCode.value) return postalCodeError.value = true
+
+
+    const hotelDto = {
+        property_name: propertyName.value,
+        star_rating: startRating.value,
+        contact_name: contactName.value,
+        contact_phone_number: phoneNumberRes.value.e164,
+        contact_phone_number_alternative: phoneNumberAltRes.value.isValid ? phoneNumberAltRes.value.e164 : null,
+        is_own_multiple_hotels: ownMultipleHotels.value === 'yes' ? true : false,
+        use_channel_manager: channelManager.value === 'yes' ? true : false,
+        property_address: {
+            street_address: streetAddress.value,
+            country: country.value,
+            postal_code: postalCode.value
+        }
+    }
+
+    const hotel = await $fetch('http://localhost:9000/api/hotel/create', {
+        method: 'POST',
+        body: hotelDto
+    })
+
+    hotelId.value = hotel._id
+
+    console.log(hotel)
+
     router.push({path: '/listing/hotel/pricing'})
+
 }
 
 </script>
@@ -31,9 +101,9 @@ const postData = () => {
 
             <div class="grid grid-cols-2 gap-x-8 gap-y-2 px-4">
 
-                <SharedTextInput label="Name of your Property" v-model="name" :error="nameErr" errorMessage="please enter name" />
+                <SharedTextInput label="Name of your Property" v-model="propertyName" :error="propertyNameError" errorMessage="Property name cannot be empty" />
 
-                <SharedDropDown label="Star Rating" v-model="rating" slot>
+                <SharedDropDown label="Star Rating" v-model="startRating" slot>
                 
                     <option value="N/A" 
                     class="text-sm font-semibold text-gray-500 appearance-none">
@@ -89,11 +159,11 @@ const postData = () => {
 
             <div class="grid grid-cols-2 gap-x-8 gap-y-6 px-4">
 
-                <SharedTextInput label="Contact name" v-model="name" :error="nameErr" errorMessage="please enter name" />
+                <SharedTextInput label="Contact name" v-model="contactName" :error="contactNameError" errorMessage="Contact name cannot be empty" />
 
                 <div class="flex flex-col gap-2 items-start col-start-1">
 
-                    <label :class="results?.isValid ? 'text-red-600' : 'text-gray-600' " class="text-sm font-semibold">Phone Number</label>
+                    <label :class="phoneNumberError ? 'text-red-600' : 'text-gray-600' " class="text-sm font-semibold">Phone Number</label>
 
 
                     <ClientOnly>
@@ -102,26 +172,30 @@ const postData = () => {
                         show-code-on-list
                         :preferred-countries="['LK', 'FR', 'BE', 'DE', 'US', 'GB']"
                         no-example size="sm"
-                        @update="results = $event"
-                        :success="results?.isValid"
+                        @update="phoneNumberRes = $event"
+                        :success="phoneNumberRes?.isValid"
                     />
                     </ClientOnly>
+
+                    <small v-if="phoneNumberError" class="text-xs text-red-600">
+                        Please enter a mobile number
+                    </small>
 
                 </div>
 
                 <div class="flex flex-col gap-2 items-start col-start-2">
 
-                    <label :class="results?.isValid ? 'text-red-600' : 'text-gray-600' " class="text-sm font-semibold">Alternative Phone Number</label>
+                    <label class="text-gray-600 text-sm font-semibold">Alternative Phone Number</label>
 
 
                     <ClientOnly>
                     <MazPhoneNumberInput
-                        v-model="phoneNumber"
+                        v-model="phoneNumberAlt"
                         show-code-on-list
                         :preferred-countries="['LK', 'FR', 'BE', 'DE', 'US', 'GB']"
                         no-example size="sm"
-                        @update="results = $event"
-                        :success="results?.isValid"
+                        @update="phoneNumberAltRes = $event"
+                        :success="phoneNumberAltRes?.isValid"
                     />
                     </ClientOnly>
 
@@ -130,9 +204,12 @@ const postData = () => {
                 <SharedRadioGroup 
                 title="Do you own multiple hotels, or are you a part of a property management company?"
                 class="col-span-2" 
-                v-model="checkvl" 
-                :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]
-                "/>
+                v-model="ownMultipleHotels" 
+                :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
+                :error="ownMultipleHotelsError"
+                name="group1"
+                errorMessage="Please select an option"
+                />
 
             </div>
 
@@ -148,9 +225,11 @@ const postData = () => {
                 </p>
 
                 <SharedRadioGroup 
-                v-model="checkvl" 
-                :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]
-                "/>
+                v-model="channelManager" 
+                :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
+                :error="channelManagerError"
+                name="group2"
+                errorMessage="Please select an option"/>
             </div>
 
         </ListingFormCard>
@@ -166,18 +245,18 @@ const postData = () => {
 
                     <SharedTextInput 
                     label="Street Address" 
-                    v-model="name" :error="nameErr" errorMessage="please enter name" 
+                    v-model="streetAddress" :error="streetAddressError" errorMessage="Please enter street address" 
                     class="col-start-1" />
 
                     <SharedDropDown 
                     label="Country/Region" 
-                    v-model="name" :error="nameErr" errorMessage="please enter country" 
+                    v-model="country" :error="countryError" errorMessage="Please select a country" 
                     :options="['Sri Lanka', 'Australia', 'India']" 
                     class="col-start-1" />
 
                     <SharedTextInput 
                     label="Post Code" 
-                    v-model="name" :error="nameErr" errorMessage="please enter name" 
+                    v-model="postalCode" :error="postalCodeError" errorMessage="please enter post code" 
                     class="col-start-1" />
 
                     <div class="flex flex-col gap-2 items-start row-span-3 col-start-2 row-start-1">
@@ -195,7 +274,7 @@ const postData = () => {
 
         </ListingFormCard>
 
-        <button @click="postData" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
+        <button @click="createHotel" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
             Next
         </button>
 

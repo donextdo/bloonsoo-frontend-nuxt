@@ -22,6 +22,10 @@
         },
         options: {
             type: Array
+        },
+        name: {
+            type: String,
+            default: 'radioGroup'
         }
     })
 </script>
@@ -38,7 +42,7 @@
                 <input
                 type="radio"
                 :id="option.data"
-                name="radiobtn"
+                :name="name"
                 :value="option.data"
                 @input="$emit('update:modelValue', $event.target.value)"
                 class="w-4 h-4 cursor-pointer"

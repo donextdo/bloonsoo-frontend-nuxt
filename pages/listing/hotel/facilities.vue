@@ -89,7 +89,7 @@ const error = ref(false)
 
 
 const addRoom = () => {
-    router.push({ path: '/listing/hotel/pricing' })
+    router.push({ path: '/listing/hotel/images' })
 }
 
 </script>
@@ -288,7 +288,7 @@ const addRoom = () => {
         </ListingFormCard>
 
         <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
-            Add Room
+            Next
         </button>
 
     </section>
