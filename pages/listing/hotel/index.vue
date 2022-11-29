@@ -13,7 +13,7 @@ definePageMeta({
             List your property on Bloonsoo.com
         </h2>
 
-        <ListingHotelTabs activeTab="1"/>
+        <ListingHotelTabs active_1 />
 
         <ListingBasicInfo />
 
