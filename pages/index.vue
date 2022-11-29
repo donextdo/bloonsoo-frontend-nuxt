@@ -48,7 +48,7 @@ const cta2 = {
             
         </Cta>
 
-        <Featured />
+        <!-- <Featured /> -->
 
         <Cta :content="cta2">
 
@@ -75,7 +75,7 @@ const cta2 = {
 
         <Tips />
 
-        <Testimonials />
+        <!-- <Testimonials /> -->
 
         <Cta noCard>
 
