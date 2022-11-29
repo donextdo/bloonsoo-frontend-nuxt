@@ -47,7 +47,7 @@ const clear = () => {
 }
 
 const postNext = () => {
-    router.push({ path: '/listing/hotel/facilities'})
+    router.push({ path: '/listing/hotel/policies'})
 }
 
 </script>
