@@ -7,9 +7,11 @@ const getImageUrl = (name) => {
 
 const isFav = ref(false)
 
-// const props = defineProps([
-//     'product'
-// ])
+defineProps({
+  hotel: {
+    type: Object
+  }
+})
 
 </script>
 
@@ -17,11 +19,12 @@ const isFav = ref(false)
     
     <nuxt-link to="#" class="group relative w-full h-80 shadow-lg text-white rounded-lg overflow-hidden hover:scale-105 transition">
 
-        <slot></slot>
+        <!-- <slot></slot> -->
+        <img :src="hotel.cover_image" loading="lazy" class="w-full h-full object-cover" alt="">
 
         <div class="absolute bottom-0 left-0 right-0 py-2 px-4 flex flex-col bg-black bg-opacity-20 group-hover:bg-opacity-40">
 
-          <h4 class="text-md font-bold">Hotel Denshal</h4>
+          <h4 class="text-md font-bold"> {{ hotel.property_name }}</h4>
 
           <p class="text-xs font-semibold">100 Whatever Street, USA</p>
 

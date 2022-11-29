@@ -1,8 +1,18 @@
 <script setup>
 
+import { ref, onMounted } from 'vue'
+
 defineProps({
     title: String,
     topRated: Boolean
+})
+
+const hotels = ref([])
+
+onMounted( async () => {
+    const hotelArr = await $fetch('http://localhost:9000/api/hotel/')
+    
+    hotels.value = hotelArr
 })
 
 </script>
@@ -17,11 +27,11 @@ defineProps({
 
         <div class="w-full px-20 grid grid-cols-2 gap-4 justify-items-center lg:grid-cols-4 md:gap-8">
 
-            <HotelsCard>
-                <img src="@/assets/hotel_images/hotel1.jpg" loading="lazy" class="w-full h-full object-cover" alt="">
+            <HotelsCard v-for="hotel in hotels" :key="hotel.id" :hotel="hotel">
+                <!-- <img src="@/assets/hotel_images/hotel1.jpg" loading="lazy" class="w-full h-full object-cover" alt=""> -->
             </HotelsCard>
 
-            <HotelsCard>
+            <!-- <HotelsCard>
                 <img src="@/assets/hotel_images/hotel2.jpg" loading="lazy" class="w-full h-full object-cover" alt="">
             </HotelsCard>
 
@@ -47,7 +57,7 @@ defineProps({
 
             <HotelsCard v-show="!topRated" >
                 <img src="@/assets/hotel_images/hotel8.jpg" loading="lazy" class="w-full h-full object-cover" alt="">
-            </HotelsCard>
+            </HotelsCard> -->
 
         </div>
 
