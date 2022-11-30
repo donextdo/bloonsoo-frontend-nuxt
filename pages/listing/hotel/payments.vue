@@ -2,35 +2,69 @@
 definePageMeta({
   layout: "listing",
 });
-
+import { ref } from "vue";
 const router = useRouter();
 
-const postNext = () => {
-  router.push({ path: "/listing/hotel/payments" });
+const paymentOption = ref();
+const paymentOptionError = ref(false);
+
+const commissionPayments = ref("John");
+
+const propertyAddress = ref();
+const propertyAddressError = ref(false);
+
+// checkbox
+
+
+const createPayment = async () => {
+  setTimeout(() => {
+    paymentOptionError.value = false;
+    propertyAddressError.value = false;
+  }, 10000);
+
+  if (!paymentOption.value) return (paymentOptionError.value = true);
+  if (!propertyAddress.value) return (propertyAddressError.value = true);
+
+  const paymentDto = {
+    payment_option: paymentOption.value === "yes" ? true : false,
+    commission_payments: commissionPayments.value,
+    property_address: propertyAddressError.value === "yes" ? true : false,
+  };
+
+  const hotel = await $fetch("http://localhost:9000/api/hotel/create", {
+    method: "POST",
+    body: payment,
+  });
+
+  // hotelId.value = hotel._id;
+
+  // console.log(hotel);
+
+  router.push({ path: "/listing/hotel/payment" });
 };
 </script>
 
 <template>
-
   <section
     class="md:container mx-auto px-10 py-16 flex flex-col gap-8 text-black font-montserrat"
   >
-    <h2 class="text-2xl font-semibold">
-      List your property on Bloonsoo.com
-    </h2>
+    <h2 class="text-2xl font-semibold">List your property on Bloonsoo.com</h2>
 
     <ListingHotelTabs active_1 active_2 active_3 active_4 active_5 active_6 />
 
     <ListingFormCard label="Guest payment options">
-
       <div class="px-4 flex flex-col gap-6">
-
-        <SharedRadioGroup 
-          title="Can you charge credit cards at the property?" 
-          :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
+        <SharedRadioGroup
+          title="Can you charge credit cards at the property?"
+          :options="[
+            { data: 'yes', label: 'yes' },
+            { data: 'no', label: 'no' },
+          ]"
           name="group3"
           errorMessage="Please select an option"
-          />
+          v-model="paymentOption"
+          :error="paymentOptionError"
+        />
 
         <div class="flex flex-col gap-2">
           <p class="text-base font-semibold text-gray-600">
@@ -40,13 +74,11 @@ const postNext = () => {
             To initially secure a reservation we allow guests In use all major
             credit cards, However. when it comes to collecting payment, you can
             specify the
-            <br>
+            <br />
             payment methods you accept at your property.
           </p>
         </div>
-        
       </div>
-
     </ListingFormCard>
 
     <!-- <ListingFormCard label="Commission payments"> -->
@@ -67,28 +99,30 @@ const postNext = () => {
           <SharedDropDown
             class="w-11/12"
             label="What name should be placed on the invoice (e.g. legal/company name)?"
-            v-model="roomType"
+            v-model="paymentOption"
             errorMessage="please enter"
             :options="['John', 'John']"
           />
 
-          <SharedRadioGroup 
-          title="Does this recipient have the same address as your property?" 
-          :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
-          name="group4"
-          errorMessage="Please select an option"
+          <SharedRadioGroup
+            title="Does this recipient have the same address as your property?"
+            :options="[
+              { data: 'yes', label: 'yes' },
+              { data: 'no', label: 'no' },
+            ]"
+            name="group4"
+            errorMessage="Please select an option"
+            v-model="propertyAddress"
+            :error="propertyAddressError"
           />
-
         </div>
 
         <div class="flex flex-col gap-6">
-
           <h4 class="font-semibold text-base text-gray-600">
             How your commission works for you
           </h4>
 
           <div class="flex flex-col gap-4 text-sm font-normal">
-
             <div class="flex items-center gap-2">
               <font-awesome-icon
                 icon="fa-circle-check"
@@ -119,9 +153,7 @@ const postNext = () => {
                 icon="fa-circle-check"
                 class="text-green-700 text-md"
               />
-              <p>
-                Strong search engine presence for more bookings
-              </p>
+              <p>Strong search engine presence for more bookings</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -129,9 +161,7 @@ const postNext = () => {
                 icon="fa-circle-check"
                 class="text-green-700 text-md"
               />
-              <p>
-                Property advice and analytics to increase performance
-              </p>
+              <p>Property advice and analytics to increase performance</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -153,19 +183,17 @@ const postNext = () => {
           When is the first date that guests can check in?
         </p>
         <p class="text-sm text-justify">
-          To help you start earning, we automatically make your
-          property open for bookings for the next 18 months. If you would like
-          to make changes to your
-          availability before opening, you can choose 'complete registration
-          and open later'. Your availability can also be adjusted after you
-          open for bookings.
+          To help you start earning, we automatically make your property open
+          for bookings for the next 18 months. If you would like to make changes
+          to your availability before opening, you can choose 'complete
+          registration and open later'. Your availability can also be adjusted
+          after you open for bookings.
         </p>
         <p class="py-5 pt-8 text-base font-semibold text-gray-600">
           To complete your registration, please tick the boxes below
         </p>
 
         <div class="flex mb-4">
-
           <input
             id="default-checkbox"
             type="checkbox"
@@ -179,7 +207,6 @@ const postNext = () => {
             request. Booking.com B.V. reserves the right to verify and
             investigate any details provided in this registration.
           </label>
-
         </div>
         <div class="flex mb-4">
           <input
