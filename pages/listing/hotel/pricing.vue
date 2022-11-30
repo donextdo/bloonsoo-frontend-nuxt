@@ -6,6 +6,16 @@ definePageMeta({
 
 const router = useRouter()
 
+const hotelId = useHotelId()
+
+const rooms = ref([])
+
+onMounted( async () => {
+    const roomsArr = await $fetch(`http://localhost:9000/api/rooms/bypropertyid/${hotelId.value}`)
+    
+    rooms.value = roomsArr
+})
+
 const postNext = () => {
     router.push({ path: '/listing/hotel/facilities'})
 }
@@ -22,7 +32,7 @@ const postNext = () => {
 
         <ListingHotelTabs active_1 active_2/>
 
-        <ListingFormCard label="Layout and pricing" >
+        <ListingFormCard v-if="(rooms.length == 0)" label="Layout and pricing" >
 
             <div class="px-4 flex flex-col gap-6">
 
@@ -53,6 +63,12 @@ const postNext = () => {
             </div>
 
         </ListingFormCard>
+
+        <SharedTable v-if="(rooms.length > 0)" :payload="rooms"/>
+
+        <NuxtLink to="/listing/hotel/addroom" v-if="(rooms.length > 0)" class="self-end w-max px-8 py-3 bg-blue-700 text-white font-semibold text-sm rounded-lg hover:bg-blue-900">
+            Add Another Room
+        </NuxtLink>
 
         <button @click="postNext" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
             Next
