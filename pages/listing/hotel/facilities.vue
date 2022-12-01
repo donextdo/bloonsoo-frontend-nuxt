@@ -111,6 +111,7 @@ const addFacilities = async () => {
         },
         breakfast: breakpastOption.value == 'yes' ? true : false,
         languages: languages.value,
+        facilities: facilities.value,
         extra_beds: extraBedOpt.value == 'yes' ? true : false,
         extra_beds_options: extraBedOpt.value == 'no' || !extraBedOpt.value ? null 
         : {
@@ -127,7 +128,7 @@ const addFacilities = async () => {
 
     console.log(hotel)
 
-    // router.push({ path: '/listing/hotel/images' })
+    router.push({ path: '/listing/hotel/images' })
 }
 
 </script>

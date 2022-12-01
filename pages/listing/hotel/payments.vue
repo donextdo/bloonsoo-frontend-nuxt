@@ -5,42 +5,54 @@ definePageMeta({
 
 const router = useRouter();
 
-const paymentOption = ref();
-const paymentOptionError = ref(false);
+const hotelId = useHotelId()
+
+const creditCardOption = ref();
+const creditCardOptionError = ref(false);
 
 const commissionPayments = ref("John");
 
-const propertyAddress = ref();
-const propertyAddressError = ref(false);
-
-// checkbox
-
-
-const createPayment = async () => {
+const addPaymentDataAndOpenToBooking = async () => {
   setTimeout(() => {
-    paymentOptionError.value = false;
-    propertyAddressError.value = false;
+    creditCardOptionError.value = false;
   }, 10000);
 
-  if (!paymentOption.value) return (paymentOptionError.value = true);
-  if (!propertyAddress.value) return (propertyAddressError.value = true);
+  if (!creditCardOption.value) return (creditCardOptionError.value = true);
 
-  const paymentDto = {
-    payment_option: paymentOption.value === "yes" ? true : false,
-    commission_payments: commissionPayments.value,
-    property_address: propertyAddressError.value === "yes" ? true : false,
+  const dto = {
+    credit_card_options: creditCardOption.value === "yes" ? true : false,
+    is_open_to_bookings: true
   }
 
-  const hotel = await $fetch("http://localhost:9000/api/hotel/create", {
-    method: "POST",
-    body: payment,
+  const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+      method: 'PATCH',
+      body: dto
   })
 
-  // hotelId.value = hotel._id;
+  console.log(hotel)
 
-  // console.log(hotel);
+  router.push({ path: "/" });
+}
 
-  router.push({ path: "/listing/hotel/payment" });
+const addPaymentDataAndOpenLater = async () => {
+    setTimeout(() => {
+      creditCardOptionError.value = false;
+    }, 10000);
+
+    if (!creditCardOption.value) return (creditCardOptionError.value = true);
+
+    const dto = {
+      credit_card_options: creditCardOption.value === "yes" ? true : false
+    }
+
+    const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+      method: 'PATCH',
+      body: dto
+    })
+
+    console.log(hotel)
+
+    router.push({ path: "/" });
 }
 
 </script>
@@ -63,8 +75,8 @@ const createPayment = async () => {
           ]"
           name="group3"
           errorMessage="Please select an option"
-          v-model="paymentOption"
-          :error="paymentOptionError"
+          v-model="creditCardOption"
+          :error="creditCardOptionError"
         />
 
         <div class="flex flex-col gap-2">
@@ -82,7 +94,7 @@ const createPayment = async () => {
       </div>
     </ListingFormCard>
 
-    <!-- <ListingFormCard label="Commission payments"> -->
+    
     <div
       class="bg-gray-100 rounded-md w-full flex flex-col gap-6 py-8 px-6 font-montserrat"
     >
@@ -100,7 +112,7 @@ const createPayment = async () => {
           <SharedDropDown
             class="w-11/12"
             label="What name should be placed on the invoice (e.g. legal/company name)?"
-            v-model="paymentOption"
+           
             errorMessage="please enter"
             :options="['John', 'John']"
           />
@@ -113,8 +125,6 @@ const createPayment = async () => {
             ]"
             name="group4"
             errorMessage="Please select an option"
-            v-model="propertyAddress"
-            :error="propertyAddressError"
           />
         </div>
 
@@ -176,9 +186,10 @@ const createPayment = async () => {
         </div>
       </div>
     </div>
-    <!-- </ListingFormCard> -->
+    
 
     <ListingFormCard label="Your availability to guests">
+
       <div class="px-4">
         <p class="py-4 text-base font-semibold text-gray-600">
           When is the first date that guests can check in?
@@ -231,13 +242,13 @@ const createPayment = async () => {
       </div>
     </ListingFormCard>
     <button
-      @click="addRoom"
+      @click="addPaymentDataAndOpenToBooking"
       class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900 text-bold"
     >
-      Complete registration and open tot bookings
+      Complete registration and open to bookings
     </button>
     <button
-      @click="addRoom"
+      @click="addPaymentDataAndOpenLater"
       class="w-full px-4 py-4 font-semibold text-base text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent text-bold"
     >
       Complete Registration and open later

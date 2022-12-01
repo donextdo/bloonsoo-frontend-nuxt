@@ -3,56 +3,59 @@ definePageMeta({
   layout: "listing",
 });
 
-import { ref } from "vue";
-
 const router = useRouter();
 
-const dayOfArrival = ref("Day of arrival (18:00)");
-const reservation = ref("No reservation needed");
+const hotelId = useHotelId()
 
-// togel
+const cancellationDuration = ref('1')
+const payTime = ref('Of the first night')
 
-const checkInForm = ref("6.00");
-const checkInUntill = ref("18.00");
-const checkOutForm = ref("6.00");
-const checkOutUntill = ref("18.00");
+const preventAccidentalBookings = ref(true)
 
-const children = ref();
-const childrenError = ref(false);
+const checkInForm = ref("6:00");
+const checkInUntill = ref("18:00");
+const checkOutForm = ref("6:00");
+const checkOutUntill = ref("18:00");  
+
+const accommodateChildren = ref();
+const accommodateChildrenError = ref(false);
 
 const pets = ref("yes");
 
 const createPolicies = async () => {
+
   setTimeout(() => {
-    childrenError.value = false;
+    accommodateChildrenError.value = false;
   }, 10000);
 
-  if (!children.value) return (childrenError.value = true);
+  if (!accommodateChildren.value) return (accommodateChildrenError.value = true);
 
-  const policiesDto = {
-    day_of_arrival: dayOfArrival.value,
-    reservation: reservation.value,
+  const dto = {
+
+    cancellation_duration: cancellationDuration.value,
+    pay_time: payTime.value,
+
+    preventAccidental_bookings: preventAccidentalBookings.value,
 
     check_in_form: checkInForm.value,
     check_in_untill: checkInUntill.value,
     check_out_form: checkOutForm.value,
     check_out_untill: checkOutUntill.value,
 
-    children: children.value === "yes" ? true : false,
-    pets: pets.value,
-  };
+    accommodate_children: accommodateChildren.value === "yes" ? true : false,
+    pets: pets.value === "yes" ? true : false
 
-  const hotel = await $fetch("http://localhost:9000/api/hotel/create", {
-    method: "POST",
-    body: policies,
-  });
+  }
 
-  // hotelId.value = hotel._id;
+  const hotel = await $fetch( `http://localhost:9000/api/hotel/policies/${hotelId.value}`, {
+      method: 'PATCH',
+      body: dto
+  })
 
-  // console.log(hotel);
+  console.log(hotel)
 
-  router.push({ path: "/listing/hotel/policies" });
-};
+  router.push({ path: "/listing/hotel/payments" });
+}
 </script>
 
 <template>
@@ -69,52 +72,17 @@ const createPolicies = async () => {
       <div class="grid grid-cols-2 gap-x-8 gap-y-6 px-4">
         <SharedDropDown
           label="How many days in advance can guests cancel free of charge?"
-          v-model="dayOfArrival"
+          v-model="cancellationDuration"
           errorMessage="Please select a days"
-          slot
-        >
-          <option
-            value="Day of arrival (18:00)"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            Day of arrival (18:00)
-          </option>
-
-          <option
-            value="Day of arrival (19:00)"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            Day of arrival (19:00)
-          </option>
-          <option
-            value="Day of arrival (20:00)"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            Day of arrival (20:00)
-          </option>
-        </SharedDropDown>
+          :options="[1, 2, 3, 4, 5, 6, 7, 8]"
+        />
 
         <SharedDropDown
           class="pl-3"
-          label="How many days in advance can guests cancel free of charge?"
-          v-model="reservation"
-          errorMessage="Please select a days"
-          slot
-        >
-          <option
-            value="No reservation needed"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            No reservation needed
-          </option>
-
-          <option
-            value="Yes reservation needed"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            Yes reservation needed
-          </option>
-        </SharedDropDown>
+          label="Or guests will pay 100%"
+          v-model="payTime"
+          :options="['Of the first night', 'Of the full stay']"
+        />
       </div>
 
       <div class="flex flex-col gap-2 px-4">
@@ -132,13 +100,17 @@ const createPolicies = async () => {
     <ListingFormCard label="Protect against accidental bookings">
       <div class="grid grid-cols-2 gap-x-8 gap-y-6 px-4">
         <div class="flex items-center gap-4">
+
           <span class="text-sm font-semibold text-gray-600">Yes</span>
+
           <label class="relative cursor-pointer ml-5">
-            <input type="checkbox" value="" class="sr-only peer" />
+
+            <input type="checkbox" v-model="preventAccidentalBookings" class="sr-only peer" />
 
             <div
-              class="w-11 h-6 bg-gray-200 focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+              class="w-11 h-6 bg-gray-400 focus:outline-none peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
             ></div>
+
           </label>
         </div>
       </div>
@@ -161,56 +133,15 @@ const createPolicies = async () => {
             label="From"
             v-model="checkInForm"
             errorMessage="Please select a time"
-            slot
-          >
-            <option
-              value="06:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              06:00
-            </option>
-            <option
-              value="07:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              07:00
-            </option>
-            <option
-              value="08:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              08:00
-            </option>
-          </SharedDropDown>
-
-          <!-- errorMessage="please enter"
-            :options="['06:00', '07:00', '08:00']" -->
+            :options="['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']"
+          />
 
           <SharedDropDown
-            label="From"
+            label="Untill"
             v-model="checkInUntill"
             errorMessage="Please select a time"
-            slot
-          >
-            <option
-              value="18:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              18:00
-            </option>
-            <option
-              value="19:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              19:00
-            </option>
-            <option
-              value="20:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              20:00
-            </option>
-          </SharedDropDown>
+            :options="['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']"
+          />
         </div>
       </ListingFormCard>
 
@@ -220,53 +151,16 @@ const createPolicies = async () => {
             label="From"
             v-model="checkOutForm"
             errorMessage="Please select a time"
-            slot
-          >
-            <option
-              value="06:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              06:00
-            </option>
-            <option
-              value="07:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              07:00
-            </option>
-            <option
-              value="08:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              08:00
-            </option>
-          </SharedDropDown>
+            :options="['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']"
+          />
 
           <SharedDropDown
-            label="From"
+            label="Untill"
             v-model="checkOutUntill"
             errorMessage="Please select a time"
-            slot
-          >
-            <option
-              value="18:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              18:00
-            </option>
-            <option
-              value="19:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              19:00
-            </option>
-            <option
-              value="20:00"
-              class="text-sm font-semibold text-gray-500 appearance-none"
-            >
-              20:00
-            </option>
-          </SharedDropDown>
+            :options="['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']"
+          />
+  
         </div>
       </ListingFormCard>
     </div>
@@ -281,8 +175,8 @@ const createPolicies = async () => {
             { data: 'no', label: 'no' },
           ]"
           name="children"
-          v-model="children"
-          :error="childrenError"
+          v-model="accommodateChildren"
+          :error="accommodateChildrenError"
           errorMessage="Please select an option"
         />
 
@@ -291,21 +185,8 @@ const createPolicies = async () => {
           label="Pets"
           v-model="pets"
           errorMessage="Please select a option"
-          slot
-        >
-          <option
-            value="Yes"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            Yes
-          </option>
-          <option
-            value="No"
-            class="text-sm font-semibold text-gray-500 appearance-none"
-          >
-            No
-          </option>
-        </SharedDropDown>
+          :options="['yes', 'no']"
+        />
       </div>
     </ListingFormCard>
 
