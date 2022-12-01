@@ -8,19 +8,7 @@ definePageMeta({
 
 const router = useRouter()
 
-const parkingType = ref('Yes, paid')
-const parkingType2 = ref('Private')
-const parkingType3 = ref('On site')
-const reservation = ref('No reservation needed')
-const priceUnit = ref('USD')
-const parkingPrice = ref()
-const breakpastOption = ref()
-const languages = ref([])
-const facilities = ref([])
-const extraBedOpt = ref()
-const noOfBeds = ref('2')
-const extraBedOptions = ref([])
-const amenities = ref([])
+const hotelId = useHotelId()
 
 const facilitiesData = [
     {data: 'Non-smoking rooms', label: 'Non-smoking rooms'}, 
@@ -51,7 +39,6 @@ const facilitiesData = [
     {data: 'Hot tub', label: 'Hot tub'},
     {data: 'Water park', label: 'Water park'}
 ]
-
 
 const amenitiesData = [
     {data: 'A/C', label: 'A/C'}, 
@@ -84,12 +71,63 @@ const amenitiesData = [
 
 ]
 
+const parkingType = ref('paid')
+const parkingType2 = ref('Private')
+const parkingType3 = ref('On site')
 
-const error = ref(false)
+const reservation = ref('no')
+
+const priceUnit = ref('USD')
+const parkingPrice = ref()
+const parkingPriceError = ref(false)
+
+const breakpastOption = ref()
+const breakpastOptionError = ref(false)
+
+const languages = ref([])
+
+const facilities = ref([])
+const facilitiesError = ref(false)
+
+const extraBedOpt = ref()
+const noOfBeds = ref('1')
+const accommodateGuests = ref([])
+
+const amenities = ref([])
+const amenitiesError = ref(false)
 
 
-const addRoom = () => {
-    router.push({ path: '/listing/hotel/images' })
+const addFacilities = async () => {
+
+    const dto = {
+        parking: parkingType.value == 'no' ? false : true,
+        parking_details: parkingType.value == 'no' ? null 
+        : {
+            parking_type: parkingType.value,
+            parking_type_2: parkingType2.value,
+            parking_type_3: parkingType3.value,
+            reservation: reservation.value == 'yes' ? true : false,
+            parking_price: `${priceUnit.value} ${parkingPrice.value ? parkingPrice.value : 0.00}`
+        },
+        breakfast: breakpastOption.value == 'yes' ? true : false,
+        languages: languages.value,
+        extra_beds: extraBedOpt.value == 'yes' ? true : false,
+        extra_beds_options: extraBedOpt.value == 'no' || !extraBedOpt.value ? null 
+        : {
+            no_of_beds: noOfBeds.value,
+            accommodate_guests: accommodateGuests.value
+        },
+        amenities: amenities.value
+    }
+
+    const hotel = await $fetch( `http://localhost:9000/api/hotel/facilities/${hotelId.value}`, {
+            method: 'PATCH',
+            body: dto
+    } )
+
+    console.log(hotel)
+
+    // router.push({ path: '/listing/hotel/images' })
 }
 
 </script>
@@ -110,36 +148,41 @@ const addRoom = () => {
 
                 <SharedDropDown 
                     label="Is parking available to the guests?" 
-                    v-model="parkingType" errorMessage="please enter country" 
-                    :options="['Yes, paid', 'Yes, free']" />
+                    v-model="parkingType" 
+                    :options="[{value: 'paid', label: 'Yes, paid'}, {value: 'free', label: 'Yes, free'}, {value: 'no', label: 'No'}]" />
 
                 <SharedDropDown 
-                    v-model="parkingType2" errorMessage="please enter country" 
-                    :options="['Private']" />
+                    v-if="(parkingType == 'paid' || parkingType == 'free')"
+                    v-model="parkingType2" 
+                    :options="['Public', 'Private']" />
 
                 <SharedDropDown 
-                    v-model="parkingType3" errorMessage="please enter country" 
-                    :options="['On site']" />
+                    v-if="(parkingType == 'paid' || parkingType == 'free')"
+                    v-model="parkingType3"
+                    :options="['On site', 'Off site']" />
 
                 <SharedDropDown 
+                    v-if="(parkingType == 'paid' || parkingType == 'free')"
                     label="Do guests need to reserve a parking space ?" 
-                    v-model="reservation" errorMessage="please enter country" 
-                    :options="['No reservation needed']" />
+                    v-model="reservation" 
+                    :options="[{value: 'no', label: 'No reservation needed'}, {value: 'yes', label: 'Yes, reservation needed'}]" />
 
-                <div class="flex flex-col gap-2 w-full">
+                <div 
+                v-if="parkingType == 'paid'"
+                class="flex flex-col gap-2 w-full">
 
-                    <label :class="error ? 'text-red-600' : 'text-gray-600'" class="text-sm font-semibold">
+                    <label :class="parkingPriceError ? 'text-red-600' : 'text-gray-600'" class="text-sm font-semibold">
                         Price for parking (per day)
                     </label>
 
                     <div class="w-full grid grid-cols-3 items-end">
 
                         <SharedDropDown 
-                        v-model="priceUnit" errorMessage="please enter country" 
+                        v-model="priceUnit"
                         :options="['USD', 'LKR', 'AUD']" />
 
                         <SharedTextInput 
-                        v-model="parkingPrice" errorMessage="please enter name" 
+                        v-model="parkingPrice" 
                         type="number" class="col-span-2" />
 
                     </div>
@@ -160,6 +203,9 @@ const addRoom = () => {
                     title="Do you serve Breakfast ?"
                     v-model="breakpastOption" 
                     vertical
+                    name="breakfastOpt"
+                    :error="breakpastOptionError"
+                    error-message="Please select an option"
                     :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]
                     "/>
 
@@ -199,6 +245,8 @@ const addRoom = () => {
                 <SharedCheckboxGroup
                 v-model="facilities"
                 row_6
+                :error="facilitiesError"
+                error-message="Please select facilities"
                 :options="facilitiesData"
                 />
 
@@ -234,7 +282,7 @@ const addRoom = () => {
                     <div class="flex gap-2 items-center">
                         <input
                         type="checkbox"
-                        v-model="extraBedOptions"
+                        v-model="accommodateGuests"
                         id="box-1"
                         value="Children up to 2 years old in cots"
                         class="w-3 h-3 cursor-pointer"
@@ -246,7 +294,7 @@ const addRoom = () => {
                     <div class="flex gap-2 items-center">
                         <input
                         type="checkbox"
-                        v-model="extraBedOptions"
+                        v-model="accommodateGuests"
                         id="box-2"
                         value="Children"
                         class="w-3 h-3 cursor-pointer"
@@ -258,7 +306,7 @@ const addRoom = () => {
                     <div class="flex gap-2 items-center">
                         <input
                         type="checkbox"
-                        v-model="extraBedOptions"
+                        v-model="accommodateGuests"
                         id="box-3"
                         value="Adults"
                         class="w-3 h-3 cursor-pointer"
@@ -280,6 +328,8 @@ const addRoom = () => {
                 <SharedCheckboxGroup
                 v-model="amenities"
                 row_6
+                :error="amenitiesError"
+                error-message="Please choose amenities"
                 :options="amenitiesData"
                 />
 
@@ -287,7 +337,7 @@ const addRoom = () => {
             
         </ListingFormCard>
 
-        <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
+        <button @click="addFacilities" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
             Next
         </button>
 

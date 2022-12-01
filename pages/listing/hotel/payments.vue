@@ -2,7 +2,7 @@
 definePageMeta({
   layout: "listing",
 });
-import { ref } from "vue";
+
 const router = useRouter();
 
 const paymentOption = ref();
@@ -29,19 +29,20 @@ const createPayment = async () => {
     payment_option: paymentOption.value === "yes" ? true : false,
     commission_payments: commissionPayments.value,
     property_address: propertyAddressError.value === "yes" ? true : false,
-  };
+  }
 
   const hotel = await $fetch("http://localhost:9000/api/hotel/create", {
     method: "POST",
     body: payment,
-  });
+  })
 
   // hotelId.value = hotel._id;
 
   // console.log(hotel);
 
   router.push({ path: "/listing/hotel/payment" });
-};
+}
+
 </script>
 
 <template>
