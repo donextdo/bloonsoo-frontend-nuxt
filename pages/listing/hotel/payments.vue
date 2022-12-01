@@ -5,32 +5,79 @@ definePageMeta({
 
 const router = useRouter();
 
-const postNext = () => {
-  router.push({ path: "/listing/hotel/payments" });
-};
+const hotelId = useHotelId()
+
+const creditCardOption = ref();
+const creditCardOptionError = ref(false);
+
+const commissionPayments = ref("John");
+
+const addPaymentDataAndOpenToBooking = async () => {
+  setTimeout(() => {
+    creditCardOptionError.value = false;
+  }, 10000);
+
+  if (!creditCardOption.value) return (creditCardOptionError.value = true);
+
+  const dto = {
+    credit_card_options: creditCardOption.value === "yes" ? true : false,
+    is_open_to_bookings: true
+  }
+
+  const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+      method: 'PATCH',
+      body: dto
+  })
+
+  console.log(hotel)
+
+  router.push({ path: "/" });
+}
+
+const addPaymentDataAndOpenLater = async () => {
+    setTimeout(() => {
+      creditCardOptionError.value = false;
+    }, 10000);
+
+    if (!creditCardOption.value) return (creditCardOptionError.value = true);
+
+    const dto = {
+      credit_card_options: creditCardOption.value === "yes" ? true : false
+    }
+
+    const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+      method: 'PATCH',
+      body: dto
+    })
+
+    console.log(hotel)
+
+    router.push({ path: "/" });
+}
+
 </script>
 
 <template>
-
   <section
     class="md:container mx-auto px-10 py-16 flex flex-col gap-8 text-black font-montserrat"
   >
-    <h2 class="text-2xl font-semibold">
-      List your property on Bloonsoo.com
-    </h2>
+    <h2 class="text-2xl font-semibold">List your property on Bloonsoo.com</h2>
 
     <ListingHotelTabs active_1 active_2 active_3 active_4 active_5 active_6 />
 
     <ListingFormCard label="Guest payment options">
-
       <div class="px-4 flex flex-col gap-6">
-
-        <SharedRadioGroup 
-          title="Can you charge credit cards at the property?" 
-          :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
+        <SharedRadioGroup
+          title="Can you charge credit cards at the property?"
+          :options="[
+            { data: 'yes', label: 'yes' },
+            { data: 'no', label: 'no' },
+          ]"
           name="group3"
           errorMessage="Please select an option"
-          />
+          v-model="creditCardOption"
+          :error="creditCardOptionError"
+        />
 
         <div class="flex flex-col gap-2">
           <p class="text-base font-semibold text-gray-600">
@@ -40,16 +87,14 @@ const postNext = () => {
             To initially secure a reservation we allow guests In use all major
             credit cards, However. when it comes to collecting payment, you can
             specify the
-            <br>
+            <br />
             payment methods you accept at your property.
           </p>
         </div>
-        
       </div>
-
     </ListingFormCard>
 
-    <!-- <ListingFormCard label="Commission payments"> -->
+    
     <div
       class="bg-gray-100 rounded-md w-full flex flex-col gap-6 py-8 px-6 font-montserrat"
     >
@@ -67,28 +112,28 @@ const postNext = () => {
           <SharedDropDown
             class="w-11/12"
             label="What name should be placed on the invoice (e.g. legal/company name)?"
-            v-model="roomType"
+           
             errorMessage="please enter"
             :options="['John', 'John']"
           />
 
-          <SharedRadioGroup 
-          title="Does this recipient have the same address as your property?" 
-          :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
-          name="group4"
-          errorMessage="Please select an option"
+          <SharedRadioGroup
+            title="Does this recipient have the same address as your property?"
+            :options="[
+              { data: 'yes', label: 'yes' },
+              { data: 'no', label: 'no' },
+            ]"
+            name="group4"
+            errorMessage="Please select an option"
           />
-
         </div>
 
         <div class="flex flex-col gap-6">
-
           <h4 class="font-semibold text-base text-gray-600">
             How your commission works for you
           </h4>
 
           <div class="flex flex-col gap-4 text-sm font-normal">
-
             <div class="flex items-center gap-2">
               <font-awesome-icon
                 icon="fa-circle-check"
@@ -119,9 +164,7 @@ const postNext = () => {
                 icon="fa-circle-check"
                 class="text-green-700 text-md"
               />
-              <p>
-                Strong search engine presence for more bookings
-              </p>
+              <p>Strong search engine presence for more bookings</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -129,9 +172,7 @@ const postNext = () => {
                 icon="fa-circle-check"
                 class="text-green-700 text-md"
               />
-              <p>
-                Property advice and analytics to increase performance
-              </p>
+              <p>Property advice and analytics to increase performance</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -145,27 +186,26 @@ const postNext = () => {
         </div>
       </div>
     </div>
-    <!-- </ListingFormCard> -->
+    
 
     <ListingFormCard label="Your availability to guests">
+
       <div class="px-4">
         <p class="py-4 text-base font-semibold text-gray-600">
           When is the first date that guests can check in?
         </p>
         <p class="text-sm text-justify">
-          To help you start earning, we automatically make your
-          property open for bookings for the next 18 months. If you would like
-          to make changes to your
-          availability before opening, you can choose 'complete registration
-          and open later'. Your availability can also be adjusted after you
-          open for bookings.
+          To help you start earning, we automatically make your property open
+          for bookings for the next 18 months. If you would like to make changes
+          to your availability before opening, you can choose 'complete
+          registration and open later'. Your availability can also be adjusted
+          after you open for bookings.
         </p>
         <p class="py-5 pt-8 text-base font-semibold text-gray-600">
           To complete your registration, please tick the boxes below
         </p>
 
         <div class="flex mb-4">
-
           <input
             id="default-checkbox"
             type="checkbox"
@@ -179,7 +219,6 @@ const postNext = () => {
             request. Booking.com B.V. reserves the right to verify and
             investigate any details provided in this registration.
           </label>
-
         </div>
         <div class="flex mb-4">
           <input
@@ -203,13 +242,13 @@ const postNext = () => {
       </div>
     </ListingFormCard>
     <button
-      @click="addRoom"
+      @click="addPaymentDataAndOpenToBooking"
       class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900 text-bold"
     >
-      Complete registration and open tot bookings
+      Complete registration and open to bookings
     </button>
     <button
-      @click="addRoom"
+      @click="addPaymentDataAndOpenLater"
       class="w-full px-4 py-4 font-semibold text-base text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent text-bold"
     >
       Complete Registration and open later

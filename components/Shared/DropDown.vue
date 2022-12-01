@@ -52,9 +52,9 @@
 
                 <option v-if="options" 
                 v-for="(option, index) in options" :key="index"
-                :value="option" 
+                :value="option.value ? option.value : option" 
                 class="text-sm font-semibold text-gray-500 appearance-none">
-                    {{ option }}
+                    {{ option.label ? option.label : option }}
                 </option>
 
                 <slot v-if="slot"></slot>
