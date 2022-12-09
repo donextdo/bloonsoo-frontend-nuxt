@@ -4,7 +4,16 @@ definePageMeta({
     layout: 'listing'
 })
 
-const { id } = useRoute().params
+const hotel = ref({})
+
+onMounted(async () => {
+    const { id } = useRoute().params
+
+    const hotelData = await $fetch(`http://localhost:9000/api/hotel/${id}`)
+    console.log(hotelData)
+
+    hotel.value = hotelData
+})
 
 </script>
 
@@ -17,9 +26,9 @@ const { id } = useRoute().params
 
             <section class="w-full col-span-2 grid grid-col gap-4">
 
-                <HotelGallery />
+                <HotelGallery :images="hotel.gallery_images"/>
 
-                <HotelDetails />
+                <HotelDetails :hotel="hotel"/>
 
             </section>
 
@@ -82,7 +91,33 @@ const { id } = useRoute().params
                 Availability
             </h4>
 
-            <SharedTable />
+            <SharedTable :headers="[
+                'Room Type',
+                'Sleeps',
+                'Price for 10 nights',
+                'Your Choices',
+                'Rooms'
+            ]">
+            
+            <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room">
+            
+                <template v-slot:rooms>
+                    <h4 class="text-base text-gray-800 font-semibold">
+                        {{ room.nbr_of_rooms }}
+                    </h4>
+                </template>
+
+                <template v-slot:actions>
+
+                    <button class="px-10 py-2 rounded-full border w-max  border-darkyellow text-sm font-semibold hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">
+                        Reserve
+                    </button>
+
+                </template>
+
+            </SharedRow>
+
+            </SharedTable>
 
         </section>
 

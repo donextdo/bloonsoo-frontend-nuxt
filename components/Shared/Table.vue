@@ -1,7 +1,7 @@
 <script setup>
 
 defineProps({
-    payload: {
+    headers: {
         type: Array
     }
 })
@@ -13,47 +13,48 @@ defineProps({
     
     <div class="w-full flex flex-col gap-3">
 
-        <div class="w-full bg-blue-700 rounded-md gap-2 grid grid-cols-12 items-center text-white text-base font-semibold">
+        <div class="w-full bg-blue-700 gap-2 grid grid-cols-12 items-center text-white text-base font-semibold">
 
             <div class="w-full col-span-4 px-6 h-24 flex items-center">
                 <h3>
-                    Room Type
+                    {{ headers[0] ? headers[0] : ''}}
                 </h3>
             </div>
 
             <div class="w-full col-span-1 px-6 h-24 flex items-center">
                 <h3>
-                    Sleeps
+                    {{ headers[1] ? headers[1] : ''}}
                 </h3>
             </div>
 
             <div class="w-full col-span-2 px-6 h-24 flex items-center">
                 <h3>
-                    Price for one night
+                    {{ headers[2] ? headers[2] : ''}}
                 </h3>
             </div>
 
             <div class="w-full col-span-2 px-6 h-24 flex items-center">
                 <h3>
-                    Your choices
+                    {{ headers[3] ? headers[3] : ''}}
                 </h3>
             </div>
 
             <div class="w-full col-span-1 px-6 h-24 flex items-center">
                 <h3>
-                    Rooms
+                    {{ headers[4] ? headers[4] : ''}}
                 </h3>
             </div>
 
             <div class="w-full col-span-2 px-6 h-24 flex items-center">
                 <h3>
-                    Actions
+                    {{ headers[5] ? headers[5] : ''}}
                 </h3>
             </div>
 
         </div>
 
-        <SharedRow v-for="dto in payload" :key="dto._id" :dto="dto"/>
+        <slot></slot>
+        <!-- <SharedRow v-for="dto in payload" :key="dto._id" :dto="dto"/> -->
 
     </div>
 

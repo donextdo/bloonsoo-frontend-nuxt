@@ -1,6 +1,14 @@
 <script setup>
 
+defineProps({
+  hotel: {
+    type: Object
+  }
+})
+
 const isFav = ref(false)
+
+
 
 </script>
 
@@ -12,10 +20,9 @@ const isFav = ref(false)
         <div class="flex items-center justify-between ">
 
             <div class="flex flex-col">
-                <h2 class="text-2xl font-bold">Sprotiaza Palace</h2>
-                <p class="text-sm text-gray-600">100 Smart Street, LA, USA</p>
+                <h2 class="text-2xl font-bold">{{ hotel.property_name ? hotel.property_name : '' }}</h2>
+                <p class="text-sm text-gray-600">{{ hotel.property_address ? hotel.property_address.street_address : ''  }}, {{ hotel.property_address ? hotel.property_address.country : ''  }}</p>
             </div>
-          
 
           <div class="flex items-center justify-center gap-6">
             
@@ -70,13 +77,10 @@ const isFav = ref(false)
           <p class="text-xl font-bold">About Hotel</p>
 
           <p class="text-justify mt-3 text-gray-600 text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            {{ hotel.about ? hotel.about : ''}}
           </p>
 
-          <p class="text-justify mt-3 text-gray-600 text-sm">
+          <!-- <p class="text-justify mt-3 text-gray-600 text-sm">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -84,7 +88,7 @@ const isFav = ref(false)
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          </p> -->
         </div> 
       </div>
       

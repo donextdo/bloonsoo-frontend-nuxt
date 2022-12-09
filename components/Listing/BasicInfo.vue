@@ -39,6 +39,9 @@ const countryError = ref(false)
 const postalCode = ref('')
 const postalCodeError = ref(false)
 
+const about = ref('')
+const aboutError = ref(false)
+
 
 const createHotel = async () => {
 
@@ -50,6 +53,7 @@ const createHotel = async () => {
         channelManagerError.value = false
         streetAddressError.value = false
         postalCodeError.value = false
+        aboutError.value = false
     }, 10000)
 
 
@@ -60,6 +64,7 @@ const createHotel = async () => {
     if(!channelManager.value) return channelManagerError.value = true
     if(!streetAddress.value) return streetAddressError.value = true
     if(!postalCode.value) return postalCodeError.value = true
+    if(!about.value.length > 1200) return aboutError.value = true
 
 
     const hotelDto = {
@@ -74,7 +79,8 @@ const createHotel = async () => {
             street_address: streetAddress.value,
             country: country.value,
             postal_code: postalCode.value
-        }
+        },
+        about: about.value
     }
 
     const hotel = await $fetch('http://localhost:9000/api/hotel/create', {
@@ -270,6 +276,21 @@ const createHotel = async () => {
                     </div>
 
                 </div>
+            </div>
+
+        </ListingFormCard>
+
+        <ListingFormCard label="Add descripion about your property">
+
+            <div class="px-4">
+                <SharedTextArea 
+                label="Add description (up to 1200 characters)"
+                rows="8" 
+                :maxChars="1200"
+                v-model="about"
+                :error="aboutError"
+                error-message="content too long"   
+            />
             </div>
 
         </ListingFormCard>

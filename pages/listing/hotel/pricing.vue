@@ -64,7 +64,38 @@ const postNext = () => {
 
         </ListingFormCard>
 
-        <SharedTable v-if="(rooms.length > 0)" :payload="rooms"/>
+        <SharedTable v-if="(rooms.length > 0)" :headers="[
+            'Room Type',
+            'Sleeps',
+            'Price for one night',
+            'Your Choices',
+            'Rooms',
+            'Actions'
+        ]"> 
+        
+            <SharedRow v-for="dto in rooms" :key="dto._id" :dto="dto">
+            
+                <template v-slot:rooms>
+                    <h4 class="text-base text-gray-800 font-semibold">
+                        {{ dto.nbr_of_rooms }}
+                    </h4>
+                </template>
+
+                <template v-slot:actions>
+
+                    <button class="w-8 h-8 rounded-full bg-blue-500">
+                        <font-awesome-icon icon="fa-solid fa-pen-square" class="text-white text-base"/>
+                    </button>
+
+                    <button class="w-8 h-8 rounded-full bg-red-500">
+                        <font-awesome-icon icon="fa-solid fa-trash" class="text-white text-base"/>
+                    </button>
+
+                </template>
+
+            </SharedRow>
+
+        </SharedTable>
 
         <NuxtLink to="/listing/hotel/addroom" v-if="(rooms.length > 0)" class="self-end w-max px-8 py-3 bg-blue-700 text-white font-semibold text-sm rounded-lg hover:bg-blue-900">
             Add Another Room

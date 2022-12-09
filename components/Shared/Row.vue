@@ -13,7 +13,7 @@ defineProps({
 
     <div class="w-full gap-2 grid grid-cols-12 items-center">
 
-    <div class="w-full bg-gray-200 rounded-md col-span-4 pl-6 p-4 h-full flex flex-col gap-4">
+    <div class="w-full bg-gray-200 col-span-4 pl-6 p-4 h-full flex flex-col gap-4">
 
         <div class="text-base text-blue-700 font-semibold">
             <h4>
@@ -52,13 +52,13 @@ defineProps({
 
     </div>
 
-    <div class="w-full bg-gray-200 rounded-md col-span-1 p-6 h-full flex items-center justify-center">
+    <div class="w-full bg-gray-200 col-span-1 p-6 h-full flex items-center justify-center">
         
         <font-awesome-icon icon="fa-solid fa-user" class="text-gray-800"/>
 
     </div>
 
-    <div class="w-full bg-gray-200 rounded-md col-span-2 p-6 h-full flex flex-col justify-center gap-4">
+    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex flex-col justify-center gap-4">
         
         <h4 class="text-base text-gray-800 font-semibold">
            {{ dto.price_for_one_night }}
@@ -74,7 +74,7 @@ defineProps({
 
     </div>
 
-    <div class="w-full bg-gray-200 rounded-md col-span-2 p-6 h-full flex flex-col justify-center gap-4">
+    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex flex-col justify-center gap-4">
         
         <div class="flex items-center gap-3">
 
@@ -98,23 +98,15 @@ defineProps({
 
     </div>
 
-    <div class="w-full bg-gray-200 rounded-md col-span-1 p-6 h-full flex items-center justify-center">
+    <div class="w-full bg-gray-200 col-span-1 p-6 h-full flex items-center justify-center">
         
-        <h4 class="text-base text-gray-800 font-semibold">
-            {{ dto.nbr_of_rooms }}
-        </h4>
+        <slot name="rooms"></slot>
 
     </div>
 
-    <div class="w-full bg-gray-200 rounded-md col-span-2 p-6 h-full flex items-center justify-center gap-4">
+    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex items-center justify-center gap-4">
         
-        <button class="w-8 h-8 rounded-full bg-blue-500">
-            <font-awesome-icon icon="fa-solid fa-pen-square" class="text-white text-base"/>
-        </button>
-
-        <button class="w-8 h-8 rounded-full bg-red-500">
-            <font-awesome-icon icon="fa-solid fa-trash" class="text-white text-base"/>
-        </button>
+        <slot name="actions"></slot>
 
     </div>
 

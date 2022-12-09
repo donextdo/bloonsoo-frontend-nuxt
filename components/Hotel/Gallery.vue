@@ -1,18 +1,30 @@
+<script setup>
+
+defineProps({
+    images: {
+        type: Array,
+        default: []
+    }
+})
+
+</script>
+
+
 <template>
     
     <div class="w-full h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
         
         <div class="w-full h-full row-span-2 col-span-2">
-            <img src="@/assets/hotel_images/img-2.png" alt="" class="w-full h-full object-cover">
+            <img :src="images[0]" alt="" class="w-full h-full object-cover">
         </div>
 
         <div class="w-full h-full col-span-1 row-span-1">
-            <img src="@/assets/hotel_images/img-3.png" alt="" class="w-full h-full object-cover">
+            <img :src="images[1]" alt="" class="w-full h-full object-cover">
 
         </div>
 
         <div class="w-full h-full col-span-1 row-span-1 relative">
-            <img src="@/assets/hotel_images/img-4.png" alt="" class="w-full h-full object-cover">
+            <img :src="images[2]" alt="" class="w-full h-full object-cover">
 
             <NuxtLink to="#" class="absolute inset-0 bg-black bg-opacity-30 grid place-items-center hover:bg-opacity-50">
 
