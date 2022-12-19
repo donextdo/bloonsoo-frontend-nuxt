@@ -10,6 +10,10 @@ const router = useRouter()
 
 const hotelId = useHotelId()
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const image = ref(null)
 const imageValue = ref('')
 const preview = ref('')
@@ -32,7 +36,7 @@ const onChange = async (event) => {
 
         formData.append('cover_img', image.value)
 
-        const hotel = await $fetch( `http://localhost:9000/api/hotel/coverphoto/${hotelId.value}`, {
+        const hotel = await $fetch( `${baseUrl}/api/hotel/coverphoto/${hotelId.value}`, {
             method: 'PATCH',
             body: formData
         } )
@@ -57,7 +61,7 @@ const onMultipleChange = async (event) => {
             let formData = new FormData()
             formData.append('gallery_img', images.value[i])
 
-            const path = await $fetch( `http://localhost:9000/api/hotel/gallery/${hotelId.value}`, {
+            const path = await $fetch( `${baseUrl}/api/hotel/gallery/${hotelId.value}`, {
                 method: 'PATCH',
                 body: formData
             } )
@@ -196,7 +200,7 @@ const postNext = () => {
 
             </div>
 
-            </ListingFormCard>
+        </ListingFormCard>
 
         <button @click="postNext" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
             Next

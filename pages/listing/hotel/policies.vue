@@ -7,6 +7,10 @@ const router = useRouter();
 
 const hotelId = useHotelId()
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const cancellationDuration = ref('1')
 const payTime = ref('Of the first night')
 
@@ -47,7 +51,7 @@ const createPolicies = async () => {
 
   }
 
-  const hotel = await $fetch( `http://localhost:9000/api/hotel/policies/${hotelId.value}`, {
+  const hotel = await $fetch( `${baseUrl}/api/hotel/policies/${hotelId.value}`, {
       method: 'PATCH',
       body: dto
   })

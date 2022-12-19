@@ -10,6 +10,10 @@ const router = useRouter()
 
 const hotelId = useHotelId()
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const facilitiesData = [
     {data: 'Non-smoking rooms', label: 'Non-smoking rooms'}, 
     {data: 'Restaurant', label: 'Restaurant'}, 
@@ -121,7 +125,7 @@ const addFacilities = async () => {
         amenities: amenities.value
     }
 
-    const hotel = await $fetch( `http://localhost:9000/api/hotel/facilities/${hotelId.value}`, {
+    const hotel = await $fetch( `${baseUrl}/api/hotel/facilities/${hotelId.value}`, {
             method: 'PATCH',
             body: dto
     } )

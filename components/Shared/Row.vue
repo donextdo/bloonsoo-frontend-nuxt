@@ -1,10 +1,18 @@
 <script setup>
 
-defineProps({
+const props = defineProps({
     dto: {
         type: Object
     }
 })
+
+const emits = defineEmits(['onClick'])
+
+const handleClick = () => {
+    emits('onClick', 
+        props.dto._id
+    )
+}
 
 </script>
 
@@ -16,11 +24,11 @@ defineProps({
     <div class="w-full bg-gray-200 col-span-4 pl-6 p-4 h-full flex flex-col gap-4">
 
         <div class="text-base text-blue-700 font-semibold">
-            <h4>
+            <h4 class="cursor-pointer" @click="handleClick">
                 {{ dto.room_type }}
             </h4>
 
-            <h4>
+            <h4 class="cursor-pointer" @click="handleClick">
                 {{ dto.room_name }}
             </h4>
         </div>

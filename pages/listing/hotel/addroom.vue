@@ -6,6 +6,10 @@ definePageMeta({
     layout: 'listing'
 })
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const router = useRouter()
 
 const hotelId = useHotelId()
@@ -73,6 +77,9 @@ const priceError = ref(false)
 const facilities = ref([])
 const facilitiesError = ref(false)
 
+const images = ref(null)
+const galleryImages = ref([])
+
 const addBed = () => {
     setTimeout(() => {
         bedTypeError.value = false
@@ -108,6 +115,38 @@ const addAnotherBedFunc = () => {
     addAnotherBed.value = true
 }
 
+const onMultipleChange = async (event) => {
+    var input = event.target;
+    if (input.files) {
+
+        images.value = input.files;
+
+        console.log(images.value.length)
+
+        for(let i = 0; i < images.value.length; i++){
+            
+            let formData = new FormData()
+            formData.append('gallery_img', images.value[i])
+
+            const path = await $fetch( `${baseUrl}/api/rooms/gallery`, {
+                method: 'POST',
+                body: formData
+            } )
+
+            console.log(path)
+            galleryImages.value.push(path)
+        }
+        
+    }
+    
+}
+
+const clearGallery = (imglink) => {
+    galleryImages.value = galleryImages.value.filter(path => {
+        return path !== imglink
+    })
+}
+
 const addRoom = async () => {
 
     setTimeout(() => {
@@ -136,13 +175,14 @@ const addRoom = async () => {
         nbr_of_rooms: nbrOfRooms.value,
         beds: beds.value,
         guests: guests.value,
-        room_size: `${roomSize.value} ${roomSizeUnit.value === 'Square meter' ? '&#13217;' : 'f'}`,
+        room_size: `${roomSize.value} ${roomSizeUnit.value === 'Square meter' ? 'm' : 'f'}`,
         price_for_one_night: `${priceUnit.value} ${price.value}`,
-        facilities: facilities.value
+        facilities: facilities.value,
+        gallery_images: galleryImages.value
     }
 
 
-    const room = await $fetch('http://localhost:9000/api/rooms/create', {
+    const room = await $fetch(`${baseUrl}/api/rooms/create`, {
         method: 'POST',
         body: roomDto
     })
@@ -399,6 +439,65 @@ const addRoom = async () => {
                 error-message="Please select facilities"
                 :options="facilitiesData"
                 />
+
+            </div>
+
+        </ListingFormCard>
+
+        <ListingFormCard label="What does your room look like?" >
+
+            <div class="px-4 flex flex-col gap-6">
+
+                <h4 class="text-sm font-semibold text-gray-600">
+                    Add at least 3 photos now. You can always add more later.
+                </h4>
+
+                <div class="w-full border rounded-lg border-slate-500 border-dashed">
+
+                    <div v-show="!images" class="w-full h-full py-24 flex flex-col items-center gap-8">
+
+                        <div class="w-32 h-32">
+                            <img src="@/assets/icons/image.png" class="w-full h-full object-contain" alt="">
+                        </div>
+
+                        <p class="text-base text-gray-400 text-center">
+                            Upload your gallery photos here 
+                        </p>
+
+                        <label for="gallery-img" class="py-3 px-4 text-blue-500 text-sm font-semibold rounded-lg border border-blue-500 cursor-pointer">
+                            <font-awesome-icon icon="fa-solid fa-camera" class="text-blue-500 text-base "/>
+                            Upload photo
+                        </label>
+
+                        <input class="hidden" id="gallery-img" type="file" multiple @change="onMultipleChange" accept="image/*">
+
+                    </div>
+
+                    <div v-show="images" class="w-full grid grid-cols-4 bg-slate-300">
+
+                        <div v-for="(preview, index) in galleryImages" :key="index" class="w-full aspect-square relative">
+                            <img :src="preview" loading="lazy" class="w-full h-full object-cover" alt="">
+
+                            <button @click="clearGallery(preview)" class="w-8 h-8 rounded-full bg-red-500 absolute top-2 right-2">
+                                <font-awesome-icon icon="fa-solid fa-trash" class="text-white text-sm "/>
+                            </button>
+                        </div>
+
+                        <div class="w-full aspect-square grid place-items-center">
+
+                            <label for="gallery-img" class="py-3 px-4 text-blue-500 text-sm font-semibold rounded-lg border border-blue-500 cursor-pointer">
+                                <font-awesome-icon icon="fa-solid fa-camera" class="text-blue-500 text-base "/>
+                                Add more
+                            </label>
+
+                            <input class="hidden" id="gallery-img" type="file" multiple @change="onMultipleChange" accept="image/*">
+
+                        </div>
+                    
+                        
+                    </div>
+
+                </div>
 
             </div>
 

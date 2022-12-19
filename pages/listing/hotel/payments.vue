@@ -7,6 +7,10 @@ const router = useRouter();
 
 const hotelId = useHotelId()
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const creditCardOption = ref();
 const creditCardOptionError = ref(false);
 
@@ -24,7 +28,7 @@ const addPaymentDataAndOpenToBooking = async () => {
     is_open_to_bookings: true
   }
 
-  const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+  const hotel = await $fetch( `${baseUrl}/api/hotel/finalize/${hotelId.value}`, {
       method: 'PATCH',
       body: dto
   })
@@ -45,7 +49,7 @@ const addPaymentDataAndOpenLater = async () => {
       credit_card_options: creditCardOption.value === "yes" ? true : false
     }
 
-    const hotel = await $fetch( `http://localhost:9000/api/hotel/finalize/${hotelId.value}`, {
+    const hotel = await $fetch( `${baseUrl}/api/hotel/finalize/${hotelId.value}`, {
       method: 'PATCH',
       body: dto
     })

@@ -8,10 +8,14 @@ const router = useRouter()
 
 const hotelId = useHotelId()
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const rooms = ref([])
 
 onMounted( async () => {
-    const roomsArr = await $fetch(`http://localhost:9000/api/rooms/bypropertyid/${hotelId.value}`)
+    const roomsArr = await $fetch(`${baseUrl}/api/rooms/bypropertyid/${hotelId.value}`)
     
     rooms.value = roomsArr
 })

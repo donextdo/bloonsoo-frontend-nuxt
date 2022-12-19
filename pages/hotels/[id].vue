@@ -6,14 +6,40 @@ definePageMeta({
 
 const hotel = ref({})
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 onMounted(async () => {
     const { id } = useRoute().params
 
-    const hotelData = await $fetch(`http://localhost:9000/api/hotel/${id}`)
+    const hotelData = await $fetch(`${baseUrl}/api/hotel/${id}`)
     console.log(hotelData)
 
     hotel.value = hotelData
 })
+
+const showGallery = ref(false)
+
+const toggleGallery = () => {
+    showGallery.value = !showGallery.value
+}
+
+const showRoomModal = ref(false)
+const currentRoom = ref(null)
+
+const toggleRoomModal = (id) => {
+    const room = hotel.value.rooms.filter(room => {
+        return room._id === id
+    })
+
+    currentRoom.value = room[0]
+    showRoomModal.value = !showRoomModal.value
+}
+
+const closeRoomModal = () => {
+    showRoomModal.value = !showRoomModal.value
+}
 
 </script>
 
@@ -26,7 +52,7 @@ onMounted(async () => {
 
             <section class="w-full col-span-2 grid grid-col gap-4">
 
-                <HotelGallery :images="hotel.gallery_images"/>
+                <HotelGallery :images="hotel.gallery_images" @onClick="toggleGallery" />
 
                 <HotelDetails :hotel="hotel"/>
 
@@ -99,7 +125,7 @@ onMounted(async () => {
                 'Rooms'
             ]">
             
-            <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room">
+            <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal">
             
                 <template v-slot:rooms>
                     <h4 class="text-base text-gray-800 font-semibold">
@@ -120,6 +146,9 @@ onMounted(async () => {
             </SharedTable>
 
         </section>
+
+        <GalleryModal v-if="showGallery" @onClose="toggleGallery" :images="hotel.gallery_images"/>
+        <RoomModal v-if="showRoomModal" @onClose="closeRoomModal" :room="currentRoom" :address="hotel.property_address" />
 
    </section>
 
