@@ -7,6 +7,12 @@ defineProps({
     }
 })
 
+const emits = defineEmits(['onClick'])
+
+const handleClick = () => {
+    emits('onClick')
+}
+
 </script>
 
 
@@ -26,14 +32,14 @@ defineProps({
         <div class="w-full h-full col-span-1 row-span-1 relative">
             <img :src="images[2]" alt="" class="w-full h-full object-cover">
 
-            <NuxtLink to="#" class="absolute inset-0 bg-black bg-opacity-30 grid place-items-center hover:bg-opacity-50">
+            <button @click="handleClick()" class="absolute inset-0 bg-black bg-opacity-30 grid place-items-center hover:bg-opacity-50">
 
                 <h4 class="text-white font-extrabold text-base">
-                    <span class="text-4xl">+</span><span class="text-6xl">20</span> 
+                    <span class="text-4xl">+</span><span class="text-6xl">{{ images.length - 2 }}</span> 
                     photos
                 </h4>
 
-            </NuxtLink>
+            </button>
         </div>
 
     </div>

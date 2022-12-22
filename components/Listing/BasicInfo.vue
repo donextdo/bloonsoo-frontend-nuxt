@@ -5,6 +5,10 @@ import { ref } from 'vue'
 import '@/assets/css/phoneNumberInput.css'
 import { useHotelId } from '~~/composables/state';
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const router = useRouter()
 
 const hotelId = useHotelId()
@@ -83,7 +87,7 @@ const createHotel = async () => {
         about: about.value
     }
 
-    const hotel = await $fetch('http://localhost:9000/api/hotel/create', {
+    const hotel = await $fetch(`${baseUrl}/api/hotel/create`, {
         method: 'POST',
         body: hotelDto
     })

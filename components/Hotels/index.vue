@@ -7,10 +7,14 @@ defineProps({
     topRated: Boolean
 })
 
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
 const hotels = ref([])
 
 onMounted( async () => {
-    const hotelArr = await $fetch('http://localhost:9000/api/hotel/')
+    const hotelArr = await $fetch(`${baseUrl}/api/hotel/`)
     
     hotels.value = hotelArr
 })

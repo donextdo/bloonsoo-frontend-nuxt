@@ -42,7 +42,17 @@ defineProps({
         </div>
 
         <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start md:px-2 md:container md:mx-auto">
-            <button class="flex border-2 py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+            <button class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
+                <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
+                <span class="text-sm">Hotels</span>
+            </button>
+
+            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+                <NavbarIconsFlight />
+                <span class="text-sm">Flights</span>
+            </button>
+            
+            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <NavbarIconsRoom />
                 <span class="text-sm">Rooms</span>
             </button>
@@ -53,19 +63,10 @@ defineProps({
             </button>
 
             <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
-                <span class="text-sm">Hotels</span>
-            </button>
-
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <font-awesome-icon icon="fa-solid fa-house-chimney" class="w-4 h-4" />
                 <span class="text-sm">Villas</span>
             </button>
 
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <NavbarIconsFlight />
-                <span class="text-sm">Flights</span>
-            </button>
         </div>
 
         <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center md:container px-20">
