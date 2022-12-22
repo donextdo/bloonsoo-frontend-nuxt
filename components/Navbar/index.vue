@@ -32,9 +32,9 @@ defineProps({
                 </div>
 
                 <div class="flex gap-2 font-semibold">
-                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">Login</NuxtLink>
+                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="/login">Login</NuxtLink>
 
-                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">Register</NuxtLink>
+                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="/register">Register</NuxtLink>
                 </div>
 
             </div>
@@ -74,7 +74,7 @@ defineProps({
                 Find your next stay
             </h1>
 
-            <p class="mt-3 text-sm font-nornal">
+            <p class="mt-3 text-sm font-normal">
                 Search low prices on hotels, homes and much more...
             </p>
         </div>
