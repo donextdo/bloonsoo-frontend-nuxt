@@ -17,6 +17,7 @@ onMounted(async () => {
     console.log(hotelData)
 
     hotel.value = hotelData
+    console.log(hotelData)
 })
 
 const showGallery = ref(false)
@@ -41,13 +42,16 @@ const closeRoomModal = () => {
     showRoomModal.value = !showRoomModal.value
 }
 
+const handleReserve = () => {
+    useRouter().push({path: '/coming_soon'})
+}
+
 </script>
 
 
 <template>
     
    <section class="flex flex-col gap-14 bg-gray-100 text-black font-montserrat">
-
         <main class="md:container mx-auto px-2 pt-16 pb-6 grid grid-cols-3 gap-4 w-full">
 
             <section class="w-full col-span-2 grid grid-col gap-4">
@@ -135,7 +139,9 @@ const closeRoomModal = () => {
 
                 <template v-slot:actions>
 
-                    <button class="px-10 py-2 rounded-full border w-max  border-darkyellow text-sm font-semibold hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">
+                    <button
+                    @click="handleReserve" 
+                    class="px-10 py-2 rounded-full border w-max  border-darkyellow text-sm font-semibold hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">
                         Reserve
                     </button>
 
@@ -144,6 +150,77 @@ const closeRoomModal = () => {
             </SharedRow>
 
             </SharedTable>
+
+        </section>
+
+        <section class="md:container mx-auto px-12 flex flex-col gap-6 mb-14">
+            <h4 class="text-xl font-bold">
+                House Rules
+            </h4>
+
+            <div class="bg-gray-200 p-10 flex flex-col gap-10">
+                <div class="grid grid-cols-4">
+
+                    <div class="flex items-center gap-3">
+                        <font-awesome-icon icon="fa-solid fa-calendar" class="text-lg text-blue-700" />
+                        <span class="text-sm font-semibold">Check In</span>
+                    </div>
+
+                    <p class="col-span-3 text-sm font-normal">
+                        Check in from {{ hotel.policies?.check_in_form }} until {{ hotel.policies?.check_in_untill }}
+                    </p>
+
+                </div>
+
+                <div class="grid grid-cols-4">
+
+                    <div class="flex items-center gap-3">
+                        <font-awesome-icon icon="fa-solid fa-calendar" class="text-lg text-blue-700" />
+                        <span class="text-sm font-semibold">Check Out</span>
+                    </div>
+
+                    <p class="col-span-3 text-sm font-normal">
+                        Check out from {{ hotel.policies?.check_out_form }} until {{ hotel.policies?.check_out_untill }}
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-4">
+
+                    <div class="flex items-center gap-3">
+                        <SharedLogosCancel />
+                        <span class="text-sm font-semibold">Cancellation/ <br> prepayment</span>
+                    </div>
+
+                    <p class="col-span-3 text-sm font-normal">
+                        Advance can guests cancel free of charge within {{ hotel.policies?.cancellation_duration }} days.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-4">
+
+                    <div class="flex items-center gap-3">
+                        <font-awesome-icon icon="fa-solid fa-paw" class="text-lg text-blue-700" />
+                        <span class="text-sm font-semibold">Pets</span>
+                    </div>
+
+                    <p class="col-span-3 text-sm font-normal">
+                        {{ hotel.policies?.pets ? 'Pets are allowed' : 'Not allowed' }}
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-4">
+
+                    <div class="flex items-center gap-3">
+                        <font-awesome-icon icon="fa-solid fa-credit-card-alt" class="text-lg text-blue-700" />
+                        <span class="text-sm font-semibold">Card <br> Payments</span>
+                    </div>
+
+                    <p class="col-span-3 text-sm font-normal">
+                        {{ hotel.credit_card_options ? 'Available' : 'Not available' }}
+                    </p>
+                </div>
+
+            </div>
 
         </section>
 

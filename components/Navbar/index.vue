@@ -42,30 +42,30 @@ defineProps({
         </div>
 
         <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start md:px-2 md:container md:mx-auto">
-            <button class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
+            <NuxtLink to="/" class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
                 <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
                 <span class="text-sm">Hotels</span>
-            </button>
+            </NuxtLink>
 
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <NavbarIconsFlight />
                 <span class="text-sm">Flights</span>
-            </button>
+            </NuxtLink>
             
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <NavbarIconsRoom />
                 <span class="text-sm">Rooms</span>
-            </button>
+            </NuxtLink>
 
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <NavbarIconsFlats />
                 <span class="text-sm">Flats</span>
-            </button>
+            </NuxtLink>
 
-            <button class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
                 <font-awesome-icon icon="fa-solid fa-house-chimney" class="w-4 h-4" />
                 <span class="text-sm">Villas</span>
-            </button>
+            </NuxtLink>
 
         </div>
 
