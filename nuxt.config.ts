@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     ],
 
     css: [
+        '~/assets/css/main.css',
         '@fortawesome/fontawesome-svg-core/styles.css',
         // 'vuetify/lib/styles/main.css'
         'maz-ui/css/main.css'

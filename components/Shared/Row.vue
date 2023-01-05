@@ -60,9 +60,11 @@ const handleClick = () => {
 
     </div>
 
-    <div class="w-full bg-gray-200 col-span-1 p-6 h-full flex items-center justify-center">
+    <div class="w-full bg-gray-200 col-span-1 p-4 h-full flex items-center justify-center">
         
-        <font-awesome-icon icon="fa-solid fa-user" class="text-gray-800"/>
+        <div class="flex justify-center flex-wrap gap-2">
+            <font-awesome-icon v-for="n in dto.guests" :key="n" icon="fa-solid fa-user" class="text-sm text-gray-800"/>
+        </div>
 
     </div>
 
@@ -89,7 +91,8 @@ const handleClick = () => {
             <font-awesome-icon icon="fa-solid fa-coffee" class="text-gray-800 text-lg"/>
 
             <h4 class="text-base text-gray-800 font-semibold">
-                Superb breakfast LKR 7,714
+
+                {{ dto.is_breakfast_available ? `Breakfast Available ${dto.breakfast_price}` : 'Breakfast not available' }}
             </h4>
 
         </div>
@@ -112,7 +115,7 @@ const handleClick = () => {
 
     </div>
 
-    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex items-center justify-center gap-4">
+    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex items-center flex-col gap-4 justify-center">
         
         <slot name="actions"></slot>
 

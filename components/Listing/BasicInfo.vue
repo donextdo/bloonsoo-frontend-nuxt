@@ -63,11 +63,11 @@ const createHotel = async () => {
 
     if(!propertyName.value) return propertyNameError.value = true
     if(!contactName.value) return contactNameError.value = true
-    if(!phoneNumberRes.value.isValid) return phoneNumberError.value = true
-    if(!ownMultipleHotels.value) return ownMultipleHotelsError.value = true
-    if(!channelManager.value) return channelManagerError.value = true
-    if(!streetAddress.value) return streetAddressError.value = true
-    if(!postalCode.value) return postalCodeError.value = true
+    // if(!phoneNumberRes.value.isValid) return phoneNumberError.value = true
+    // if(!ownMultipleHotels.value) return ownMultipleHotelsError.value = true
+    // if(!channelManager.value) return channelManagerError.value = true
+    // if(!streetAddress.value) return streetAddressError.value = true
+    // if(!postalCode.value) return postalCodeError.value = true
     if(!about.value.length > 1200) return aboutError.value = true
 
 

@@ -35,7 +35,7 @@ const cta2 = {
             </template>
 
             <template v-slot:button>
-                <nuxt-link to="#" 
+                <nuxt-link to="/listing/"
                 class="py-4 px-10 inline-block rounded-full 
                 w-max text-sm text-black 
                 font-bold bg-gradient-to-b

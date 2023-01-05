@@ -67,6 +67,10 @@ const bedsError = ref(false)
 
 const guests = ref('1')
 
+const breakfastOption = ref()
+const breakfastPriceUnit = ref('USD')
+const breakfastPrice = ref()
+
 const roomSize = ref()
 const roomSizeUnit = ref('Square meter')
 
@@ -158,6 +162,7 @@ const addRoom = async () => {
         facilitiesError.value = false
     }, 10000)
 
+    console.log('first')
 
     if(roomType.value == '0') return roomTypeError.value = true
     if(!roomName.value) return roomNameError.value = true
@@ -166,7 +171,7 @@ const addRoom = async () => {
     if(!price.value) return priceError.value = true
     if(facilities.value.length == 0) return facilitiesError.value = true
 
-
+    console.log('second')
     const roomDto = {
         property_id: hotelId.value,
         room_type: roomType.value,
@@ -175,6 +180,8 @@ const addRoom = async () => {
         nbr_of_rooms: nbrOfRooms.value,
         beds: beds.value,
         guests: guests.value,
+        is_breakfast_available: breakfastOption.value === 'yes' ? true : false,
+        breakfast_price: `${breakfastPriceUnit.value} ${breakfastPrice.value ? breakfastPrice.value : '0'}`,
         room_size: `${roomSize.value} ${roomSizeUnit.value === 'Square meter' ? 'm' : 'f'}`,
         price_for_one_night: `${priceUnit.value} ${price.value}`,
         facilities: facilities.value,
@@ -185,7 +192,7 @@ const addRoom = async () => {
     const room = await $fetch(`${baseUrl}/api/rooms/create`, {
         method: 'POST',
         body: roomDto
-    })
+    })  
 
     console.log(room)
 
@@ -359,7 +366,7 @@ const addRoom = async () => {
                     <SharedDropDown 
                     label="How many guests can stay in this room? " 
                     v-model="guests" errorMessage="please enter country" 
-                    :options="['1', '2', '3', '4']" />
+                    :options="['1', '2', '3', '4', '5', '6', '7', '8']" />
 
                     <!-- <SharedDropDown 
                     v-model="noOfBeds" errorMessage="please enter country" 
@@ -368,6 +375,42 @@ const addRoom = async () => {
                 </div>
 
             </div>       
+
+        </ListingFormCard>
+
+        <ListingFormCard label="Breakfast">
+
+            <div class="px-4 w-full grid grid-cols-2 gap-x-8">
+
+                <SharedRadioGroup 
+                title="Do you provide breakfast ?"
+                v-model="breakfastOption"
+                :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]
+                "/>
+
+
+                <div v-if="breakfastOption === 'yes'" class="flex flex-col gap-2 w-full">
+
+                    <label :class="priceError ? 'text-red-600' : 'text-gray-600'" class="text-sm font-semibold">
+                        Price for Breakfast
+                    </label>
+
+                    <div class="w-full grid grid-cols-6 items-start">
+
+                        <SharedDropDown 
+                        v-model="breakfastPriceUnit" errorMessage="please enter price unit" 
+                        :options="['USD', 'LKR', 'AUD']" />
+
+                        <SharedTextInput 
+                        v-model="breakfastPrice" 
+                        errorMessage="please enter a price" 
+                        type="number" class="col-span-3" />
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </ListingFormCard>
 

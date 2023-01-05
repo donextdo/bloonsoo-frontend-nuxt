@@ -34,15 +34,11 @@ const isFav = ref(false)
                 <font-awesome-icon class="text-3xl" icon="fa-solid fa-share-alt"/>
             </button>
 
-            <nuxt-link to="#" 
-                class="py-3 px-10 inline-block rounded-full 
-                w-max text-sm text-black 
-                font-bold bg-gradient-to-b
-                from-darkyellow to-semidarkyellow
-                hover:from-semidarkyellow
-                hover:to-darkyellow">
+            <a href="#rooms-area" 
+                class="py-3 px-10 rounded-full 
+                w-max gradient-btn">
                 Reserve Now
-            </nuxt-link>
+            </a>
 
           </div>
         </div>
