@@ -1,0 +1,21 @@
+html {
+    scroll-behavior: smooth;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .control-btn {
+        @apply h-8 w-8 rounded-full border border-slate-700 text-lg font-bold hover:bg-gray-200;
+    }
+
+    .gradient-btn {
+        @apply text-sm inline-block text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow;
+    }
+
+    .gradient-outline-btn {
+        @apply rounded-full font-semibold border border-darkyellow text-sm hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black;
+    }
+}

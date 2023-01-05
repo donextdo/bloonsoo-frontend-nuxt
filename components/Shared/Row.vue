@@ -115,7 +115,7 @@ const handleClick = () => {
 
     </div>
 
-    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex items-center justify-center gap-4">
+    <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex items-center flex-col gap-4 justify-center">
         
         <slot name="actions"></slot>
 

@@ -23,7 +23,7 @@
             voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         </p>
 
-        <NuxtLink class="px-10 py-2 rounded-full border w-max  border-darkyellow text-sm font-semibold hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="#">
+        <NuxtLink class="px-10 py-2 w-max gradient-outline-btn" to="#">
             View More
         </NuxtLink>
     </article>

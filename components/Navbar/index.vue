@@ -20,7 +20,7 @@ defineProps({
             <div class="flex gap-5">
 
                 <div class="flex gap-2">
-                    <NuxtLink to="/listing/" class="py-2 px-6 rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">Become A Host</NuxtLink>
+                    <NuxtLink to="/listing/" class="py-2 px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
 
                     <button class="flex gap-3 rounded-full px-1 bg-white items-center justify-between">
                         <font-awesome-icon icon="fa-solid fa-bars" class="text-blue-700 ml-3"/>
@@ -31,10 +31,10 @@ defineProps({
                     </button>
                 </div>
 
-                <div class="flex gap-2 font-semibold">
-                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="/login">Login</NuxtLink>
+                <div class="flex gap-2 text-white font-semibold">
+                    <NuxtLink class="px-6 py-2 gradient-outline-btn" to="/login">Login</NuxtLink>
 
-                    <NuxtLink class="px-6 py-2 rounded-full border  border-darkyellow text-sm text-white hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black" to="/register">Register</NuxtLink>
+                    <NuxtLink class="px-6 py-2 gradient-outline-btn" to="/register">Register</NuxtLink>
                 </div>
 
             </div>
