@@ -69,6 +69,8 @@ const onSubmit = () => {
     const payload = {
         _id: props.roomId,
         nights,
+        checkInDate,
+        checkOutDate,
         adults: adults.value,
         children: children.value,
         rooms: rooms.value

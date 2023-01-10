@@ -18,4 +18,8 @@ html {
     .gradient-outline-btn {
         @apply rounded-full font-semibold border border-darkyellow text-sm hover:bg-gradient-to-b hover:from-darkyellow hover:to-semidarkyellow hover:text-black;
     }
+
+    .btn-accent {
+        @apply bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900;
+    }
 }

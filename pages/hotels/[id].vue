@@ -16,6 +16,7 @@ const currentRoom = ref(null)
 const showBookingPopup = ref(false)
 const roomIdOnBooking = ref(null)
 const bookings = ref([])
+const showBookingDetails = ref(false)
 
 onMounted(async () => {
     const { id } = useRoute().params
@@ -27,10 +28,16 @@ onMounted(async () => {
     console.log(hotelData)
 })
 
+/**
+ * METHODS FOR SHOW GALLERY 
+ */
 const toggleGallery = () => {
     showGallery.value = !showGallery.value
 }
 
+/**
+ * METHODS FOR SHOW ROOM MODAL 
+ */
 const toggleRoomModal = (id) => {
     const room = hotel.value.rooms.filter(room => {
         return room._id === id
@@ -44,16 +51,23 @@ const closeRoomModal = () => {
     showRoomModal.value = !showRoomModal.value
 }
 
+/**
+ * METHODS FOR HANDLING BOOKING PROCESS
+ */
+// SET CURRENT ROOM ID AND SHOW BOOKING POPUP
 const handleReserve = (id) => {
     roomIdOnBooking.value = id
     showBookingPopup.value = true
 }
 
+// CLOSE BOOKING POPUP WHEN POPUP EMITS ONCLOSE
 const closeBookingPopup = () => {
     showBookingPopup.value = !showBookingPopup.value
 }
 
+// POPUP SUBMIT EVENT. OCCURS WHEN POPUP EMITS ONSUBMIT
 const onPopupSubmit = (payload) => {
+    // GET THE CURRENT ROOM
     const room = hotel.value.rooms.filter(room => {
         return room._id === payload._id
     })
@@ -63,30 +77,72 @@ const onPopupSubmit = (payload) => {
     const currency = priceSplit[0]
     const basePrice = parseInt(priceSplit[1])
 
+    // CALCULATE PRICE FOR NIGHTS
     const totalPriceForRoom = basePrice * payload.nights * payload.rooms
 
     bookings.value.push({
         id: payload._id,
+        nights: payload.nights,
+        rooms: payload.rooms,
+        adults: payload.adults,
+        children: payload.children,
+        checkInDate: payload.checkInDate,
+        checkOutDate: payload.checkOutDate,
+        roomName: room[0].room_name,
+        roomType: room[0].room_type,
         totalPrice: `${currency} ${totalPriceForRoom}`
     })
 
     setTimeout(() => {
         showBookingPopup.value = !showBookingPopup.value
-    }, 500)
+    }, 200)
     
 }
 
+// COMPUTING BOOKED ROOMS. RETURNS LIST OF BOOKED ROOM IDS
+/**
+ * THIS HELPS TO DETERMINE WHETHER ROOM IS BOOKED OR NOT IN THE TABLE
+ * IF BOOKEDROOMS INCLUDES THAT ROW ID. IT ASSUMES THAT ROOM IS BOOKED
+ */
 const bookedRooms = computed(() => {
     return bookings.value.map(b => b.id)
 })
 
+// GET THE TOTAL PRICE 
+/**
+ * CALLING FROM THE TABLE TO GET TOTAL ROOM PRICE TO DISPLAY IN THE TABLE
+ */
 const checkForBookings = (id) => {
     const match = bookings.value.filter(b => b.id === id).find(b => b.id === id)
-    return match.totalPrice
+    return {
+        price: match.totalPrice,
+        rooms: match.rooms
+    } 
 }
 
 const removeFromBookings = (id) => {
     bookings.value = bookings.value.filter(b => b.id !== id)
+}
+
+// COUPUTING TOTAL PRICE
+const totalPrice = computed(() => {
+    let total = 0
+    let currency
+    bookings.value.forEach(b => {
+        const priceSplit = b.totalPrice.split(' ')
+
+        currency = priceSplit[0]
+        total = total + parseInt(priceSplit[1])
+    })
+
+    return `${currency} ${total}`
+})
+
+/**
+ * METHODS FOR SHOW ROOM MODAL 
+ */
+const toggleBookingDetails = () => {
+    showBookingDetails.value = !showBookingDetails.value
 }
 
 </script>
@@ -170,7 +226,11 @@ const removeFromBookings = (id) => {
                 'Price for 10 nights',
                 'Your Choices',
                 'Rooms'
-            ]">
+            ]"
+            :bookings="bookedRooms.length > 0"
+            :total="totalPrice"
+            @onResAllClick="toggleBookingDetails"
+            >
             
             <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal">
             
@@ -189,16 +249,36 @@ const removeFromBookings = (id) => {
                         Reserve
                     </button>
 
-                    <h4 
+                    <div 
                     v-if="bookedRooms.includes(room._id)"
-                    class="text-base text-gray-800 font-semibold">
-                        {{  bookedRooms.includes(room._id) ? `${checkForBookings(room._id)}` : '' }}
-                    </h4>
+                    class="self-start">
+                        <p 
+                        class="text-sm text-left text-gray-800 font-medium">
+                            {{  
+                            bookedRooms.includes(room._id) ? 
+                            `${checkForBookings(room._id).rooms} room(s) for`
+                            : '' 
+                            }}
+                        </p>
+
+                        <h4 
+                        class="text-base text-gray-800 font-semibold">
+                            {{  
+                            bookedRooms.includes(room._id) ? 
+                            `${checkForBookings(room._id).price}`
+                            : '' 
+                            }}
+                        </h4>
+
+                        <p class="text-sm text-gray-600">
+                            +LKR 179,407 taxes and charges
+                        </p>
+                    </div>
 
                     <button
                     v-if="bookedRooms.includes(room._id)"
                     @click="removeFromBookings(room._id)"
-                    class="px-10 py-2 gradient-outline-btn" to="#">
+                    class="px-10 py-2 gradient-outline-btn">
                         Cancel
                     </button>
                     
@@ -284,9 +364,33 @@ const removeFromBookings = (id) => {
 
         </section>
 
-        <GalleryModal v-if="showGallery" @onClose="toggleGallery" :images="hotel.gallery_images"/>
-        <RoomModal v-if="showRoomModal" @onClose="closeRoomModal" :room="currentRoom" :address="hotel.property_address" />
-        <BookingPopup v-if="showBookingPopup" @onClose="closeBookingPopup" @onSubmit="onPopupSubmit" :roomId="roomIdOnBooking" />
+        <GalleryModal 
+            v-if="showGallery" 
+            @onClose="toggleGallery" 
+            :images="hotel.gallery_images"
+        />
+
+        <RoomModal 
+            v-if="showRoomModal" 
+            @onClose="closeRoomModal" 
+            :room="currentRoom" 
+            :address="hotel.property_address" 
+        />
+
+        <BookingPopup 
+            v-if="showBookingPopup" 
+            @onClose="closeBookingPopup" 
+            @onSubmit="onPopupSubmit" 
+            :roomId="roomIdOnBooking" 
+        />
+
+        <BookingDetails 
+            v-if="showBookingDetails" 
+            @onClose="toggleBookingDetails" 
+            :propertyName="hotel.property_name"
+            :propertyAddress="hotel.property_address"
+            :bookings="bookings"
+        />
 
    </section>
 

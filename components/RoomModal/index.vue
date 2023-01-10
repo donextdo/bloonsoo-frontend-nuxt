@@ -31,7 +31,7 @@ const handleClick = () => {
                 {{ room.room_type }} - {{ room.room_name }}
             </h4>    
 
-            <p class="text-sm text-gray-600">
+            <p class="text-sm font-medium text-gray-600">
                 {{ address.street_address }}, {{ address.country }}
             </p>
 
