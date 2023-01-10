@@ -299,7 +299,7 @@ const createHotel = async () => {
 
         </ListingFormCard>
 
-        <button @click="createHotel" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
+        <button @click="createHotel" class="w-full py-4 btn-accent">
             Next
         </button>
 
