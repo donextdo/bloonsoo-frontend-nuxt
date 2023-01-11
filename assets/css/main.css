@@ -6,6 +6,10 @@ html {
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply bg-gray-50;
+}
+
 @layer components {
     .control-btn {
         @apply h-8 w-8 rounded-full border border-slate-700 text-lg font-bold hover:bg-gray-200;
@@ -21,5 +25,13 @@ html {
 
     .btn-accent {
         @apply bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900;
+    }
+
+    .booking-tab {
+        @apply w-full h-20 border-b-8 border-blue-700 flex items-center gap-3 text-blue-700;
+    }
+
+    .span-point {
+        @apply w-6 h-6 rounded-full text-sm text-white bg-blue-700 font-bold flex items-center justify-center;
     }
 }

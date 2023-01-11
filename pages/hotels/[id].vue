@@ -150,7 +150,7 @@ const toggleBookingDetails = () => {
 
 <template>
     
-   <section class="flex flex-col gap-14 bg-gray-100 text-black font-montserrat">
+   <section class="flex flex-col gap-14 bg-gray-50 text-black font-montserrat">
         <main class="md:container mx-auto px-2 pt-16 pb-6 grid grid-cols-3 gap-4 w-full">
 
             <section class="w-full col-span-2 grid grid-col gap-4">
