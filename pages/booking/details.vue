@@ -23,14 +23,32 @@ const baseUrl = config.public.baseUrl
 
                 <BookingHotelCard />
 
+                <div class="  shadow-md  w-full h-40 p-5 mb-4">
+                    <p class="font-bold mb-5">Your booking details </p>
+                    
+                    <div class=" flex row px-6 mb-2">
+                        <font-awesome-icon icon="fa-solid fa-circle-check" class="text-green-600 text-xl mx-6" />
+                        <p class=" text-md  ">No payment is required to secure this booking. You'll pay during your stay. </p>
+                    </div>
+
+                </div>
+
+                <BookingDetailsInfo />
+
             </section>
 
             <aside class="w-full col-span-1 h-full flex flex-col gap-4">
 
+                <BookingCheckIn />
+
             </aside>
 
-        </main>
+            
 
+        </main>
+        <button @click="createHotel" class="w-full py-4 btn-accent">
+            Next
+        </button>
    </section>
 
 </template>

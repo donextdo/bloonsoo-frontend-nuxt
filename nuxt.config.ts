@@ -26,7 +26,8 @@ export default defineNuxtConfig({
             "@fortawesome/free-regular-svg-icons",
             "@fortawesome/free-solid-svg-icons",
             'vuetify',
-            'maz-ui'
+            'maz-ui',
+            'swiper'
         ]
     },
 

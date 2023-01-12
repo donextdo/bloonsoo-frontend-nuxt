@@ -29,6 +29,7 @@ defineProps({
         <IconsFireExt v-if="icon === 'fireext'" class="w-5 h-5"/>
         <IconsDisinfections v-if="icon === 'disinfections'" class="w-5 h-5"/>
         <IconsSmoke v-if="icon === 'smoke'" class="w-5 h-5"/>
+        <IconsSparkle v-if="icon === 'sparkle'" class="w-5 h-5" />
 
         <h4> 
             {{ label }}
