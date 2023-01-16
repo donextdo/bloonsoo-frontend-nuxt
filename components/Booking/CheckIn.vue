@@ -2,7 +2,7 @@
     
     <section class="w-full flex flex-col gap-6">
 
-      <div class="  shadow-md  w-full p-5 mb-4">
+    <div class="  shadow-md  w-full p-5 mb-4">
                 <p class="font-semibold mb-8 text-gray-700 text-md">Your booking details  </p>
 
                 <div class="grid grid-cols-2 gap-1 mb-5 ">
@@ -90,7 +90,7 @@
 
                 </div>
 
-            </div>
+    </div>
 
     </section>
 
