@@ -19,16 +19,16 @@ const baseUrl = config.public.baseUrl
 
         <main class="grid grid-cols-3 gap-8 w-full">
 
-            <section class="w-full col-span-2 grid grid-col gap-4">
+            <section class="w-full col-span-2 grid grid-col gap-6">
 
                 <BookingHotelCard />
 
-                <div class="  shadow-md  w-full h-40 p-5 mb-4">
-                    <p class="font-bold mb-5">Your booking details </p>
+                <div class="bg-white shadow-md w-full p-5 pb-8">
+                    <h4 class="font-bold text-lg mb-4">Your booking details</h4>
                     
-                    <div class=" flex row px-6 mb-2">
-                        <font-awesome-icon icon="fa-solid fa-circle-check" class="text-green-600 text-xl mx-6" />
-                        <p class=" text-md  ">No payment is required to secure this booking. You'll pay during your stay. </p>
+                    <div class="flex items-center text-gray-600 font-semibold gap-4">
+                        <font-awesome-icon icon="fa-solid fa-circle-check" class="text-green-600 text-xl" />
+                        <p class="text-base">No payment is required to secure this booking. You'll pay during your stay. </p>
                     </div>
 
                 </div>
