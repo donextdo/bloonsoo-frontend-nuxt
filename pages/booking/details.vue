@@ -15,7 +15,7 @@ const baseUrl = config.public.baseUrl
     
    <section class="text-black font-montserrat md:container mx-auto px-2 flex flex-col gap-14 py-6">
 
-        <BookingTabs/>
+        <BookingTabs />
 
         <main class="grid grid-cols-3 gap-8 w-full">
 
