@@ -32,7 +32,7 @@
             </span>
         </div>
 
-        <div :class="final ? 'border-blue-500' : 'border-gray-200'" class="booking-tab">
+        <div :class="final ? 'border-blue-700' : 'border-gray-200'" class="booking-tab">
             <span class="span-point">
                 3
             </span>
