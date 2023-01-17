@@ -139,9 +139,18 @@ const totalPrice = computed(() => {
 })
 
 /**
- * METHODS FOR SHOW ROOM MODAL 
+ * METHODS FOR SHOW BOOKING DETAILS
  */
 const toggleBookingDetails = () => {
+    console.log(bookings.value)
+    showBookingDetails.value = !showBookingDetails.value
+}
+
+/**
+ * TRIGGERS WHEN BOOKING DETAILS ONSUBMIT
+ */
+const onConfirm = () => {
+    console.log('clicked')
     showBookingDetails.value = !showBookingDetails.value
 }
 
@@ -387,9 +396,11 @@ const toggleBookingDetails = () => {
         <BookingDetails 
             v-if="showBookingDetails" 
             @onClose="toggleBookingDetails" 
+            @onSubmit="onConfirm"
             :propertyName="hotel.property_name"
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
+            :policies="hotel.policies"
         />
 
    </section>

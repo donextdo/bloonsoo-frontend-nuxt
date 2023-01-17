@@ -12,7 +12,8 @@
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^6.0.1",
     "@nuxtjs/vuetify": "^1.12.3",
-    "nuxt": "3.0.0-rc.12"
+    "nuxt": "3.0.0-rc.12",
+    "tailwind-scrollbar": "^2.1.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -27,6 +28,7 @@
     "nuxt-buefy": "^0.4.24",
     "sass": "^1.55.0",
     "swiper": "^8.4.4",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "vue-router": "^4.1.6",
     "vuetify": "^3.0.0-beta.15"
   }

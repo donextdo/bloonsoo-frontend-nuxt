@@ -27,7 +27,9 @@ export default defineNuxtConfig({
             "@fortawesome/free-solid-svg-icons",
             'vuetify',
             'maz-ui',
-            'swiper'
+            'swiper',
+            'tailwind-scrollbar-hide',
+            'tailwind-scrollbar'
         ]
     },
 
