@@ -1,5 +1,10 @@
 <script setup>
+import { storeToRefs } from "pinia"
+import { useBookingStore } from "~~/stores/bookingStore"
 
+const bookingStore = useBookingStore()
+
+const { totalPrice } = storeToRefs(bookingStore)
 
 </script>
 
@@ -13,7 +18,7 @@
                 <p class="text-gray-500 text-sm">( your currency )</p>
             </div>
             <div>
-                <p class="font-semibold text-lg text-gray-700 float-right"> LKR 158,239.99</p>
+                <p class="font-semibold text-lg text-gray-700 float-right">{{ totalPrice }}</p>
             </div>
         </div>
 
@@ -25,7 +30,7 @@
                 </div>
 
                 <div>
-                    <p class="font-medium text-base"> US$430.57</p>
+                    <p class="font-medium text-base">{{ totalPrice }}</p>
                 </div>
 
             </div>

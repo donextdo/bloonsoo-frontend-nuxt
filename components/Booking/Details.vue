@@ -1,4 +1,6 @@
 <script setup>
+import { useBookingStore } from '~~/stores/bookingStore';
+import { storeToRefs } from "pinia"
 
 const emits = defineEmits(['onClose', 'onSubmit'])
 
@@ -9,13 +11,16 @@ const props = defineProps({
     propertyAddress: {
         type: Object
     },
-    bookings: {
-        type: Array
-    },
+    // bookings: {
+    //     type: Array
+    // },
     policies: {
         type: Object
     }
 })
+
+const bookingStore = useBookingStore()
+const { bookings, totalPrice } = storeToRefs(bookingStore)
 
 const handleClose = () => {
     emits('onClose')
@@ -25,19 +30,6 @@ const handleClose = () => {
 const onSubmit = () => {
     emits('onSubmit')
 }
-
-const totalPrice = computed(() => {
-    let total = 0
-    let currency
-    props.bookings.forEach(b => {
-        const priceSplit = b.totalPrice.split(' ')
-
-        currency = priceSplit[0]
-        total = total + parseInt(priceSplit[1])
-    })
-
-    return `${currency} ${total}`
-})
 
 </script>
 

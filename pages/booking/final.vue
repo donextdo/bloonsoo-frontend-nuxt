@@ -3,7 +3,9 @@
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import { ref } from 'vue'
 import '@/assets/css/phoneNumberInput.css'
-import { useHotelId } from '~~/composables/state';
+import { storeToRefs } from "pinia"
+import { useBookingStore } from "~~/stores/bookingStore"
+
 definePageMeta({
     layout: 'listing'
 })
@@ -11,6 +13,14 @@ definePageMeta({
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
+
+const bookingStore = useBookingStore()
+
+const { hotel, bookings } = storeToRefs(bookingStore)
+
+onMounted(async () => {
+    bookingStore.setHotel(baseUrl)
+})
 
 const phoneNumber = ref()
 const phoneNumberRes = ref()
@@ -35,7 +45,11 @@ const ownMultipleHotelsError = ref(false)
 
             <section class="w-full col-span-2 grid grid-col gap-6">
 
-                <BookingHotelCard />
+                <BookingHotelCard 
+                    :coverImg="hotel?.cover_image" 
+                    :property-name="hotel?.property_name"
+                    :address="hotel?.property_address"
+                />
 
                 <ListingFormCard label="Enter Your Address" class="shadow-md">
 

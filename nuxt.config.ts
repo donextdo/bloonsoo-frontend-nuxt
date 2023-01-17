@@ -4,7 +4,8 @@ let development = process.env.NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
      modules: [
-        '@nuxtjs/tailwindcss'
+        '@nuxtjs/tailwindcss',
+        '@pinia/nuxt'
     ],
 
     css: [

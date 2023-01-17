@@ -1,4 +1,7 @@
 <script setup>
+import { storeToRefs } from "pinia"
+import { useBookingStore } from "~~/stores/bookingStore"
+
 
 definePageMeta({
     layout: 'listing'
@@ -7,6 +10,20 @@ definePageMeta({
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
+
+const router = useRouter()
+
+const bookingStore = useBookingStore()
+
+const { hotel, bookings } = storeToRefs(bookingStore)
+
+onMounted(async () => {
+    bookingStore.setHotel(baseUrl)
+})
+
+const handleNext = () => {
+    router.push({path: '/booking/final'})
+}
 
 </script>
 
@@ -21,7 +38,11 @@ const baseUrl = config.public.baseUrl
 
             <section class="w-full col-span-2 grid grid-col gap-6">
 
-                <BookingHotelCard />
+                <BookingHotelCard 
+                    :coverImg="hotel?.cover_image" 
+                    :property-name="hotel?.property_name"
+                    :address="hotel?.property_address"
+                />
 
                 <div class="bg-white shadow-md w-full p-5 pb-8">
                     <h4 class="font-bold text-lg mb-4">Your booking details</h4>
@@ -186,7 +207,7 @@ const baseUrl = config.public.baseUrl
             
 
         </main>
-        <button @click="createHotel" class="w-full py-4 btn-accent">
+        <button @click="handleNext" class="w-full py-4 btn-accent">
             Next
         </button>
    </section>
