@@ -135,7 +135,7 @@ const blogs = ref([
 
             </div>
 
-            <div class="flex w-full gap-10 justify-center items-center">
+            <!-- <div class="flex w-full gap-10 justify-center items-center">
 
                 <a href="#" class="h-6">
                     <img src="@/assets/brands/booking.png" class="h-full w-full object-contain" alt="">
@@ -161,7 +161,7 @@ const blogs = ref([
                     <img src="@/assets/brands/opentable.png" class="h-full w-full object-contain" alt="">
                 </a>
 
-            </div>
+            </div> -->
 
         </div>
 

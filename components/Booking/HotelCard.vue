@@ -1,5 +1,16 @@
 <script setup>
 
+const props = defineProps({
+    propertyName: {
+        type: String
+    },
+    coverImg: {
+        type: String
+    },
+    address: {
+        type: Object
+    }
+})
 
 </script>
 
@@ -7,7 +18,7 @@
     
     <div class="bg-white shadow-md w-full grid grid-cols-5">
 
-        <img src="http://localhost:9000/public/images/06effcb3-d22c-4792-b8d1-83969ef15ed3.jpeg" 
+        <img :src="coverImg" 
             class="w-full aspect-square object-cover col-span-2"
             alt=""
         >
@@ -18,11 +29,11 @@
 
                 <div class="">
                     <h3 class="text-lg font-bold text-blue-700"> 
-                        Sprotiaza Palace 
+                        {{ propertyName }} 
                     </h3>    
 
                     <p class="text-sm font-medium text-gray-600">
-                        100 Smart Street, LA, USA . 
+                        {{ address?.street_address }}, {{ address?.country }}
                     </p>
                 </div>
 

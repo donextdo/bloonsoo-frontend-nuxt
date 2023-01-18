@@ -1,5 +1,7 @@
     <script setup>
 
+    import { useHotelId } from '~~/composables/state';
+
     definePageMeta({
         layout: 'listing'
     })

@@ -4,7 +4,8 @@ let development = process.env.NODE_ENV !== 'production'
 
 export default defineNuxtConfig({
      modules: [
-        '@nuxtjs/tailwindcss'
+        '@nuxtjs/tailwindcss',
+        '@pinia/nuxt'
     ],
 
     css: [
@@ -26,7 +27,10 @@ export default defineNuxtConfig({
             "@fortawesome/free-regular-svg-icons",
             "@fortawesome/free-solid-svg-icons",
             'vuetify',
-            'maz-ui'
+            'maz-ui',
+            'swiper',
+            'tailwind-scrollbar-hide',
+            'tailwind-scrollbar'
         ]
     },
 
