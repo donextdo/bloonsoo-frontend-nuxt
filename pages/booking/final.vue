@@ -24,22 +24,32 @@ onMounted(async () => {
     bookingStore.setHotel(baseUrl)
 })
 
+const country = ref()
+const countryError = ref()
+
 const phoneNumber = ref()
 const phoneNumberRes = ref()
 const phoneNumberError = ref(false)
 
-const phoneNumberAlt = ref()
-const phoneNumberAltRes = ref()
+const paperlessConfirmation = ref(false)
 
-const ownMultipleHotels = ref()
-const ownMultipleHotelsError = ref(false)
+const updatesEmailConfirmation = ref(false)
+
+const marketingEmailConfirmation = ref(false)
+
+const promoCode = ref()
+const promoCodeError = ref(false)
 
 const handleBooking = () => {
-    router.push({path: `/hotels/${hotel.value._id}`})
+    // router.push({path: `/hotels/${hotel.value._id}`})
     
-    setTimeout(() => {
-        bookingStore.$reset()
-    }, 1000)  
+    console.log(phoneNumberRes.value.e164)
+    console.log(paperlessConfirmation.value)
+    console.log(updatesEmailConfirmation.value)
+    console.log(marketingEmailConfirmation.value)
+    // setTimeout(() => {
+    //     bookingStore.$reset()
+    // }, 1000)  
 }
 
 </script>
@@ -99,6 +109,7 @@ const handleBooking = () => {
                             <input 
                             type="checkbox" 
                             id="default-checkbox" value="" 
+                            v-model="paperlessConfirmation"
                             class="w-4 h-4 text-blue-600">
 
                             <label for="default-checkbox" 
@@ -113,6 +124,7 @@ const handleBooking = () => {
                     <input 
                     type="checkbox" 
                     id="checkbox-confirm" value="" 
+                    v-model="updatesEmailConfirmation"
                     class="w-5 h-5 text-blue-600">
 
                     <label for="checkbox-confirm" 
@@ -125,6 +137,7 @@ const handleBooking = () => {
                     <input 
                     type="checkbox" 
                     id="checkbox-confirm-1" value="" 
+                    v-model="marketingEmailConfirmation"
                     class="w-4 h-4 text-blue-600">
 
                     <label for="checkbox-confirm-1" 
@@ -176,7 +189,12 @@ const handleBooking = () => {
                 <div class="shadow-md rounded-lg bg-white w-full px-5 py-8">
                 
                     <h4 class="font-semibold mb-4 text-base"> Do you have a promo code </h4>
-                    <SharedTextInput label="Enter your promo code" />
+                    <SharedTextInput 
+                    label="Enter your promo code"
+                    v-model="promoCode"
+                    :error="promoCodeError"
+                    errorMessage="Promo code is not valid"
+                     />
 
                     <button class="py-1 px-8 gradient-outline-btn mt-6">Apply</button>
 
