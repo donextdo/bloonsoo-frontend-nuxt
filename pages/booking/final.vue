@@ -14,6 +14,8 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const router = useRouter()
+
 const bookingStore = useBookingStore()
 
 const { hotel, bookings } = storeToRefs(bookingStore)
@@ -31,6 +33,14 @@ const phoneNumberAltRes = ref()
 
 const ownMultipleHotels = ref()
 const ownMultipleHotelsError = ref(false)
+
+const handleBooking = () => {
+    router.push({path: `/hotels/${hotel.value._id}`})
+    
+    setTimeout(() => {
+        bookingStore.$reset()
+    }, 1000)  
+}
 
 </script>
 
@@ -176,7 +186,7 @@ const ownMultipleHotelsError = ref(false)
 
         </main>
 
-        <button @click="createHotel" class="w-full py-4 btn-accent">
+        <button @click="handleBooking" class="w-full py-4 btn-accent">
           Complete booking 
         </button>
    </section>

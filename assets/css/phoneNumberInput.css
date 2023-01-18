@@ -47,3 +47,8 @@
     height: max-content !important;
     width: 100% !important;
 }
+
+.m-phone-number-input__input.--border-radius .m-input-wrapper {
+    border-radius: 0;
+    border: 1px solid;
+}

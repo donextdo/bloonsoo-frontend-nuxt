@@ -75,7 +75,7 @@ const handleResAllClick = () => {
 
                     <button
                     @click="handleResAllClick"
-                    class="px-6 py-1 rounded-full text-sm font-semibold border-2 border-white hover:bg-white hover:text-blue-700">
+                    class="px-6 py-1 gradient-btn rounded-full">
                         Reserve All
                     </button>
                 </div>
