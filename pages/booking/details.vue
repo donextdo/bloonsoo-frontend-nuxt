@@ -21,6 +21,28 @@ onMounted(async () => {
     bookingStore.setHotel(baseUrl)
 })
 
+const isTravellingForWork = ref()
+const isTravellingForWorkError = ref(false)
+
+const firstName = ref()
+const firstNameError = ref(false)
+
+const lastName = ref()
+const lastNameError = ref(false)
+
+const email = ref()
+const emailError = ref(false)
+
+const confirmEmail = ref()
+const confirmEmailError = ref(false)
+
+const bookingFor = ref()
+
+const fullGuestName = ref()
+const fullGuestNameError = ref(false)
+
+const arrivalTime = ref()
+
 const handleNext = () => {
     router.push({path: '/booking/final'})
 }
@@ -61,9 +83,9 @@ const handleNext = () => {
                         <SharedRadioGroup 
                         title="Are you traveling for work?"
                         class="col-span-2" 
-                        v-model="ownMultipleHotels" 
+                        v-model="isTravellingForWork" 
                         :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
-                        :error="ownMultipleHotelsError"
+                        :error="isTravellingForWorkError"
                         name="group1"
                         errorMessage="Please select an option"
                         />
@@ -80,17 +102,16 @@ const handleNext = () => {
                             </p>
                         </div>
                         
-                        <SharedTextInput label="Confirm Email Address" v-model="email" :error="emailError" errorMessage="Email Address cannot be empty" placeholder="Regina@fun.com" class="col-start-1" />
+                        <SharedTextInput label="Confirm Email Address" v-model="confirmEmail" :error="confirmEmailError" errorMessage="Email Address cannot be empty" placeholder="Regina@fun.com" class="col-start-1" />
 
                         <SharedRadioGroup 
                         title="Who are you booking for?"
                         class="col-start-1" 
-                        v-model="ownMultipleHotels" 
+                        v-model="bookingFor" 
                         :options="[
-                            {data: 'yes', label: `I'm the main guest`}, 
-                            {data: 'no', label: ` I'm booking for someone else `}
+                            {data: 'me', label: `I'm the main guest`}, 
+                            {data: 'someone', label: ` I'm booking for someone else `}
                         ]"
-                        :error="ownMultipleHotelsError"
                         name="group1"
                         errorMessage="Please select an option"
                         vertical
@@ -148,7 +169,7 @@ const handleNext = () => {
                         </p>
 
                         <div class="grid grid-cols-2 gap-x-16">
-                            <SharedTextInput label="Full guest name" v-model="guestName" :error="guestNameError" errorMessage="Full guest name cannot be empty" placeholder="Regina George" />
+                            <SharedTextInput label="Full guest name" v-model="fullGuestName" :error="fullGuestNameError" errorMessage="Full guest name cannot be empty" placeholder="Regina George" />
                         </div>
                         
                     </div>
@@ -163,8 +184,18 @@ const handleNext = () => {
 
                             <SharedDropDown 
                             label="Add your estimated arrival time (optional) " 
-                            v-model="country"
-                            :options="['9:00 AM — 10:00 AM', '10:00 AM — 11:00 AM', '11:00 AM — 12:00 AM']" 
+                            v-model="arrivalTime"
+                            :options="[
+                                '9:00 AM — 10:00 AM', 
+                                '10:00 AM — 11:00 AM', 
+                                '11:00 AM — 12:00 PM',
+                                '12:00 PM — 13:00 PM',
+                                '13:00 PM — 14:00 PM',
+                                '14:00 PM — 15:00 PM',
+                                '15:00 PM — 16:00 PM',
+                                '16:00 PM — 17:00 PM',
+                                '17:00 PM — 18:00 PM',
+                            ]" 
                             class="col-start-1" />
 
                         </div>
