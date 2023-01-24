@@ -50,11 +50,18 @@ export default defineNuxtConfig({
         cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
         cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
         cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+        cryptoScrete: process.env.CRYPTO_SCRETE,
         
         public: {
             baseUrl: development ? 'http://localhost:9000' : process.env.API_BASE_URL
         }
-    }
+    },
+
+    router: {
+        middleware: ['auth']
+    },
+
+    store: true
 })
 
 

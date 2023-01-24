@@ -1,13 +1,83 @@
 <script setup>
 
+import { storeToRefs } from "pinia"
+import { useAuthStore } from "~~/stores/authStore"
+
 definePageMeta({
     layout: 'empty'
 })
 
 const router = useRouter()
 
-const handleClick = () => {
-    router.push({path: '/'})
+const authStore = useAuthStore()
+
+const config = useRuntimeConfig()
+
+const baseUrl = config.public.baseUrl
+
+const username = ref()
+const email = ref()
+const password = ref()
+const confirmPassword = ref()
+const confirmPasswordError = ref(false)
+const usernameExistError = ref(false)
+const emailExistError = ref(false)
+
+
+const handleClick = async () => {
+
+    try {
+        if(password.value.trim() !== confirmPassword.value.trim()) {
+            setTimeout(() => {
+                confirmPasswordError.value = false
+            },5000)
+
+            return confirmPasswordError.value = true
+        }
+
+        const registerDto = {
+            username: username.value,
+            email: email.value,
+            password: password.value
+        }
+
+        const user = await $fetch(`${baseUrl}/api/auth/signup`, {
+            method: 'POST',
+            body: registerDto
+        })  
+        
+        localStorage.setItem('token', user.token)
+        // localStorage.setItem('user', JSON.stringify(user.userInfo))
+
+        await authStore.getAuthUser()
+
+        router.push({path: '/'})
+
+    } catch (error) {
+        if (error.response) {
+            if(error.response._data.duplicate){
+                if(Object.values(error.response._data.duplicate).includes('username')) {
+                    setTimeout(() => {
+                        usernameExistError.value = false
+                    },5000)
+                    return usernameExistError.value = true
+                }
+
+                if(Object.values(error.response._data.duplicate).includes('email')) {
+                    setTimeout(() => {
+                        emailExistError.value = false
+                    },5000)
+                    return emailExistError.value = true
+                }
+            }
+            else {
+                console.log(error.response._data.message)
+            }
+        } else {
+            console.error(error)
+        }
+    }
+
 }
 
 </script>
@@ -23,18 +93,30 @@ const handleClick = () => {
             <div class="relative w-full">
 
                 <input type="text" placeholder="Username" 
+                v-model="username"
                 class="w-full pl-12 pr-6 py-3 border-2 border-[#3A1C61] text-gray-600 text-sm font-semibold focus:outline-none bg-transparent">
 
                 <font-awesome-icon icon="fa-solid fa-user" class="text-[#3A1C61] text-xl absolute left-4 top-0 bottom-0 my-auto"/>
+
+                <small v-if="usernameExistError"
+                    class="text-xs font-semibold text-red-700 absolute left-0 -bottom-5">
+                        This username already exists
+                </small>
 
             </div>
 
             <div class="relative w-full">
 
                 <input type="email" placeholder="Email" 
+                v-model="email"
                 class="w-full pl-12 pr-6 py-3 border-2 border-[#3A1C61] text-gray-600 text-sm font-semibold focus:outline-none bg-transparent">
 
                 <font-awesome-icon icon="fa-solid fa-envelope" class="text-[#3A1C61] text-xl absolute left-4 top-0 bottom-0 my-auto"/>
+
+                <small v-if="emailExistError"
+                    class="text-xs font-semibold text-red-700 absolute left-0 -bottom-5">
+                        This email already exists
+                    </small>
 
             </div>
 
@@ -43,6 +125,7 @@ const handleClick = () => {
                 <div class="relative">
 
                     <input type="password" placeholder="Password" 
+                    v-model="password"
                     class="w-full pl-12 pr-6 py-3 border-2 border-[#3A1C61] text-gray-600 text-sm font-semibold focus:outline-none bg-transparent">
 
                     <font-awesome-icon icon="fa-solid fa-lock" class="text-[#3A1C61] text-xl absolute left-4 top-0 bottom-0 my-auto"/>
@@ -52,9 +135,15 @@ const handleClick = () => {
                 <div class="relative">
 
                     <input type="password" placeholder="Confirm Password" 
+                    v-model="confirmPassword"
                     class="w-full pl-12 pr-6 py-3 border-2 border-[#3A1C61] text-gray-600 text-sm font-semibold focus:outline-none bg-transparent">
 
                     <font-awesome-icon icon="fa-solid fa-lock" class="text-[#3A1C61] text-xl absolute left-4 top-0 bottom-0 my-auto"/>
+
+                    <small v-if="confirmPasswordError"
+                    class="text-xs font-semibold text-red-700 absolute left-0 -bottom-5">
+                        Passwords doesn't match
+                    </small>
 
                 </div>
 

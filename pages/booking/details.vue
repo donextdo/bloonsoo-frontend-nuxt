@@ -15,7 +15,7 @@ const router = useRouter()
 
 const bookingStore = useBookingStore()
 
-const { hotel, bookings } = storeToRefs(bookingStore)
+const { hotel, first_name, last_name, email, arrival_time } = storeToRefs(bookingStore)
 
 onMounted(async () => {
     bookingStore.setHotel(baseUrl)
@@ -24,13 +24,13 @@ onMounted(async () => {
 const isTravellingForWork = ref()
 const isTravellingForWorkError = ref(false)
 
-const firstName = ref()
+// const firstName = ref()
 const firstNameError = ref(false)
 
-const lastName = ref()
+// const lastName = ref()
 const lastNameError = ref(false)
 
-const email = ref()
+// const email = ref()
 const emailError = ref(false)
 
 const confirmEmail = ref()
@@ -41,9 +41,18 @@ const bookingFor = ref()
 const fullGuestName = ref()
 const fullGuestNameError = ref(false)
 
-const arrivalTime = ref()
+// const arrivalTime = ref()
 
 const handleNext = () => {
+
+    setTimeout(() => {
+        firstNameError.value = false
+        emailError.value = false
+    }, 5000)
+
+    if(!first_name.value) return firstNameError.value = true
+    if(!email.value) return emailError.value = true
+
     router.push({path: '/booking/final'})
 }
 
@@ -90,9 +99,9 @@ const handleNext = () => {
                         errorMessage="Please select an option"
                         />
 
-                        <SharedTextInput label="First Name" v-model="firstName" :error="firstNameError" errorMessage="First Name cannot be empty" placeholder="Regina" />
+                        <SharedTextInput label="First Name" v-model="first_name" :error="firstNameError" errorMessage="First Name cannot be empty" placeholder="Regina" />
 
-                        <SharedTextInput label="Last Name" v-model="lastName" :error="lastNameError" errorMessage="Last Name cannot be empty" placeholder="George" />
+                        <SharedTextInput label="Last Name" v-model="last_name" :error="lastNameError" errorMessage="Last Name cannot be empty" placeholder="George" />
 
                         <div class="flex flex-col gap-2">
                             <SharedTextInput label="Email Address" v-model="email" :error="emailError" errorMessage="Email Address cannot be empty" placeholder="Regina@fun.com" />
@@ -184,7 +193,7 @@ const handleNext = () => {
 
                             <SharedDropDown 
                             label="Add your estimated arrival time (optional) " 
-                            v-model="arrivalTime"
+                            v-model="arrival_time"
                             :options="[
                                 '9:00 AM — 10:00 AM', 
                                 '10:00 AM — 11:00 AM', 

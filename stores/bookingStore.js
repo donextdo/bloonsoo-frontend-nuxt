@@ -1,10 +1,22 @@
 import { defineStore } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
+
+let development = process.env.NODE_ENV !== 'production'
+
+const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
 
 export const useBookingStore = defineStore('booking', {
     state: () => ({ 
         hotelId: null, 
         bookings: [],
-        hotel: null 
+        hotel: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        country: null,
+        mobile: null,
+        arrival_time: null,
+        total: null
     }),
 
     getters: {
@@ -41,6 +53,38 @@ export const useBookingStore = defineStore('booking', {
                 this.hotel = hotelData
             } catch (error) {
                 console.log(error)
+            }
+        },
+        setMobile (number) {
+            this.mobile = number
+        },
+
+        async createBooking () {
+
+            const bookingDto = {
+                hotel_id: this.hotelId,
+                first_name: this.first_name,
+                last_name: this.last_name,
+                email: this.email,
+                coutry: this.country,
+                mobile: this.mobile,
+                arrival_time: this.arrival_time,
+                total: this.totalPrice,
+                bookings: this.bookings
+            }
+
+            try {
+                const booking = await $fetch(`${baseUrl}/api/booking/`, {
+                    method: 'POST',
+                    body: bookingDto,
+                    headers: {
+                        authorization: `Bearer ${useLocalStorage('token').value}`
+                    }
+                })
+
+                console.log(booking)
+            } catch (error) {
+                throw error
             }
         }
     }

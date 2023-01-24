@@ -18,13 +18,13 @@ const router = useRouter()
 
 const bookingStore = useBookingStore()
 
-const { hotel, bookings } = storeToRefs(bookingStore)
+const { hotel, country } = storeToRefs(bookingStore)
 
 onMounted(async () => {
     bookingStore.setHotel(baseUrl)
 })
 
-const country = ref()
+// const country = ref()
 const countryError = ref()
 
 const phoneNumber = ref()
@@ -40,16 +40,24 @@ const marketingEmailConfirmation = ref(false)
 const promoCode = ref()
 const promoCodeError = ref(false)
 
-const handleBooking = () => {
-    // router.push({path: `/hotels/${hotel.value._id}`})
-    
-    console.log(phoneNumberRes.value.e164)
-    console.log(paperlessConfirmation.value)
-    console.log(updatesEmailConfirmation.value)
-    console.log(marketingEmailConfirmation.value)
-    // setTimeout(() => {
-    //     bookingStore.$reset()
-    // }, 1000)  
+const handleBooking = async () => {
+    try {    
+        bookingStore.setMobile(phoneNumberRes.value.e164)
+
+        await bookingStore.createBooking()
+
+        router.push({path: `/hotels/${hotel.value._id}`})
+
+        setTimeout(() => {
+            bookingStore.$reset()
+        }, 1000)  
+    } catch (error) {
+        if(error.response){
+            console.log(error.response._data)
+        }
+
+        console.log(error)
+    }
 }
 
 </script>

@@ -1,8 +1,18 @@
 <script setup>
+import { useAuthStore } from "~~/stores/authStore"
+import { storeToRefs } from "pinia";
 
 defineProps({
     short: Boolean
 })
+
+const authStore = useAuthStore()
+
+onMounted(() => {
+    authStore.getAuthUser()
+})
+
+const { user } = storeToRefs(authStore)
 
 </script>
 
@@ -19,19 +29,19 @@ defineProps({
 
             <div class="flex gap-5">
 
-                <div class="flex gap-2">
+                <div v-if="user" class="flex gap-2">
                     <NuxtLink to="/listing/" class="py-2 px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
 
                     <button class="flex gap-3 rounded-full px-1 bg-white items-center justify-between">
                         <font-awesome-icon icon="fa-solid fa-bars" class="text-blue-700 ml-3"/>
 
-                        <div class="bg-blue-700 w-8 h-8 p-1 rounded-full">
+                        <NuxtLink to="/profile" class="bg-blue-700 w-8 h-8 flex items-center justify-center rounded-full">
                             <font-awesome-icon icon="fa-solid fa-user" class="text-white"/>
-                        </div>
+                        </NuxtLink>
                     </button>
                 </div>
 
-                <div class="flex gap-2 text-white font-semibold">
+                <div v-if="!user" class="flex gap-2 text-white font-semibold">
                     <NuxtLink class="px-6 py-2 gradient-outline-btn" to="/login">Login</NuxtLink>
 
                     <NuxtLink class="px-6 py-2 gradient-outline-btn" to="/register">Register</NuxtLink>
