@@ -7,19 +7,31 @@ defineProps({
 })
 
 const authStore = useAuthStore()
+const router = useRouter()
 
 onMounted(() => {
     authStore.getAuthUser()
 })
 
 const { user } = storeToRefs(authStore)
+const menu = ref(false)
+
+const toggleMenu = () => {
+    menu.value = !menu.value
+}
+
+const logout = () => {
+    user.value = null
+    localStorage.removeItem('token')
+    router.push('/')
+}
 
 </script>
 
 <template>
     
     <nav class="py-8 bg-darkblue text-white font-montserrat">
-        <div class="px-4 flex items-center justify-between md:px-2 md:container md:mx-auto">
+        <div class="px-4 flex items-center justify-between relative md:px-2 md:container md:mx-auto">
             
             <NuxtLink to="/">
                 <h1 class="text-3xl font-bold">
@@ -29,15 +41,21 @@ const { user } = storeToRefs(authStore)
 
             <div class="flex gap-5">
 
-                <div v-if="user" class="flex gap-2">
-                    <NuxtLink to="/listing/" class="py-2 px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
+                <div class="flex gap-2">
+                    <NuxtLink v-if="user" to="/listing/" class="py-2 px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
 
-                    <button class="flex gap-3 rounded-full px-1 bg-white items-center justify-between">
-                        <font-awesome-icon icon="fa-solid fa-bars" class="text-blue-700 ml-3"/>
+                    <button 
+                    @click="toggleMenu"
+                    class="flex gap-3 rounded-full px-1 bg-white items-center justify-between">
+                        <font-awesome-icon v-if="!menu" icon="fa-solid fa-bars" 
+                        class="text-blue-700 ml-3"/>
 
-                        <NuxtLink to="/profile" class="bg-blue-700 w-8 h-8 flex items-center justify-center rounded-full">
+                        <font-awesome-icon v-if="menu" icon="fa-solid fa-times" 
+                        class="text-blue-700 text-xl ml-3"/>
+
+                        <div class="bg-blue-700 w-8 h-8 flex items-center justify-center rounded-full">
                             <font-awesome-icon icon="fa-solid fa-user" class="text-white"/>
-                        </NuxtLink>
+                        </div>
                     </button>
                 </div>
 
@@ -47,6 +65,48 @@ const { user } = storeToRefs(authStore)
                     <NuxtLink class="px-6 py-2 gradient-outline-btn" to="/register">Register</NuxtLink>
                 </div>
 
+            </div>
+
+            <div 
+            :class="menu ? 'scale-y-100' : 'scale-y-0'"
+            class="bg-white px-6 py-4 rounded-md w-56 absolute right-6 top-12 z-30 
+            shadow-md transition-all duration-300 origin-top">
+                <ul class="w-full flex flex-col gap-2 text-sm font-semibold text-gray-600">
+                    <li 
+                    v-if="user"
+                    class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="/profile">
+                            Profile
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="#">
+                            Offers
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="#">
+                            Rental Guides
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="#">
+                            About us
+                        </NuxtLink>
+                    </li>
+
+                    <button
+                    v-if="user"
+                    @click="logout"
+                    class="btn-accent py-2">
+                        Logout
+                    </button>
+
+                    
+                </ul>
             </div>
 
         </div>

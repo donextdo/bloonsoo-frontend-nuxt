@@ -3,7 +3,8 @@
 import { ref } from 'vue'
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'listing',
+    middleware: ['auth']
 })
 
 const router = useRouter()

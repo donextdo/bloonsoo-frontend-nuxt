@@ -39,7 +39,8 @@ const handleClick = async () => {
 
         await authStore.getAuthUser()
 
-        router.push({path: '/'})
+        // router.push({path: '/'})
+        router.go(-1)
 
     } catch (error) {
 

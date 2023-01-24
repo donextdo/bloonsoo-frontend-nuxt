@@ -30,7 +30,7 @@ export default defineNuxtConfig({
             'maz-ui',
             'swiper',
             'tailwind-scrollbar-hide',
-            'tailwind-scrollbar'
+            'tailwind-scrollbar',
         ]
     },
 
@@ -61,7 +61,9 @@ export default defineNuxtConfig({
         middleware: ['auth']
     },
 
-    store: true
+    store: true,
+
+    devServerHandlers: []
 })
 
 
