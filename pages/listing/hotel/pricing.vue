@@ -3,7 +3,8 @@
     import { useHotelId } from '~~/composables/state';
 
     definePageMeta({
-        layout: 'listing'
+        layout: 'listing',
+        middleware: ['auth']
     })
 
     const router = useRouter()

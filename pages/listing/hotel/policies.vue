@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "listing",
+  middleware: ['auth']
 });
 
 const router = useRouter();

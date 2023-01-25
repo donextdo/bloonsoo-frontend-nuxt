@@ -50,5 +50,13 @@
 
 .m-phone-number-input__input.--border-radius .m-input-wrapper {
     border-radius: 0;
-    border: 1px solid;
+    /* border: 1px solid; */
+    border-width: 1px;
 }
+
+
+/* m-input-wrapper --default-border maz-rounded
+
+m-input --has-label m-phone-number-input__input maz-flex-1 --border-radius --error --focused --primary --sm */
+
+/* m-input --is-focused --should-up --has-label m-phone-number-input__input maz-flex-1 --border-radius --error --focused --primary --sm */

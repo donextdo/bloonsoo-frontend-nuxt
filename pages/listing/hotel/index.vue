@@ -1,7 +1,8 @@
 <script setup>
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'listing',
+    middleware: ['auth']
 })
 
 </script>
