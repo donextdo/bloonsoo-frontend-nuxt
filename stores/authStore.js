@@ -3,7 +3,8 @@ import { useLocalStorage } from "@vueuse/core";
 
 let development = process.env.NODE_ENV !== 'production'
 
-const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+const baseUrl = development ? 'http://localhost:9000' :' http://localhost:9000'
+// const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({  
@@ -19,18 +20,17 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async getAuthUser() {
             try {
-                
+
                 this.user = await $fetch(`${baseUrl}/api/auth/user`, {
                     headers: {
                         authorization: `Bearer ${useLocalStorage('token').value}`
                     }
                 })
 
-                console.log(this.user)
 
             } catch (error) {
                 this.user = null
-                throw error
+                console.log(error)
             }
         },
 

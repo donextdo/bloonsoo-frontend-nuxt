@@ -1,7 +1,9 @@
 <template>
     
     <div>
-        <Navbar short/>
+        <Navbar short>
+            <NavbarSearch />
+        </Navbar>
 
         <div>
             <slot />

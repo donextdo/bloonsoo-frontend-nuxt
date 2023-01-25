@@ -2,7 +2,7 @@
 
 definePageMeta({
     layout: 'listing',
-    middleware: ['auth']
+    // middleware: ['auth']
 })
 
 </script>

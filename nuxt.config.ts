@@ -57,13 +57,13 @@ export default defineNuxtConfig({
         }
     },
 
-    router: {
-        middleware: ['auth']
-    },
+    // router: {
+    //     middleware: ['auth']
+    // },
 
     store: true,
 
-    devServerHandlers: []
+    // devServerHandlers: []
 })
 
 
