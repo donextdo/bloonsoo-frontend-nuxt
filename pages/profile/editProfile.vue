@@ -1,5 +1,16 @@
 <script setup>
 
+definePageMeta({
+    layout: 'listing',
+    // middleware: ['auth']
+})
+
+const aboutError = ref(false)
+
+const emailError = ref(false)
+
+const locationError = ref(false)
+
 
 </script>
 
@@ -16,9 +27,12 @@
             <div class="shadow-md rounded-lg bg-white w-full px-5 py-8">
 
               <div class="w-1/3 aspect-square rounded-full mx-auto overflow-hidden">
+                <font-awesome-icon icon="fas fa-edit" class="text-xl text-blue-700 absolute mx-20 my-16"/>
+
                 <div class="w-full h-full object-cover">
                 <img src="../../assets/avatar/user_img.png"  alt="">
                 </div>
+
               </div>
 
               <div class="py-2">
@@ -67,40 +81,48 @@
                   <h1 class="text-3xl font-semibold ">Hello, Regina George</h1>
                   <p class="text-gray-500 text-md mb-5">Joined in 2021</p>
 
-                  <h1 class="text-xl font-semibold">About me</h1>
-                  <p class="text-gray-500 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet,</p>
+                  <SharedTextArea 
+                    label="About" 
+                    v-model="about" 
+                    :error="aboutError"
+                    errorMessage="please enter about"
+                    class="mb-5" />
 
-                  <div class="w-full flex items-center gap-3 my-2 ">
-                      <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-lg"/>
-                      <p class="font-medium text-lg">0 Reviews</p>
-                  </div>
+                    <SharedTextInput label="Email Address" v-model="email" :error="emailError" errorMessage="Email Address cannot be empty" class="mb-5" />
 
-                  <nuxt-link to="" class="text-blue-700 font-semibold underline">Reviewed By You</nuxt-link>
+                    <SharedTextInput label="Location" v-model="location" :error="locationError" errorMessage="Please enter" class="mb-5"/>
 
-                  <button class="mt-2 w-full h-16 font-semibold mb-2 bg-gray-100 border-gray-300 border-2">
-                    <div class="w-full flex items-center gap-3 mx-3">
-                      <HotelFacility class="!p-0 !w-max" icon="message" label="Message"/>
-                  </div>
-                  </button>
+                    <p class=" text-sm font-medium ">All the required user information can be added here...</p>
 
-                  <button class="mt-2 w-full h-16 font-semibold mb-2 bg-gray-100 border-gray-300 border-2">
-                    <div class="w-full flex items-center gap-3 mx-3">
-                      <HotelFacility class="!p-0 !w-max" icon="notification" label="Notifications"/>
-                  </div>
-                  </button>
 
-                  <button class="mt-2 w-full h-16 font-semibold mb-2 bg-gray-100 border-gray-300 border-2">
-                    <div class="w-full flex items-center gap-3 mx-3">
-                      <HotelFacility class="!p-0 !w-max" icon="reservation" label="Reservations"/>
-                  </div>
-                  </button>
+                    <div class="grid grid-cols-2 items-start gap-4 w-full mt-5">
+                      <div class="w-full col-span-1 h-full flex flex-col gap-6">
+                      </div>
 
-                  <button class="mt-2 w-full h-16 font-semibold mb-2 bg-gray-100 border-gray-300 border-2">
-                    <div class="w-full flex items-center gap-3 mx-3">
-                      <HotelFacility class="!p-0 !w-max" icon="wishlist" label="Wishlists"/>
-                  </div>
-                  </button>
+                      <div class="w-full col-span-1 h-full flex flex-col gap-6">
+                        
+                        <div class="flex flex-col gap-2">
 
+                            <div class="w-full flex items-center gap-3">
+
+                              <button class="mt-10 w-full h-10 aspect-square rounded-3xl grid place-items-center bg-gradient-to-b  font-semibold mb-10 ">
+
+                                <div class=" flex items-center gap-3 mx-auto">
+                                  <font-awesome-icon icon="fa-solid fa-xmark" class="text-md text-red-500"/>
+                                  <p class="text-red-500">Cancel</p>
+
+                                </div>
+                              </button>
+
+                                <button class="mt-10 w-full h-10 aspect-square rounded-3xl grid place-items-center bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow font-semibold mb-10">
+                                  Save Changes
+                                </button>
+
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
 
                 </div>
 
