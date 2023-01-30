@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./nuxt.config.{js,ts}",
+    "./node_modules/flowbite.{js,ts}"
+  ],
   theme: {
 
     screens: {
@@ -33,7 +40,8 @@ module.exports = {
   },
   plugins: [
     require('tailwind-scrollbar-hide'),
-    require('tailwind-scrollbar')
+    require('tailwind-scrollbar'),
+    require('flowbite')
   ],
 
 }

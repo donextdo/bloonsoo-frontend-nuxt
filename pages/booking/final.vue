@@ -7,7 +7,7 @@ import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar'
 })
 
 const config = useRuntimeConfig()

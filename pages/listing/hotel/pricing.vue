@@ -15,6 +15,8 @@
 
     const baseUrl = config.public.baseUrl
 
+    const token = localStorage.getItem('token')
+
     const rooms = ref([])
 
     const groupedRooms = ref()

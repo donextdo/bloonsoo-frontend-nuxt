@@ -9,6 +9,8 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const router = useRouter()
 
 const hotelId = useHotelId()
@@ -89,7 +91,10 @@ const createHotel = async () => {
 
     const hotel = await $fetch(`${baseUrl}/api/hotel/create`, {
         method: 'POST',
-        body: hotelDto
+        body: hotelDto,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     })
 
     hotelId.value = hotel._id

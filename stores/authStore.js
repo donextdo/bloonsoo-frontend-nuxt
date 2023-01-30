@@ -14,6 +14,30 @@ export const useAuthStore = defineStore('auth', {
     getters: {
         getToken() {
             return useLocalStorage('token')
+        },
+
+        getFullName() {
+            if(this.user.firstName && this.user.lastName) {
+                return `${this.user.firstName} ${this.user.lastName}`
+            }
+            else {
+                return false
+            }
+        },
+
+        getInitials() {
+            if(this.user.firstName && this.user.lastName) {
+                return `${this.user.firstName[0]}${this.user.lastName[0]}`
+            }
+            else {
+                return this.user.username[0]
+            }
+        },
+
+        getYear() {
+            let date = new Date(this.user.createdAt)
+            const year = date.getFullYear()
+            return year
         }
     },
 
@@ -32,6 +56,10 @@ export const useAuthStore = defineStore('auth', {
                 this.user = null
                 console.log(error)
             }
+        },
+
+        setUser(user) {
+            this.user = user
         },
 
         async nuxtServerInit(context) {

@@ -1,6 +1,5 @@
 import { useAuthStore } from "~~/stores/authStore";
 import { useRouter } from "vue-router";
-import { useLocalStorage } from "@vueuse/core";
 
 const authStore = useAuthStore()
 
@@ -19,10 +18,8 @@ const authStore = useAuthStore()
 // }
 
 export default defineNuxtRouteMiddleware( async (to) => {
-    // await authStore.getAuthUser()
-    const token = useLocalStorage('token').value
-    if(!token) {
-        console.log('first')
+    await authStore.getAuthUser()
+    if(!authStore.user) {
         return '/login'
     }
-})  
+})

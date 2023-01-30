@@ -8,6 +8,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt'
     ],
 
+    ssr: true,
+
     css: [
         '~/assets/css/main.css',
         '@fortawesome/fontawesome-svg-core/styles.css',
@@ -57,13 +59,13 @@ export default defineNuxtConfig({
         }
     },
 
-    // router: {
-    //     middleware: ['auth']
-    // },
+    router: {
+        middleware: ['auth']
+    },
 
     store: true,
 
-    // devServerHandlers: []
+    devServerHandlers: []
 })
 
 

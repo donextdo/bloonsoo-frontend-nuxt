@@ -3,7 +3,7 @@ import { useBookingStore } from '~~/stores/bookingStore';
 import { storeToRefs } from "pinia"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar'
 })
 
 const hotel = ref({})
