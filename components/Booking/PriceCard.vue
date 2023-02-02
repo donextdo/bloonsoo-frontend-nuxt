@@ -15,7 +15,7 @@ const { totalPrice } = storeToRefs(bookingStore)
         <div class="grid grid-cols-2 gap-2 border-b-2 border-gray-200 pb-6 mb-5">
             <div>
                 <p class="font-semibold text-lg text-gray-700">Price</p>
-                <p class="text-gray-500 text-sm">( your currency )</p>
+                <!-- <p class="text-gray-500 text-sm">( your currency )</p> -->
             </div>
             <div>
                 <p class="font-semibold text-lg text-gray-700 float-right">{{ totalPrice }}</p>
@@ -35,7 +35,7 @@ const { totalPrice } = storeToRefs(bookingStore)
 
             </div>
 
-            <p class="text-gray-500 text-sm">in USS ( for 2 nights & all guests ) </p>
+            <!-- <p class="text-gray-500 text-sm">in USS ( for 2 nights & all guests ) </p> -->
 
         </div>
 

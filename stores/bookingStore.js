@@ -10,12 +10,13 @@ export const useBookingStore = defineStore('booking', {
         hotelId: null, 
         bookings: [],
         hotel: null,
-        first_name: null,
-        last_name: null,
+        isTravellingForWork: null,
+        fullName: null,
         email: null,
+        estimatedArrivalTime: null,
         country: null,
         mobile: null,
-        arrival_time: null,
+        paymentMethod: null,
         total: null
     }),
 
@@ -31,6 +32,25 @@ export const useBookingStore = defineStore('booking', {
             })
 
             return `${currency} ${total}`
+        },
+
+        getTotalGuests() {
+            let adults = 0
+            let children = 0
+
+            this.bookings.forEach(b => {
+                adults = adults + b.adults 
+                children = children + b.children
+            })
+
+            if(adults > 0 && children > 0) {
+                return `${adults} Adults, ${children} Children`
+            }
+            else
+            {
+                return `${adults} Adults`
+            }
+
         }
     },
 
@@ -38,15 +58,19 @@ export const useBookingStore = defineStore('booking', {
         setHotelId (id) {
             this.hotelId = id
         },
+
         setBookings (bookings) {
             this.bookings = bookings
         },
+
         addBooking (booking) {
             this.bookings.push(booking)
         },
+
         removeBooking (id) {
             this.bookings = this.bookings.filter(b => b.id !== id)
         },
+
         async setHotel (baseUrl) {
             try {
                 const hotelData = await $fetch(`${baseUrl}/api/hotel/${this.hotelId}`)
@@ -55,8 +79,35 @@ export const useBookingStore = defineStore('booking', {
                 console.log(error)
             }
         },
+
         setMobile (number) {
             this.mobile = number
+        },
+
+        setBookingInfoFirstPage (isTravellingForWork, fullName, email, estimatedArrivalTime) {
+            this.isTravellingForWork = isTravellingForWork,
+            this.fullName = fullName,
+            this.email = email,
+            this.estimatedArrivalTime = estimatedArrivalTime
+
+            console.log({
+                x: this.isTravellingForWork,
+                y: this.fullName,
+                z: this.email,
+                a: this.estimatedArrivalTime
+            })
+        },
+
+        setBookingInfoSecondPage (country, mobile, paymentMethod) {
+            this.country = country
+            this.mobile = mobile
+            this.paymentMethod = paymentMethod
+
+            console.log({
+                x: this.country,
+                y: this.mobile,
+                z: this.paymentMethod
+            })
         },
 
         async createBooking () {
