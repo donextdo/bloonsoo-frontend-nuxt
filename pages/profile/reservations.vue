@@ -1,15 +1,12 @@
 <script setup>
 import { useAuthStore } from "~~/stores/authStore"
 import { storeToRefs } from "pinia";
-import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
-import '@/assets/css/phoneNumberInput.css'
 
 definePageMeta({
     layout: 'mini-searchbar',
     middleware: ['auth']
 })
 
-const showProfileForm = ref(false)
 const menu = ref(false)
 const router = useRouter()
 
@@ -22,114 +19,23 @@ const baseUrl = config.public.baseUrl
 
 const token = localStorage.getItem('token')
 
-const editMode = ref(false)
+const bookings = ref([])
 
-const firstName = ref()
-const firstNameError = ref(false)
-
-const lastName = ref()
-const lastNameError = ref(false)
-
-const addressLine1 = ref()
-const addressLine1Error = ref(false)
-
-const addressLine2 = ref()
-
-const city = ref()
-const cityError = ref(false)
-
-const country = ref()
-const countryError = ref(false)
-
-const postalCode = ref()
-const postalCodeError = ref(false)
-
-const phoneNumber = ref()
-const phoneNumberRes = ref()
-const phoneNumberError = ref(false)
-
-const about = ref()
-const aboutError = ref(false)
-
-
-function setDefaults() {
-  firstName.value = user.value?.firstName ? user.value?.firstName : ''
-  lastName.value = user.value?.lastName ? user.value?.lastName: ''
-  addressLine1.value = user.value?.address ? user.value?.address.addressLine1 : ''
-  addressLine2.value = user.value?.address ? user.value?.address.addressLine2 : ''
-  city.value = user.value?.address ? user.value?.address.city : ''
-  country.value = user.value?.address ? user.value?.address.country : ''
-  postalCode.value = user.value?.address ? user.value?.address.postalCode : ''
-  phoneNumber.value = user.value?.mobile ? user.value?.mobile : ''
-  about.value = user.value?.about ? user.value?.about : ''
-}
-
-onMounted(() => {
-  setDefaults()
-})
-
-
-const toggleEditMode = () => {
-  editMode.value = !editMode.value
-}
-
-const handleCancel = () => {
-  editMode.value = !editMode.value
-  setDefaults()
-}
-
-
-const handleSave = async () => {
-
-    setTimeout(() => {
-        firstNameError.value = false
-        lastNameError.value = false
-        addressLine1Error.value = false
-        cityError.value = false
-        countryError.value = false
-        phoneNumberError.value = false
-    }, 10000)
-
-    if(!firstName.value) return firstNameError.value = true
-    if(!lastName.value) return lastNameError.value = true
-    if(!addressLine1.value) return addressLine1Error.value = true
-    if(!city.value) return cityError.value = true
-    if(!country.value) return countryError.value = true
-    if(!phoneNumberRes.value.isValid) return phoneNumberError.value = true
-
-    const updateProfileDto = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      address: {
-        addressLine1: addressLine1.value,
-        addressLine2: addressLine2.value,
-        city: city.value,
-        country: country.value,
-        postalCode: postalCode.value,
-      },
-      mobile: phoneNumberRes.value.e164,
-      about: about.value,
-      isProfileComplete: true
-    }
-
+onMounted( async () => {
   try {
-      const data = await $fetch(`${baseUrl}/api/user/${user.value?._id}`, {
-          method: 'PATCH',
-          body: updateProfileDto,
+    const data = await $fetch(`${baseUrl}/api/booking/my/bookings`, {
           headers: {
               authorization: `Bearer ${token}`
           }
-      })
+    })
 
-      authStore.setUser(data)
-      setDefaults()
-      toggleEditMode()
-
-  } catch (error) {
-      throw error
+    bookings.value = data
   }
+  catch(error) {
+    console.log(error)
+  }
+})
 
-}
 
 const toggleMenu = () => {
     menu.value = !menu.value
@@ -164,7 +70,18 @@ const logout = () => {
               <h4 class="text-lg font-bold">Resarvations</h4>
             </div>
 
-            
+
+            <div class="mt-6 flex flex-col gap-4 w-full">
+
+              <BookingCard
+                v-for="book in bookings"
+                :key="book._id"
+                :booking="book"
+              />
+
+            </div>
+
+
             <button 
             @click="toggleMenu"
             class="absolute top-0 right-10">
@@ -210,11 +127,6 @@ const logout = () => {
           </section>
             
         </main>
-
-
-        <ProfileForm 
-        v-if="showProfileForm"
-        @onSubmit="onProfileFormSubmit" @onClose="toggleProfileForm" />
 
    </section>
 

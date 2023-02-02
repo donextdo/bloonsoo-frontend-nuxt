@@ -126,7 +126,7 @@ const handleSave = async () => {
       toggleEditMode()
 
   } catch (error) {
-      throw error
+      console.log(error)
   }
 
 }
@@ -166,7 +166,19 @@ const logout = () => {
             </div> -->
 
             <div class="w-full pb-6 border-b border-gray-300">
-              <h4 class="text-lg font-bold">Your information</h4>
+              <div class="flex items-center gap-4">
+                <h4 class="text-lg font-bold">Your information</h4>
+                <button
+                    v-if="!editMode"
+                    @click="toggleEditMode"
+                >
+                    <font-awesome-icon
+                        icon="fa-solid fa-pen-to-square"
+                        class="text-blue-600 text-base"
+                    />
+                </button>
+              </div>
+              
               <p
               v-if="!user.isProfileComplete"
               class="text-sm font-semibold text-red-800">*Please complete your profile</p>
@@ -182,8 +194,6 @@ const logout = () => {
                       :error="firstNameError" 
                       errorMessage="First name cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -192,8 +202,6 @@ const logout = () => {
                       :error="lastNameError" 
                       errorMessage="Last name cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -202,16 +210,12 @@ const logout = () => {
                       :error="addressLine1Error" 
                       errorMessage="Location cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
                       label="Address Line 2 (optional)" 
                       v-model="addressLine2" 
                       :readonly="!editMode" 
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -220,8 +224,6 @@ const logout = () => {
                       :error="cityError" 
                       errorMessage="Location cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -230,8 +232,6 @@ const logout = () => {
                       :error="countryError" 
                       errorMessage="Location cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -240,8 +240,6 @@ const logout = () => {
                       :error="postalCodeError" 
                       errorMessage="Location cannot be empty" 
                       :readonly="!editMode"
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <SharedTextInput 
@@ -249,18 +247,16 @@ const logout = () => {
                       label="Phone Number" 
                       v-model="phoneNumber" 
                       readonly
-                      :editMode="!editMode"
-                      @onEditClick="toggleEditMode"
                   />
 
                   <div
                   v-if="editMode"
                   class="flex flex-col gap-2 items-start col-start-2">
 
-                      <div class="flex items-center gap-4">
+                      <!-- <div class="flex items-center gap-4"> -->
                         <label :class="phoneNumberError ? 'text-red-600' : 'text-gray-600' " class="text-sm font-semibold">Phone Number</label>
 
-                        <button
+                        <!-- <button
                             v-if="!editMode"
                             @click="toggleEditMode"
                         >
@@ -268,8 +264,8 @@ const logout = () => {
                                 icon="fa-solid fa-pen-to-square"
                                 class="text-blue-600 text-sm"
                             />
-                        </button>
-                      </div>
+                        </button> -->
+                      <!-- </div> -->
                       
 
                       <ClientOnly>
@@ -292,12 +288,12 @@ const logout = () => {
                   <div
                   v-if="!editMode"
                   class="flex flex-col gap-2 items-start col-span-2">
-                    <div class="flex items-center gap-4">
+                    <!-- <div class="flex items-center gap-4"> -->
                       <h4 class="text-sm font-semibold text-gray-600">
                         About
                       </h4>
 
-                      <button
+                      <!-- <button
                           v-if="!editMode"
                           @click="toggleEditMode"
                       >
@@ -306,7 +302,7 @@ const logout = () => {
                               class="text-blue-600 text-sm"
                           />
                       </button>
-                    </div>
+                    </div> -->
                     
                     <div class="w-full px-6 py-4 border border-slate-400 font-semibold text-gray-600">
                       {{ about }}

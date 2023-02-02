@@ -30,7 +30,7 @@
 
 <template>
     <div class="flex flex-col gap-2 items-start">
-        <div class="flex items-center gap-4">
+        <div v-if="label" class="flex items-center gap-4">
             <label :class="error ? 'text-red-600' : 'text-gray-600' " v-if="label" class="text-sm font-semibold">{{ label }}</label>
 
             <button
