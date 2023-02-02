@@ -15,6 +15,8 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const facilitiesData = [
     {data: 'Non-smoking rooms', label: 'Non-smoking rooms'}, 
     {data: 'Restaurant', label: 'Restaurant'}, 
@@ -128,7 +130,10 @@ const addFacilities = async () => {
 
     const hotel = await $fetch( `${baseUrl}/api/hotel/facilities/${hotelId.value}`, {
             method: 'PATCH',
-            body: dto
+            body: dto,
+            headers: {
+                authorization: `Bearer ${token}`
+            }
     } )
 
     console.log(hotel)

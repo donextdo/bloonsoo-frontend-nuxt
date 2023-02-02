@@ -20,7 +20,6 @@ const authStore = useAuthStore()
 export default defineNuxtRouteMiddleware( async (to) => {
     await authStore.getAuthUser()
     if(!authStore.user) {
-        console.log('first')
         return '/login'
     }
 })

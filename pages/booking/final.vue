@@ -7,7 +7,7 @@ import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar'
 })
 
 const config = useRuntimeConfig()
@@ -163,6 +163,8 @@ const handleBooking = async () => {
                     Your booking is directly with French Garden Kandy and by completing this booking you agree to the
                     <NuxtLink to="#" class="text-blue-700 font-semibold block">booking  conditions, general terms, and privacy policy.</NuxtLink>
                 </p>
+
+               
 
             </section>
 

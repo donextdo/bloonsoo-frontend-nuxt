@@ -8,6 +8,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt'
     ],
 
+    ssr: true,
+
     css: [
         '~/assets/css/main.css',
         '@fortawesome/fontawesome-svg-core/styles.css',

@@ -3,7 +3,8 @@ import { useLocalStorage } from "@vueuse/core";
 
 let development = process.env.NODE_ENV !== 'production'
 
-const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+const baseUrl = development ? 'http://localhost:9000' :' http://localhost:9000'
+// const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({  
@@ -13,25 +14,52 @@ export const useAuthStore = defineStore('auth', {
     getters: {
         getToken() {
             return useLocalStorage('token')
+        },
+
+        getFullName() {
+            if(this.user.firstName && this.user.lastName) {
+                return `${this.user.firstName} ${this.user.lastName}`
+            }
+            else {
+                return false
+            }
+        },
+
+        getInitials() {
+            if(this.user.firstName && this.user.lastName) {
+                return `${this.user.firstName[0]}${this.user.lastName[0]}`
+            }
+            else {
+                return this.user.username[0]
+            }
+        },
+
+        getYear() {
+            let date = new Date(this.user.createdAt)
+            const year = date.getFullYear()
+            return year
         }
     },
 
     actions: {
         async getAuthUser() {
             try {
-                
+
                 this.user = await $fetch(`${baseUrl}/api/auth/user`, {
                     headers: {
                         authorization: `Bearer ${useLocalStorage('token').value}`
                     }
                 })
 
-                console.log(this.user)
 
             } catch (error) {
                 this.user = null
-                throw error
+                console.log(error)
             }
+        },
+
+        setUser(user) {
+            this.user = user
         },
 
         async nuxtServerInit(context) {

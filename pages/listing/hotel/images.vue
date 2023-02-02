@@ -15,6 +15,8 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const image = ref(null)
 const imageValue = ref('')
 const preview = ref('')
@@ -39,7 +41,10 @@ const onChange = async (event) => {
 
         const hotel = await $fetch( `${baseUrl}/api/hotel/coverphoto/${hotelId.value}`, {
             method: 'PATCH',
-            body: formData
+            body: formData,
+            headers: {
+                authorization: `Bearer ${token}`
+            }
         } )
 
         console.log(hotel)
@@ -64,7 +69,10 @@ const onMultipleChange = async (event) => {
 
             const path = await $fetch( `${baseUrl}/api/hotel/gallery/${hotelId.value}`, {
                 method: 'PATCH',
-                body: formData
+                body: formData,
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
             } )
 
             console.log(path)

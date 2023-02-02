@@ -9,7 +9,9 @@ const props = defineProps({
 })
 
 const checkIn = ref('')
+const checkInError = ref(false)
 const checkOut = ref('')
+const checkOutError = ref(false)
 const guestPanel = ref(false)
 const adults = ref(2)
 const children = ref(0)
@@ -17,14 +19,28 @@ const rooms = ref(1)
 const setGuests = ref(false)
 
 onMounted(() => {
+    // const today = new Date()
+    // const month = String(today.getMonth() + 1).padStart(2, '0')
+    // const day = String(today.getDate()).padStart(2, '0')
+    // const tomorrow = String(today.getDate() + 1).padStart(2, '0')
+    // const year = today.getFullYear()
+
+    // checkIn.value = `${year}-${month}-${day}`
+    // checkOut.value = `${year}-${month}-${tomorrow}`
+
     const today = new Date()
-    const month = String(today.getMonth() + 1).padStart(2, '0')
-    const day = String(today.getDate()).padStart(2, '0')
-    const tomorrow = String(today.getDate() + 1).padStart(2, '0')
-    const year = today.getFullYear()
+    const inDate = new Date(today.setDate(today.getDate()))
+    const outDate = new Date(today.setDate(today.getDate() + 1))
+
+    const month = String(inDate.getMonth() + 1).padStart(2, '0')
+    const day = String(inDate.getDate()).padStart(2, '0')
+    const tomorrowMonth = String(outDate.getMonth() + 1).padStart(2, '0')
+    const tomorrowDay = String(outDate.getDate()).padStart(2, '0')
+    const year = inDate.getFullYear();
 
     checkIn.value = `${year}-${month}-${day}`
-    checkOut.value = `${year}-${month}-${tomorrow}`
+    checkOut.value = `${year}-${tomorrowMonth}-${tomorrowDay}`
+
 })
 
 const handleClose = () => {
@@ -60,9 +76,35 @@ const handleDecrease = (e) => {
     }
 }
 
+watch(checkOut, (newCheckOut) => {
+    const checkInDate = new Date(checkIn.value)
+    const checkOutDate = new Date(newCheckOut)
+
+    if(checkInDate >= checkOutDate) {
+        checkOutError.value = true
+    }
+    else {
+        checkOutError.value= false
+    }
+})
+
+// watch(checkIn, (newCheckIN) => {
+//     const checkInDate = new Date(newCheckIN)
+//     const today = new Date()
+
+//     if(checkInDate < today) {
+//         checkInError.value = true
+//     }
+//     else {
+//         checkInError.value= false
+//     }
+// })
+
 const onSubmit = () => {
     const checkInDate = new Date(checkIn.value)
     const checkOutDate = new Date(checkOut.value)
+
+    if(checkOutError.value) return
 
     const nights = (checkOutDate - checkInDate) / 86400000
 
@@ -91,10 +133,14 @@ const onSubmit = () => {
                 <SharedDateInput
                     label="Check In"
                     v-model="checkIn"
+                    :error="checkInError"
+                    error-message="Invalid check in date"
                 />
                 <SharedDateInput
                     label="Check Out"
                     v-model="checkOut"
+                    :error="checkOutError"
+                    error-message="Invalid check out Date"
                 />
 
                 <div class="flex flex-col gap-2 items-start col-span-2 relative">
