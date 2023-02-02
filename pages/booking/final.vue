@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import '@/assets/css/phoneNumberInput.css'
 import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
+import { useAuthStore } from "~~/stores/authStore"
 
 definePageMeta({
     layout: 'mini-searchbar'
@@ -17,14 +18,12 @@ const baseUrl = config.public.baseUrl
 const router = useRouter()
 
 const bookingStore = useBookingStore()
+const authStore = useAuthStore()
 
-const { hotel, country } = storeToRefs(bookingStore)
+const { hotel } = storeToRefs(bookingStore)
+const { user } = storeToRefs(authStore)
 
-onMounted(async () => {
-    bookingStore.setHotel(baseUrl)
-})
-
-// const country = ref()
+const country = ref()
 const countryError = ref()
 
 const phoneNumber = ref()
@@ -37,14 +36,37 @@ const updatesEmailConfirmation = ref(false)
 
 const marketingEmailConfirmation = ref(false)
 
+const paymentOption = ref()
+const paymentOptionError = ref(false)
+
+const setDefaults = () => {
+    phoneNumber.value = user.value?.mobile ? user.value?.mobile : ''
+}
+
+onMounted(async () => {
+    bookingStore.setHotel(baseUrl)
+    setDefaults()
+})
+
 const promoCode = ref()
 const promoCodeError = ref(false)
 
 const handleBooking = async () => {
-    try {    
-        bookingStore.setMobile(phoneNumberRes.value.e164)
 
-        await bookingStore.createBooking()
+    setTimeout(() => {
+        paymentOptionError.value = false
+    }, 5000)
+
+    if(!paymentOption.value) return paymentOptionError.value = true
+
+    try {    
+        bookingStore.setBookingInfoSecondPage(
+            country.value,
+            phoneNumberRes.value.e164,
+            paymentOption.value
+        )
+
+        // await bookingStore.createBooking()
 
         router.push({path: `/hotels/${hotel.value._id}`})
 
@@ -79,7 +101,7 @@ const handleBooking = async () => {
                     :address="hotel?.property_address"
                 />
 
-                <ListingFormCard label="Enter Your Address" class="shadow-md">
+                <ListingFormCard label="Enter Your Information" class="shadow-md">
 
                     <div class="grid grid-cols-2 gap-x-16 gap-y-6 px-4">
 
@@ -127,6 +149,76 @@ const handleBooking = async () => {
                     </div>
 
                 </ListingFormCard>  
+
+                <ListingFormCard label="Select a Payment Option" class="shadow-md">
+                    <div class="px-4 w-full flex gap-4 text-gray-600 text-sm font-semibold">
+
+                        <div class="flex flex-col items-center gap-2 flex-1">
+                            <label for="credit-card" class="cursor-pointer">
+                                <font-awesome-icon icon="fa-solid fa-credit-card" class="text-blue-600 text-5xl" />
+                            </label>
+
+                            <label for="credit-card" class="cursor-pointer">
+                                Credit/Debit Card
+                            </label>
+
+                            <input 
+                                type="radio"
+                                id="credit-card"
+                                name="payment-options"
+                                value="card"
+                                v-model="paymentOption"
+                                class="w-5 h-5 cursor-pointer"
+                            >
+                        </div>
+
+                        <div class="flex flex-col items-center gap-2 flex-1">
+                            <label for="crypto" class="cursor-pointer">
+                                <font-awesome-icon icon="fa-brands fa-bitcoin" class="text-blue-600 text-5xl" />
+                            </label>
+
+                            <label for="crypto" class="cursor-pointer">
+                                Crypto Currency
+                            </label>
+
+                            <input 
+                                type="radio"
+                                id="crypto"
+                                name="payment-options"
+                                value="crypto"
+                                v-model="paymentOption"
+                                class="w-5 h-5 cursor-pointer"
+                            >
+                        </div>
+
+                        <div class="flex flex-col items-center gap-2 flex-1">
+                            <label for="on-site" class="cursor-pointer">
+                                <font-awesome-icon icon="fa-solid fa-hotel" class="text-blue-600 text-5xl" />
+                            </label>
+
+                            <label for="on-site" class="cursor-pointer">
+                                Onsite
+                            </label>
+
+                            <input 
+                                type="radio"
+                                id="on-site"
+                                name="payment-options"
+                                value="onsite"
+                                v-model="paymentOption"
+                                class="w-5 h-5 cursor-pointer"
+                            >
+                        </div>
+
+                    </div>
+
+                    <small 
+                    v-if="paymentOptionError"
+                    class="text-red-600 font-semibold text-sm px-4">
+                        Please select a payment method
+                    </small>
+
+                </ListingFormCard> 
 
                 <div class="flex item-center gap-3 mt-6">
                     <input 
@@ -196,7 +288,7 @@ const handleBooking = async () => {
 
                 </div>
 
-                <div class="shadow-md rounded-lg bg-white w-full px-5 py-8">
+                <!-- <div class="shadow-md rounded-lg bg-white w-full px-5 py-8">
                 
                     <h4 class="font-semibold mb-4 text-base"> Do you have a promo code </h4>
                     <SharedTextInput 
@@ -208,7 +300,7 @@ const handleBooking = async () => {
 
                     <button class="py-1 px-8 gradient-outline-btn mt-6">Apply</button>
 
-                </div>
+                </div> -->
 
             </aside>
 
