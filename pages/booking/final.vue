@@ -6,9 +6,11 @@ import '@/assets/css/phoneNumberInput.css'
 import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
 import { useAuthStore } from "~~/stores/authStore"
+// import "payhere-embed-sdk/dist/embed.css"
+// import Payhere from "payhere-embed-sdk/dist/embed"
 
 definePageMeta({
-    layout: 'mini-searchbar'
+    layout: 'mini-searchbar',
 })
 
 const config = useRuntimeConfig()
@@ -51,6 +53,12 @@ onMounted(async () => {
 const promoCode = ref()
 const promoCodeError = ref(false)
 
+const showBookingCheckOut = ref(false)
+
+const toggleCheckOutPopup = () => {
+    showBookingCheckOut.value = !showBookingCheckOut.value
+}
+
 const handleBooking = async () => {
 
     setTimeout(() => {
@@ -65,6 +73,8 @@ const handleBooking = async () => {
             phoneNumberRes.value.e164,
             paymentOption.value
         )
+
+        if(paymentOption.value == 'card') return toggleCheckOutPopup()
 
         // await bookingStore.createBooking()
 
@@ -82,8 +92,11 @@ const handleBooking = async () => {
     }
 }
 
-</script>
+const launchPayhere = async () => {
+    toggleCheckOutPopup()
+}
 
+</script>
 
 <template>
     
@@ -309,6 +322,8 @@ const handleBooking = async () => {
         <button @click="handleBooking" class="w-full py-4 btn-accent">
           Complete booking 
         </button>
+
+        <BookingCheckOut v-if="showBookingCheckOut" @onClose="toggleCheckOutPopup" @onSubmit="launchPayhere"/>
    </section>
 
 </template>

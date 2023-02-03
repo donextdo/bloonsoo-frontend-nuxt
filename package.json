@@ -32,6 +32,7 @@
     "libphonenumber-js": "^1.10.14",
     "maz-ui": "^3.0.8",
     "nuxt-buefy": "^0.4.24",
+    "payhere-embed-sdk": "^0.7.3",
     "pinia": "^2.0.29",
     "sass": "^1.55.0",
     "swiper": "^8.4.4",

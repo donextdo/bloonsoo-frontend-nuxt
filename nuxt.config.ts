@@ -32,7 +32,7 @@ export default defineNuxtConfig({
             'maz-ui',
             'swiper',
             'tailwind-scrollbar-hide',
-            'tailwind-scrollbar',
+            'tailwind-scrollbar'
         ]
     },
 
