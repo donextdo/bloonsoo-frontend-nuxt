@@ -8,6 +8,8 @@ const baseUrl = config.public.baseUrl
 
 const token = localStorage.getItem('token')
 
+const route = useRoute()
+
 const image = ref(null)
 const imageValue = ref('')
 
@@ -57,88 +59,127 @@ const toggleProfileForm = () => {
   <div
     class="shadow-md rounded-lg bg-white w-full px-6 py-6 flex flex-col gap-2"
   >
-    <div
-      class="
-        w-2/3
-        aspect-square
-        rounded-full
-        mx-auto
-        overflow-hidden
-        relative
-        group
-      "
-    >
-      <img v-if="user.profilePic"
-        :src="user.profilePic"
-        class="w-full h-full object-cover"
-        alt=""
-      />
 
-        <div 
-        v-if="!user.profilePic"
-        class="flex items-center justify-center bg-gray-500 text-white w-full h-full">
-            <h1 class="font-bold text-8xl">{{ getInitials }}</h1>
-        </div>
-
+    <div class="w-full pb-6 border-b border-gray-300">
       <div
-        v-if="editMode"
         class="
-          absolute
-          left-0
-          bottom-0
-          right-0
+          w-2/3
+          aspect-square
+          rounded-full
           mx-auto
-          w-full
-          h-1/3
-          hidden
-          items-center
-          justify-center
-          bg-black bg-opacity-30
-          group-hover:flex
+          overflow-hidden
+          relative
+          group
         "
       >
-        <label
-          for="cover-img"
-          class="text-blue-500 text-sm font-semibold cursor-pointer"
+        <img v-if="user.profilePic"
+          :src="user.profilePic"
+          class="w-full h-full object-cover"
+          alt=""
+        />
+
+          <div 
+          v-if="!user.profilePic"
+          class="flex items-center justify-center bg-gray-500 text-white w-full h-full">
+              <h1 class="font-bold text-8xl">{{ getInitials }}</h1>
+          </div>
+
+        <div
+          v-if="editMode"
+          class="
+            absolute
+            left-0
+            bottom-0
+            right-0
+            mx-auto
+            w-full
+            h-1/3
+            hidden
+            items-center
+            justify-center
+            bg-black bg-opacity-30
+            group-hover:flex
+          "
         >
-          <font-awesome-icon
-            icon="fa-solid fa-camera"
-            class="text-blue-500 text-2xl"
+          <label
+            for="cover-img"
+            class="text-blue-500 text-sm font-semibold cursor-pointer"
+          >
+            <font-awesome-icon
+              icon="fa-solid fa-camera"
+              class="text-blue-500 text-2xl"
+            />
+          </label>
+
+          <input
+            class="hidden"
+            id="cover-img"
+            type="file"
+            @change="onChange"
+            accept="image/*"
+            ref="imageValue"
           />
-        </label>
+        </div>
+      </div>
 
-        <input
-          class="hidden"
-          id="cover-img"
-          type="file"
-          @change="onChange"
-          accept="image/*"
-          ref="imageValue"
-        />
+      <h1 class="text-center font-semibold text-lg">{{ getFullName ? getFullName : user.username }}</h1>
+
+      <div class="w-full flex flex-col items-center">
+        <div 
+        v-if="user.address"
+        class="w-max flex items-center gap-2">
+          <font-awesome-icon
+            icon="fa-solid fa-location-dot"
+            class="text-blue-600 text-base"
+          />
+          <p class="text-sm font-semibold text-gray-600">{{ user.address.city }}</p>
+        </div>
+
+        <div class="w-max flex items-center gap-2">
+          <font-awesome-icon
+            icon="fa-solid fa-envelope"
+            class="text-blue-600 text-base"
+          />
+          <p class="text-sm font-semibold text-gray-600">{{ user.email }}</p>
+        </div>
       </div>
     </div>
 
-    <h1 class="text-center font-semibold text-lg">{{ getFullName ? getFullName : user.username }}</h1>
+    <div class="w-full pb-6 pt-4 border-b border-gray-300">
+      <ul class="w-full flex flex-col gap-3 text-sm font-semibold text-gray-600">
+          <li 
+          :class="route.path == '/profile' && 'text-blue-600'"
+          class="w-full flex items-center gap-2">
+              <font-awesome-icon
+                icon="fa-solid fa-user"
+                class="text-base"
+              />
 
-    <div class="w-full flex flex-col items-center">
-      <div 
-      v-if="user.address"
-      class="w-max flex items-center gap-2">
-        <font-awesome-icon
-          icon="fa-solid fa-location-dot"
-          class="text-blue-600 text-base"
-        />
-        <p class="text-sm font-semibold text-gray-600">{{ user.address.city }}</p>
-      </div>
+              <NuxtLink to="/profile">
+                  Profile
+              </NuxtLink>
+          </li>
 
-      <div class="w-max flex items-center gap-2">
-        <font-awesome-icon
-          icon="fa-solid fa-envelope"
-          class="text-blue-600 text-base"
-        />
-        <p class="text-sm font-semibold text-gray-600">{{ user.email }}</p>
-      </div>
+          <li 
+          :class="route.path == '/profile/reservations' && 'text-blue-700'"
+          class="w-full flex items-center gap-2">
+              <font-awesome-icon
+                icon="fa-solid fa-bookmark"
+                class="text-base"
+              />
+              <NuxtLink to="/profile/reservations">
+                  Reservations
+              </NuxtLink>
+          </li>
+
+          <!-- <li class="w-full">
+              <NuxtLink to="#">
+                  Wish List
+              </NuxtLink>
+          </li> -->
+      </ul>
     </div>
+    
 
     <!-- <div class="mt-8">
       <h2 class="font-semibold text-lg text-gray-700 mb-2">

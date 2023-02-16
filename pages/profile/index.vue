@@ -6,7 +6,7 @@ import '@/assets/css/phoneNumberInput.css'
 
 definePageMeta({
 
-  layout: 'mini-searchbar',
+  layout: 'listing',
   middleware: ['auth']
 })
 

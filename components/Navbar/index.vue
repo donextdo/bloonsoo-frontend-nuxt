@@ -13,7 +13,7 @@ onMounted(() => {
     authStore.getAuthUser()
 })
 
-const { user } = storeToRefs(authStore)
+const { user, getFullName, getInitials } = storeToRefs(authStore)
 const menu = ref(false)
 
 const toggleMenu = () => {
@@ -23,6 +23,7 @@ const toggleMenu = () => {
 const logout = () => {
     user.value = null
     localStorage.removeItem('token')
+    toggleMenu()
     router.push('/')
 }
 
@@ -53,8 +54,23 @@ const logout = () => {
                         <font-awesome-icon v-if="menu" icon="fa-solid fa-times" 
                         class="text-blue-700 text-xl ml-3"/>
 
-                        <div class="bg-blue-700 w-8 h-8 flex items-center justify-center rounded-full">
-                            <font-awesome-icon icon="fa-solid fa-user" class="text-white"/>
+                        <div class="bg-blue-700 w-8 h-8 flex items-center justify-center rounded-full overflow-hidden">
+                            <font-awesome-icon
+                            v-if="!user"
+                            icon="fa-solid fa-user" class="text-white"/>
+
+                            <img 
+                            v-if="user && user.profilePic"
+                                :src="user.profilePic"
+                                class="w-full h-full object-cover"
+                                alt=""
+                            />
+
+                            <div 
+                            v-if="user && !user.profilePic"
+                            class="flex items-center justify-center text-white w-full h-full">
+                                <h1 class="font-bold text-sm">{{ getInitials }}</h1>
+                            </div>
                         </div>
                     </button>
                 </div>

@@ -3,7 +3,7 @@ import { useAuthStore } from "~~/stores/authStore"
 import { storeToRefs } from "pinia";
 
 definePageMeta({
-    layout: 'mini-searchbar',
+    layout: 'listing',
     middleware: ['auth']
 })
 
@@ -22,6 +22,7 @@ const token = localStorage.getItem('token')
 const bookings = ref([])
 
 onMounted( async () => {
+
   try {
     const data = await $fetch(`${baseUrl}/api/booking/my/bookings`, {
           headers: {

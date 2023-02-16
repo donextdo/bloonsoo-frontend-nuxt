@@ -1,10 +1,24 @@
 <script setup>
 
+import { BookingStatus, BookingStatusColor } from '../../utils/constants/bookingConstants'
+
 const props = defineProps({
     booking: {
         type: Object
     }
 })
+
+const getColor = (status) => {
+    if(status == 0) {
+        return 'bg-blue-500'
+    }
+    else if(status == 1) {
+        return 'bg-green-500'
+    }
+    else {
+        return 'bg-red-300'
+    }
+}
 
 const expand = ref(false)
 
@@ -21,19 +35,26 @@ const toggleExpand = () => {
     :class="expand ? 'h-max' : 'h-[5.5rem]'"
     class="w-full px-4 py-6 pr-16 flex flex-col gap-8 bg-white rounded-md shadow-md overflow-hidden relative transition-all duration-300">
 
-        <div class="flex items-start justify-between pb-5 border-b border-gray-400">
+        <div class="grid grid-cols-3 pb-5 border-b border-gray-400">
 
             <div class="flex flex-col">
-            <h3 class="text-lg font-bold"> 
-                {{ booking.hotel_id.property_name }}
-            </h3>    
+                <h3 class="text-lg font-bold"> 
+                    {{ booking.hotel_id.property_name }}
+                </h3>    
 
-            <p class="text-sm font-medium text-gray-600">
-                {{ booking.hotel_id.property_address.street_address }}, {{ booking.hotel_id.property_address.country }}
-            </p>
+                <p class="text-sm font-medium text-gray-600">
+                    {{ booking.hotel_id.property_address.street_address }}, {{ booking.hotel_id.property_address.country }}
+                </p>    
+
             </div>
+
+            <span 
+                :class="getColor(booking?.status)"
+                class="text-xs h-max font-medium w-max text-blask tracking-wider py-[2px] px-3 rounded-md">
+                    {{ BookingStatus[booking?.status] }}
+            </span>
             
-            <h3 class="text-lg font-bold"> 
+            <h3 class="text-lg font-bold ml-auto"> 
                 Total Price: {{ booking.total }}
             </h3>
 

@@ -6,8 +6,6 @@ import '@/assets/css/phoneNumberInput.css'
 import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
 import { useAuthStore } from "~~/stores/authStore"
-// import "payhere-embed-sdk/dist/embed.css"
-// import Payhere from "payhere-embed-sdk/dist/embed"
 
 definePageMeta({
     layout: 'mini-searchbar',
@@ -42,10 +40,12 @@ const paymentOption = ref()
 const paymentOptionError = ref(false)
 
 const setDefaults = () => {
+    // country.value = user.value?.address.country ? user.value.adress.country : ''
     phoneNumber.value = user.value?.mobile ? user.value?.mobile : ''
 }
 
 onMounted(async () => {
+    console.log(user.value)
     bookingStore.setHotel(baseUrl)
     setDefaults()
 })
@@ -76,9 +76,9 @@ const handleBooking = async () => {
 
         if(paymentOption.value == 'card') return toggleCheckOutPopup()
 
-        // await bookingStore.createBooking()
+        await bookingStore.createBooking()
 
-        router.push({path: `/hotels/${hotel.value._id}`})
+        router.push({path: `/profile/reservations`})
 
         setTimeout(() => {
             bookingStore.$reset()
@@ -163,7 +163,7 @@ const launchPayhere = async () => {
 
                 </ListingFormCard>  
 
-                <ListingFormCard label="Select a Payment Option" class="shadow-md">
+                <ListingFormCard label="Select a Payment Option" class="shadow-md !bg-gray-300">
                     <div class="px-4 w-full flex gap-4 text-gray-600 text-sm font-semibold">
 
                         <div class="flex flex-col items-center gap-2 flex-1">
@@ -179,9 +179,10 @@ const launchPayhere = async () => {
                                 type="radio"
                                 id="credit-card"
                                 name="payment-options"
-                                value="card"
+                                value="0"
                                 v-model="paymentOption"
                                 class="w-5 h-5 cursor-pointer"
+                                disabled
                             >
                         </div>
 
@@ -198,9 +199,10 @@ const launchPayhere = async () => {
                                 type="radio"
                                 id="crypto"
                                 name="payment-options"
-                                value="crypto"
+                                value="1"
                                 v-model="paymentOption"
                                 class="w-5 h-5 cursor-pointer"
+                                disabled
                             >
                         </div>
 
@@ -217,7 +219,7 @@ const launchPayhere = async () => {
                                 type="radio"
                                 id="on-site"
                                 name="payment-options"
-                                value="onsite"
+                                value="2"
                                 v-model="paymentOption"
                                 class="w-5 h-5 cursor-pointer"
                             >

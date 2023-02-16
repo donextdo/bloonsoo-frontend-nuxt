@@ -10,7 +10,7 @@ export const useBookingStore = defineStore('booking', {
         hotelId: null, 
         bookings: [],
         hotel: null,
-        isTravellingForWork: null,
+        isTravellingForWork: 'yes',
         fullName: null,
         email: null,
         estimatedArrivalTime: null,
@@ -89,25 +89,12 @@ export const useBookingStore = defineStore('booking', {
             this.fullName = fullName,
             this.email = email,
             this.estimatedArrivalTime = estimatedArrivalTime
-
-            console.log({
-                x: this.isTravellingForWork,
-                y: this.fullName,
-                z: this.email,
-                a: this.estimatedArrivalTime
-            })
         },
 
         setBookingInfoSecondPage (country, mobile, paymentMethod) {
             this.country = country
             this.mobile = mobile
             this.paymentMethod = paymentMethod
-
-            console.log({
-                x: this.country,
-                y: this.mobile,
-                z: this.paymentMethod
-            })
         },
 
         async createBooking () {
@@ -121,7 +108,8 @@ export const useBookingStore = defineStore('booking', {
                 mobile: this.mobile,
                 arrival_time: this.arrival_time,
                 total: this.totalPrice,
-                bookings: this.bookings
+                bookings: this.bookings,
+                payment_method: parseInt(this.paymentMethod)
             }
 
             try {

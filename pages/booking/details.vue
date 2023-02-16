@@ -50,10 +50,6 @@ function setDefaults() {
   email.value = user.value?.email
   confirmEmail.value = user.value?.email
 
-//   if(isTravellingForWork.value !== null) {
-//     isTravellingForWork.value = isTravellingForWork.value ? 'yes' : 'no'
-//   }
-
   if(!user.value.firstName) {
     setNameAsProfileName.value = true
     showSetNameAsProfileName.value = true
@@ -147,13 +143,11 @@ const handleNext = async () => {
                 <ListingFormCard label="Enter your details">
 
                     <div class="grid grid-cols-2 gap-x-16 gap-y-6 px-4">
-
                         <SharedRadioGroup 
                         title="Are you traveling for work?"
                         class="col-span-2" 
                         v-model="isTravellingForWork" 
                         :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
-                        :error="isTravellingForWorkError"
                         name="group1"
                         errorMessage="Please select an option"
                         />
