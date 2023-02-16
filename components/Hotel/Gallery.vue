@@ -20,13 +20,16 @@ const handleClick = () => {
     
     <div class="w-full h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
         
-        <div class="w-full h-full row-span-2 col-span-2">
+        <div class="w-full h-full row-span-2 col-span-2 relative">
             <img :src="images[0]" alt="" class="w-full h-full object-cover">
+
+            <button @click="handleClick()" class="absolute inset-0 bg-transparent"></button>    
         </div>
 
-        <div class="w-full h-full col-span-1 row-span-1">
+        <div class="w-full h-full col-span-1 row-span-1 relative">
             <img :src="images[1]" alt="" class="w-full h-full object-cover">
 
+            <button @click="handleClick()" class="absolute inset-0 bg-transparent"></button>
         </div>
 
         <div class="w-full h-full col-span-1 row-span-1 relative">

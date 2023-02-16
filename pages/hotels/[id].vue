@@ -1,7 +1,9 @@
 <script setup>
+import { useBookingStore } from '~~/stores/bookingStore';
+import { storeToRefs } from "pinia"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar'
 })
 
 const hotel = ref({})
@@ -10,13 +12,20 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+// CREATE BOOKING STORE INSTANCE
+const bookingStore = useBookingStore()
+
+const router = useRouter()
+
 const showGallery = ref(false)
 const showRoomModal = ref(false)
 const currentRoom = ref(null)
 const showBookingPopup = ref(false)
 const roomIdOnBooking = ref(null)
-const bookings = ref([])
+// const bookings = ref([])
 const showBookingDetails = ref(false)
+
+const { bookings, totalPrice } = storeToRefs(bookingStore)
 
 onMounted(async () => {
     const { id } = useRoute().params
@@ -80,7 +89,8 @@ const onPopupSubmit = (payload) => {
     // CALCULATE PRICE FOR NIGHTS
     const totalPriceForRoom = basePrice * payload.nights * payload.rooms
 
-    bookings.value.push({
+    // bookings.value.push({
+    bookingStore.addBooking({
         id: payload._id,
         nights: payload.nights,
         rooms: payload.rooms,
@@ -121,28 +131,27 @@ const checkForBookings = (id) => {
 }
 
 const removeFromBookings = (id) => {
-    bookings.value = bookings.value.filter(b => b.id !== id)
+    // bookings.value = bookings.value.filter(b => b.id !== id)
+    bookingStore.removeBooking(id)
 }
 
-// COUPUTING TOTAL PRICE
-const totalPrice = computed(() => {
-    let total = 0
-    let currency
-    bookings.value.forEach(b => {
-        const priceSplit = b.totalPrice.split(' ')
-
-        currency = priceSplit[0]
-        total = total + parseInt(priceSplit[1])
-    })
-
-    return `${currency} ${total}`
-})
-
 /**
- * METHODS FOR SHOW ROOM MODAL 
+ * METHODS FOR SHOW BOOKING DETAILS
  */
 const toggleBookingDetails = () => {
+    console.log(bookings.value)
     showBookingDetails.value = !showBookingDetails.value
+}
+
+/**
+ * TRIGGERS WHEN BOOKING DETAILS ONSUBMIT
+ */
+const onConfirm = () => {
+    showBookingDetails.value = !showBookingDetails.value
+    bookingStore.setHotelId(hotel.value._id)
+    // bookingStore.setBookings(bookings.value)
+
+    router.push({ path: '/booking/details'})
 }
 
 </script>
@@ -387,9 +396,11 @@ const toggleBookingDetails = () => {
         <BookingDetails 
             v-if="showBookingDetails" 
             @onClose="toggleBookingDetails" 
+            @onSubmit="onConfirm"
             :propertyName="hotel.property_name"
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
+            :policies="hotel.policies"
         />
 
    </section>

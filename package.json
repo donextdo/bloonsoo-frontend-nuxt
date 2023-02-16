@@ -12,7 +12,8 @@
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^6.0.1",
     "@nuxtjs/vuetify": "^1.12.3",
-    "nuxt": "3.0.0-rc.12"
+    "nuxt": "3.0.0-rc.12",
+    "tailwind-scrollbar": "^2.1.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -20,13 +21,22 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@pinia/nuxt": "^0.4.6",
+    "@vueuse/core": "^9.11.1",
     "cloudinary": "^1.33.0",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.7",
     "dropzone": "^5.9.3",
+    "flowbite": "^1.6.3",
+    "flowbite-datepicker": "^1.2.2",
     "libphonenumber-js": "^1.10.14",
     "maz-ui": "^3.0.8",
     "nuxt-buefy": "^0.4.24",
+    "payhere-embed-sdk": "^0.7.3",
+    "pinia": "^2.0.29",
     "sass": "^1.55.0",
     "swiper": "^8.4.4",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "vue-router": "^4.1.6",
     "vuetify": "^3.0.0-beta.15"
   }

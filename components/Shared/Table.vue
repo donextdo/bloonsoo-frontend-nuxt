@@ -59,7 +59,9 @@ const handleResAllClick = () => {
                 </h3>
             </div>
 
-            <div class="w-full col-span-2 px-6 h-24 flex items-center relative">
+            <div 
+            :class="bookings && 'bg-green-700'"
+            class="w-full col-span-2 px-6 h-24 flex items-center relative">
                 <div v-if="bookings" class="w-2 bg-gray-100 h-24 absolute top-0 bottom-0 -left-2"></div>
 
                 <h3 v-if="!bookings">
@@ -73,7 +75,7 @@ const handleResAllClick = () => {
 
                     <button
                     @click="handleResAllClick"
-                    class="px-6 py-1 rounded-full text-sm font-semibold border-2 border-white hover:bg-white hover:text-blue-700">
+                    class="px-6 py-1 gradient-btn rounded-full">
                         Reserve All
                     </button>
                 </div>

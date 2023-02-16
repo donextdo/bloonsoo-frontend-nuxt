@@ -3,7 +3,8 @@
 import { ref } from 'vue'
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'listing',
+    middleware: ['auth']
 })
 
 const router = useRouter()
@@ -13,6 +14,8 @@ const hotelId = useHotelId()
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
+
+const token = localStorage.getItem('token')
 
 const facilitiesData = [
     {data: 'Non-smoking rooms', label: 'Non-smoking rooms'}, 
@@ -127,7 +130,10 @@ const addFacilities = async () => {
 
     const hotel = await $fetch( `${baseUrl}/api/hotel/facilities/${hotelId.value}`, {
             method: 'PATCH',
-            body: dto
+            body: dto,
+            headers: {
+                authorization: `Bearer ${token}`
+            }
     } )
 
     console.log(hotel)

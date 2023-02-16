@@ -29,6 +29,19 @@ defineProps({
         <IconsFireExt v-if="icon === 'fireext'" class="w-5 h-5"/>
         <IconsDisinfections v-if="icon === 'disinfections'" class="w-5 h-5"/>
         <IconsSmoke v-if="icon === 'smoke'" class="w-5 h-5"/>
+        <IconsSparkle v-if="icon === 'sparkle'" class="w-5 h-5" />
+        <IconsMessage v-if="icon === 'message'" class="w-5 h-5" />
+        <IconsNotification v-if="icon === 'notification'" class="w-5 h-5" />
+        <IconsReservation v-if="icon === 'reservation'" class="w-5 h-5" />
+        <IconsWishlist v-if="icon === 'wishlist'" class="w-5 h-5" />
+        <IconsLocation v-if="icon === 'location'" class="w-5 h-5" />
+        <IconsMail v-if="icon === 'mail'" class="w-5 h-5" />
+
+
+
+
+
+
 
         <h4> 
             {{ label }}

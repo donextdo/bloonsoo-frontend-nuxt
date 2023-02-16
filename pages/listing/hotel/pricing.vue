@@ -1,7 +1,10 @@
     <script setup>
 
+    import { useHotelId } from '~~/composables/state';
+
     definePageMeta({
-        layout: 'listing'
+        layout: 'listing',
+        middleware: ['auth']
     })
 
     const router = useRouter()
@@ -11,6 +14,8 @@
     const config = useRuntimeConfig()
 
     const baseUrl = config.public.baseUrl
+
+    const token = localStorage.getItem('token')
 
     const rooms = ref([])
 

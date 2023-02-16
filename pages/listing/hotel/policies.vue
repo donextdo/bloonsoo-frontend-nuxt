@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "listing",
+  middleware: ['auth']
 });
 
 const router = useRouter();
@@ -10,6 +11,8 @@ const hotelId = useHotelId()
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
+
+const token = localStorage.getItem('token')
 
 const cancellationDuration = ref('1')
 const payTime = ref('Of the first night')
@@ -53,7 +56,10 @@ const createPolicies = async () => {
 
   const hotel = await $fetch( `${baseUrl}/api/hotel/policies/${hotelId.value}`, {
       method: 'PATCH',
-      body: dto
+      body: dto,
+      headers: {
+          authorization: `Bearer ${token}`
+      }
   })
 
   console.log(hotel)
