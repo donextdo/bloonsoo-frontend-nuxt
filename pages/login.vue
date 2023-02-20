@@ -8,6 +8,7 @@ definePageMeta({
 })
 
 const router = useRouter()
+const route = useRoute()
 
 const authStore = useAuthStore()
 
@@ -23,6 +24,7 @@ const passwordInvalidError = ref(false)
 const handleClick = async () => {
     try {
         
+        const verified = route.query.verified
 
         const loginDto = {
             email: username.value,
@@ -39,9 +41,13 @@ const handleClick = async () => {
 
         await authStore.getAuthUser()
 
-        // router.push({path: '/'})
-        router.go(-1)
-
+        if(verified) {
+            router.push({path: '/'})
+        }
+        else {
+            router.go(-1)
+        }
+        
     } catch (error) {
 
         if (error.response) {
@@ -93,7 +99,7 @@ const handleClick = async () => {
 
             </div>
 
-            <div class="relative w-full mb-2">
+            <!-- <div class="relative w-full mb-2">
 
                 <input type="password" placeholder="Password" 
                 v-model="password"
@@ -106,7 +112,14 @@ const handleClick = async () => {
                         Invalid Password
                 </small>
 
-            </div>
+            </div> -->
+
+            <SharedPassword
+                placeholder="password"
+                v-model="password"
+                :error="passwordInvalidError"
+                errorMessage="incorrect password"
+            />
 
             <div class="flex items-center mb-2">
 
@@ -129,6 +142,10 @@ const handleClick = async () => {
             <NuxtLink to="#" class="ml-auto text-sm font-semibold">
                 Forgot Password ?
             </NuxtLink>
+
+            <p class="text-sm text-gray-700 font-medium -mt-4">
+                Don't have an account? <NuxtLink to="/register" class="text-[#3A1C61]">Sing Up</NuxtLink>
+            </p>
 
         </div>
 

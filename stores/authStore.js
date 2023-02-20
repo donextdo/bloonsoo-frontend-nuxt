@@ -8,7 +8,8 @@ const baseUrl = development ? 'http://localhost:9000' :' http://localhost:9000'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({  
-        user: null 
+        user: null,
+        userEmail: null 
     }),
 
     getters: {
