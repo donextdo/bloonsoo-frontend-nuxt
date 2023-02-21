@@ -103,8 +103,12 @@ const accommodateGuests = ref([])
 const amenities = ref([])
 const amenitiesError = ref(false)
 
+const loading = ref(false)
+
 
 const addFacilities = async () => {
+
+    loading.value = true
 
     const dto = {
         parking: parkingType.value == 'no' ? false : true,
@@ -136,7 +140,9 @@ const addFacilities = async () => {
             }
     } )
 
-    console.log(hotel)
+    // console.log(hotel)
+
+    loading.value = false
 
     router.push({ path: '/listing/hotel/images' })
 }
@@ -349,7 +355,8 @@ const addFacilities = async () => {
         </ListingFormCard>
 
         <button @click="addFacilities" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
-            Next
+            <SharedButtonSpinner v-if="loading"/>
+            <span v-else>Next</span>
         </button>
 
     </section>

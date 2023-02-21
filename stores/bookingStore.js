@@ -101,15 +101,15 @@ export const useBookingStore = defineStore('booking', {
 
             const bookingDto = {
                 hotel_id: this.hotelId,
-                first_name: this.first_name,
-                last_name: this.last_name,
+                full_name: this.fullName,
                 email: this.email,
                 coutry: this.country,
                 mobile: this.mobile,
                 arrival_time: this.arrival_time,
                 total: this.totalPrice,
                 bookings: this.bookings,
-                payment_method: parseInt(this.paymentMethod)
+                payment_method: parseInt(this.paymentMethod),
+                is_travelling_for_work: this.isTravellingForWork
             }
 
             try {

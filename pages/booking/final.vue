@@ -11,6 +11,8 @@ definePageMeta({
     layout: 'mini-searchbar',
 })
 
+
+
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
@@ -22,6 +24,8 @@ const authStore = useAuthStore()
 
 const { hotel } = storeToRefs(bookingStore)
 const { user } = storeToRefs(authStore)
+
+const loading = ref(false)
 
 const country = ref()
 const countryError = ref()
@@ -76,9 +80,13 @@ const handleBooking = async () => {
 
         if(paymentOption.value == 'card') return toggleCheckOutPopup()
 
+        loading.value = true
+
         await bookingStore.createBooking()
 
         router.push({path: `/profile/reservations`})
+
+        loading.value = false
 
         setTimeout(() => {
             bookingStore.$reset()
@@ -322,7 +330,8 @@ const launchPayhere = async () => {
         </main>
 
         <button @click="handleBooking" class="w-full py-4 btn-accent">
-          Complete booking 
+            <span v-if="!loading">Complete booking </span>
+            <SharedButtonSpinner v-else/>
         </button>
 
         <BookingCheckOut v-if="showBookingCheckOut" @onClose="toggleCheckOutPopup" @onSubmit="launchPayhere"/>

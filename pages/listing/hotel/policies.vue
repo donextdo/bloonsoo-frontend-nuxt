@@ -27,6 +27,8 @@ const checkOutUntill = ref("18:00");
 const accommodateChildren = ref();
 const accommodateChildrenError = ref(false);
 
+const loading = ref(false)
+
 const pets = ref("yes");
 
 const createPolicies = async () => {
@@ -36,6 +38,8 @@ const createPolicies = async () => {
   }, 10000);
 
   if (!accommodateChildren.value) return (accommodateChildrenError.value = true);
+
+  loading.value = true
 
   const dto = {
 
@@ -62,7 +66,9 @@ const createPolicies = async () => {
       }
   })
 
-  console.log(hotel)
+  // console.log(hotel)
+
+  loading.value = false
 
   router.push({ path: "/listing/hotel/payments" });
 }
@@ -204,7 +210,8 @@ const createPolicies = async () => {
       @click="createPolicies"
       class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900"
     >
-      Next
+        <SharedButtonSpinner v-if="loading"/>
+        <span v-else>Next</span>
     </button>
   </section>
 </template>

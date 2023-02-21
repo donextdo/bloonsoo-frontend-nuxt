@@ -87,6 +87,8 @@ const facilitiesError = ref(false)
 const images = ref(null)
 const galleryImages = ref([])
 
+const loading = ref(false)
+
 const addBed = () => {
     setTimeout(() => {
         bedTypeError.value = false
@@ -175,6 +177,8 @@ const addRoom = async () => {
     if(!price.value) return priceError.value = true
     if(facilities.value.length == 0) return facilitiesError.value = true
 
+    loading.value = true
+
     const roomDto = {
         property_id: hotelId.value,
         room_type: roomType.value,
@@ -200,9 +204,11 @@ const addRoom = async () => {
         }
     })  
 
-    console.log(room)
+    // console.log(room)
 
     beds.value = []
+
+    loading.value = false
 
     router.push({ path: '/listing/hotel/pricing' })
     
@@ -552,8 +558,9 @@ const addRoom = async () => {
 
         </ListingFormCard>
 
-        <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
-            Add Room
+        <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">      
+            <SharedButtonSpinner v-if="loading"/>
+            <span v-else>Add Room</span> 
         </button>
 
     </section>
