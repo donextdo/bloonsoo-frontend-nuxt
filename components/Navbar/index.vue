@@ -35,9 +35,10 @@ const logout = () => {
         <div class="px-4 flex items-center justify-between relative md:px-2 md:container md:mx-auto">
             
             <NuxtLink to="/">
-                <h1 class="text-3xl font-bold">
+                <!-- <h1 class="text-3xl font-bold">
                     LOGO
-                </h1>
+                </h1> -->
+                <img src="../../assets/logo.png" alt="" class="w-44">
             </NuxtLink>
 
             <div class="flex gap-5">

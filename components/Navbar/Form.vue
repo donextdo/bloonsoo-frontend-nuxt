@@ -6,6 +6,10 @@
         'Galle', 'Colombo', 'Matara', 'Anuradhapura'
     ])
 
+    const router = useRouter()
+
+    const city = ref(null)
+
     const error = ref(false)
 
     const checkIn = ref('')
@@ -57,7 +61,7 @@
     }
 
     const handleClick = () => {
-        console.log('first')
+        router.push(`/search?query=${city.value}`)
     }
 
 </script>
@@ -74,7 +78,9 @@
 
                 <div class="relative w-full mt-2">
 
-                    <input type="text" class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 text-sm font-semibold focus:border-blue-500 focus:border focus:outline-none" placeholder="Which city do you prefer?">
+                    <input
+                    v-model="city"
+                    type="text" class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 text-sm font-semibold focus:border-blue-500 focus:border focus:outline-none" placeholder="Which city do you prefer?">
 
                     <font-awesome-icon icon="fa-solid fa-location-dot" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-2xl" />
 
@@ -252,7 +258,9 @@
 
             </div>
 
-            <button @click.prevent="handleClick" class="py-3 px-6 -mb-10 rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">Search</button>
+            <button 
+            :disabled="!city"
+            @click.prevent="handleClick" class="py-3 px-6 -mb-10 rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">Search</button>
 
         </form>
 

@@ -1,14 +1,8 @@
 <script setup>
 
 const props = defineProps({
-    propertyName: {
-        type: String
-    },
-    coverImg: {
-        type: String
-    },
-    address: {
-        type: Object
+    hotel: {
+      type: Object
     }
 })
 
@@ -18,7 +12,7 @@ const props = defineProps({
     
     <div class="bg-white shadow-md w-full grid grid-cols-5 mb-10 ">
 
-        <img :src="coverImg" 
+        <img :src="hotel.cover_image" 
             class="w-full aspect-square object-cover col-span-2"
             alt=""
         >
@@ -29,11 +23,11 @@ const props = defineProps({
 
                 <div class="">
                     <h3 class="text-lg font-bold text-blue-700"> 
-                        <!-- {{ propertyName }}  --> Vanila Palace 
+                        {{ hotel.property_name }}
                     </h3>    
 
-                    <p class="text-sm font-medium text-gray-600">
-                        <!-- {{ address?.street_address }}, {{ address?.country }} --> 100 Smart Street, LA, USA .
+                    <p class="text-base font-medium text-gray-600">
+                        {{ hotel.property_address.street_address }}, {{ hotel.property_address.country }}
                     </p>
                 </div>
 
@@ -47,9 +41,9 @@ const props = defineProps({
 
             </div>
 
-            <div class="grid grid-cols-5 gap-6">
+            <div class="flex flex-col gap-6">
 
-              <div class="col-span-3">
+              <!-- <div class="col-span-3">
                 <p class="text-gray-500 font-semibold text-sm mb-5 max-w-md p-2 border-2">
                   Recommended for your group
                 </p>
@@ -65,10 +59,10 @@ const props = defineProps({
                 <p class="text-sm text-gray-600 w-4/5">
                   You can cancel later, so lock in this great price today.
                 </p>
-              </div>
+              </div> -->
 
-              <div class="col-span-2">
-                <p class="p-2 text-gray-500 font-semibold text-sm mb-5">
+              <div class="w-full">
+                <!-- <p class="p-2 text-gray-500 font-semibold text-sm mb-5">
                   18 nights, 2 adults, 1 child               
                 </p>
 
@@ -78,9 +72,16 @@ const props = defineProps({
 
                 <p class="p-2 text-gray-500 font-semibold text-sm mb-10">
                   +LKR 238,440 taxes and charges
+                </p> -->
+
+                <p class="text-sm text-gray-600 font-semibold">
+                  {{ hotel?.about.substr(0, 400) }}...
                 </p>
 
-                <button class=" flex items-center justify-center py-3 px-6 -mb-10 w-full rounded-full text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">See Availability</button>
+                <NuxtLink :to="`/hotels/${hotel._id}`"
+                class=" flex items-center justify-center py-3 px-6  w-1/2 rounded-full ml-auto mt-10 text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">
+                  See Availability
+                </NuxtLink>
               </div>
 
             </div>
