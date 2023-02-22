@@ -3,12 +3,15 @@
 import { ref } from 'vue'
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'listing',
+    middleware: ['auth']
 })
 
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
+
+const token = localStorage.getItem('token')
 
 const router = useRouter()
 
@@ -84,6 +87,8 @@ const facilitiesError = ref(false)
 const images = ref(null)
 const galleryImages = ref([])
 
+const loading = ref(false)
+
 const addBed = () => {
     setTimeout(() => {
         bedTypeError.value = false
@@ -134,7 +139,10 @@ const onMultipleChange = async (event) => {
 
             const path = await $fetch( `${baseUrl}/api/rooms/gallery`, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
             } )
 
             console.log(path)
@@ -162,8 +170,6 @@ const addRoom = async () => {
         facilitiesError.value = false
     }, 10000)
 
-    console.log('first')
-
     if(roomType.value == '0') return roomTypeError.value = true
     if(!roomName.value) return roomNameError.value = true
     if(!nbrOfRooms.value) return nbrOfRoomsError.value = true
@@ -171,7 +177,8 @@ const addRoom = async () => {
     if(!price.value) return priceError.value = true
     if(facilities.value.length == 0) return facilitiesError.value = true
 
-    console.log('second')
+    loading.value = true
+
     const roomDto = {
         property_id: hotelId.value,
         room_type: roomType.value,
@@ -191,12 +198,17 @@ const addRoom = async () => {
 
     const room = await $fetch(`${baseUrl}/api/rooms/create`, {
         method: 'POST',
-        body: roomDto
+        body: roomDto,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     })  
 
-    console.log(room)
+    // console.log(room)
 
     beds.value = []
+
+    loading.value = false
 
     router.push({ path: '/listing/hotel/pricing' })
     
@@ -546,8 +558,9 @@ const addRoom = async () => {
 
         </ListingFormCard>
 
-        <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">
-            Add Room
+        <button @click="addRoom" class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900">      
+            <SharedButtonSpinner v-if="loading"/>
+            <span v-else>Add Room</span> 
         </button>
 
     </section>

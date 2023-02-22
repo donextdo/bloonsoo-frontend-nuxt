@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "listing",
+  middleware: ['auth']
 });
 
 const router = useRouter();
@@ -11,10 +12,31 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const creditCardOption = ref();
 const creditCardOptionError = ref(false);
 
+const loading = ref(false)
+
 const commissionPayments = ref("John");
+
+const commisionRate = ref()
+
+onMounted(async () => {
+  try {
+    const rate = await $fetch(`${baseUrl}/api/commission/rate`, {
+      headers: {
+          authorization: `Bearer ${token}`
+      }
+    })
+
+    commisionRate.value = rate
+  }
+  catch (error) {
+    console.log(error)
+  }
+})
 
 const addPaymentDataAndOpenToBooking = async () => {
   setTimeout(() => {
@@ -23,6 +45,8 @@ const addPaymentDataAndOpenToBooking = async () => {
 
   if (!creditCardOption.value) return (creditCardOptionError.value = true);
 
+  loading.value = true
+
   const dto = {
     credit_card_options: creditCardOption.value === "yes" ? true : false,
     is_open_to_bookings: true
@@ -30,10 +54,15 @@ const addPaymentDataAndOpenToBooking = async () => {
 
   const hotel = await $fetch( `${baseUrl}/api/hotel/finalize/${hotelId.value}`, {
       method: 'PATCH',
-      body: dto
+      body: dto,
+      headers: {
+          authorization: `Bearer ${token}`
+      }
   })
 
   console.log(hotel)
+
+  loading.value = false
 
   router.push({ path: "/" });
 }
@@ -45,16 +74,23 @@ const addPaymentDataAndOpenLater = async () => {
 
     if (!creditCardOption.value) return (creditCardOptionError.value = true);
 
+    loading.value = true
+
     const dto = {
       credit_card_options: creditCardOption.value === "yes" ? true : false
     }
 
     const hotel = await $fetch( `${baseUrl}/api/hotel/finalize/${hotelId.value}`, {
       method: 'PATCH',
-      body: dto
+      body: dto,
+      headers: {
+          authorization: `Bearer ${token}`
+      }
     })
 
     console.log(hotel)
+
+    loading.value = false
 
     router.push({ path: "/" });
 }
@@ -106,19 +142,26 @@ const addPaymentDataAndOpenLater = async () => {
         <h4 class="text-lg text-gray-600 font-semibold">Commission payments</h4>
         <p class="text-end text-md text-gray-600 font-semibold">
           Commission percentage :<span class="text-lg text-black block"
-            >15%</span
+            >{{commisionRate}}</span
           >
         </p>
       </div>
 
       <div class="grid gap-6 pl-3 md:grid-cols-2">
         <div class="flex flex-col gap-6">
-          <SharedDropDown
+          <!-- <SharedDropDown
             class="w-11/12"
             label="What name should be placed on the invoice (e.g. legal/company name)?"
            
             errorMessage="please enter"
             :options="['John', 'John']"
+          /> -->
+
+          <SharedTextInput
+            class="w-11/12"
+            label="What name should be placed on the invoice (e.g. legal/company name)?"
+           
+            errorMessage="please enter"
           />
 
           <SharedRadioGroup
@@ -249,13 +292,15 @@ const addPaymentDataAndOpenLater = async () => {
       @click="addPaymentDataAndOpenToBooking"
       class="w-full py-4 bg-blue-700 text-white font-semibold text-base rounded-lg hover:bg-blue-900 text-bold"
     >
-      Complete registration and open to bookings
+          <SharedButtonSpinner v-if="loading"/>
+          <span v-else>Complete registration and open to bookings</span>
     </button>
     <button
       @click="addPaymentDataAndOpenLater"
       class="w-full px-4 py-4 font-semibold text-base text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent text-bold"
-    >
-      Complete Registration and open later
+    >  
+        <SharedButtonSpinner v-if="loading"/>
+        <span v-else>Complete Registration and open later</span>
     </button>
   </section>
 </template>

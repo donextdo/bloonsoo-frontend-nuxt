@@ -1,10 +1,24 @@
 import { defineStore } from "pinia";
+import { useLocalStorage } from "@vueuse/core";
+
+let development = process.env.NODE_ENV !== 'production'
+
+// const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+const baseUrl = 'http://api.bloonsoo.com'
 
 export const useBookingStore = defineStore('booking', {
     state: () => ({ 
         hotelId: null, 
         bookings: [],
-        hotel: null 
+        hotel: null,
+        isTravellingForWork: 'yes',
+        fullName: null,
+        email: null,
+        estimatedArrivalTime: null,
+        country: null,
+        mobile: null,
+        paymentMethod: null,
+        total: null
     }),
 
     getters: {
@@ -19,6 +33,25 @@ export const useBookingStore = defineStore('booking', {
             })
 
             return `${currency} ${total}`
+        },
+
+        getTotalGuests() {
+            let adults = 0
+            let children = 0
+
+            this.bookings.forEach(b => {
+                adults = adults + b.adults 
+                children = children + b.children
+            })
+
+            if(adults > 0 && children > 0) {
+                return `${adults} Adults, ${children} Children`
+            }
+            else
+            {
+                return `${adults} Adults`
+            }
+
         }
     },
 
@@ -26,21 +59,72 @@ export const useBookingStore = defineStore('booking', {
         setHotelId (id) {
             this.hotelId = id
         },
+
         setBookings (bookings) {
             this.bookings = bookings
         },
+
         addBooking (booking) {
             this.bookings.push(booking)
         },
+
         removeBooking (id) {
             this.bookings = this.bookings.filter(b => b.id !== id)
         },
+
         async setHotel (baseUrl) {
             try {
                 const hotelData = await $fetch(`${baseUrl}/api/hotel/${this.hotelId}`)
                 this.hotel = hotelData
             } catch (error) {
                 console.log(error)
+            }
+        },
+
+        setMobile (number) {
+            this.mobile = number
+        },
+
+        setBookingInfoFirstPage (isTravellingForWork, fullName, email, estimatedArrivalTime) {
+            this.isTravellingForWork = isTravellingForWork,
+            this.fullName = fullName,
+            this.email = email,
+            this.estimatedArrivalTime = estimatedArrivalTime
+        },
+
+        setBookingInfoSecondPage (country, mobile, paymentMethod) {
+            this.country = country
+            this.mobile = mobile
+            this.paymentMethod = paymentMethod
+        },
+
+        async createBooking () {
+
+            const bookingDto = {
+                hotel_id: this.hotelId,
+                full_name: this.fullName,
+                email: this.email,
+                country: this.country,
+                mobile: this.mobile,
+                arrival_time: this.arrival_time,
+                total: this.totalPrice,
+                bookings: this.bookings,
+                payment_method: parseInt(this.paymentMethod),
+                is_travelling_for_work: this.isTravellingForWork
+            }
+
+            try {
+                const booking = await $fetch(`${baseUrl}/api/booking/`, {
+                    method: 'POST',
+                    body: bookingDto,
+                    headers: {
+                        authorization: `Bearer ${useLocalStorage('token').value}`
+                    }
+                })
+
+                console.log(booking)
+            } catch (error) {
+                throw error
             }
         }
     }

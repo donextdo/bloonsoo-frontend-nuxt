@@ -1,9 +1,10 @@
 <script setup>
 import { useBookingStore } from '~~/stores/bookingStore';
+import { useAuthStore } from "~~/stores/authStore"
 import { storeToRefs } from "pinia"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar'
 })
 
 const hotel = ref({})
@@ -14,15 +15,19 @@ const baseUrl = config.public.baseUrl
 
 // CREATE BOOKING STORE INSTANCE
 const bookingStore = useBookingStore()
+const authStore = useAuthStore()
 
 const router = useRouter()
 
+const { user } = storeToRefs(authStore)
+
 const showGallery = ref(false)
 const showRoomModal = ref(false)
+const showAuthPopup = ref(false)
 const currentRoom = ref(null)
 const showBookingPopup = ref(false)
 const roomIdOnBooking = ref(null)
-// const bookings = ref([])
+
 const showBookingDetails = ref(false)
 
 const { bookings, totalPrice } = storeToRefs(bookingStore)
@@ -151,7 +156,16 @@ const onConfirm = () => {
     bookingStore.setHotelId(hotel.value._id)
     // bookingStore.setBookings(bookings.value)
 
-    router.push({ path: '/booking/details'})
+    if(!user.value) {
+        showAuthPopup.value = !showAuthPopup.value
+    } 
+    else {
+        router.push({ path: '/booking/details'})
+    }
+}
+
+const toggleAuthPopup = () => {
+    showAuthPopup.value = !showAuthPopup.value
 }
 
 </script>
@@ -401,6 +415,11 @@ const onConfirm = () => {
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
             :policies="hotel.policies"
+        />
+
+        <AuthLoginPopup 
+            v-if="showAuthPopup"
+            @onClose="toggleAuthPopup"
         />
 
    </section>

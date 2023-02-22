@@ -54,7 +54,7 @@ const goBack = () => {
 
                 </div>
 
-                <p class="font-semibold mb-5 pb-5 border-b border-gray-400">
+                <p class="font-semibold text-sm mb-5 pb-5 border-b border-gray-400">
                     Total length of stay: {{ `${booking.nights} nights` }} {{ `${booking.adults} adults` }} {{ booking.children > 0 ? `${booking.children} children` : '' }}
                 </p>
 

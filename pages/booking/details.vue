@@ -1,25 +1,26 @@
 <script setup>
 import { storeToRefs } from "pinia"
 import { useBookingStore } from "~~/stores/bookingStore"
-
+import { useAuthStore } from "~~/stores/authStore"
 
 definePageMeta({
-    layout: 'listing'
+    layout: 'mini-searchbar',
+    middleware: ['auth']
 })
 
 const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const router = useRouter()
 
 const bookingStore = useBookingStore()
+const authStore = useAuthStore()
 
-const { hotel, bookings } = storeToRefs(bookingStore)
-
-onMounted(async () => {
-    bookingStore.setHotel(baseUrl)
-})
+const { hotel, getTotalGuests } = storeToRefs(bookingStore)
+const { user } = storeToRefs(authStore)
 
 const isTravellingForWork = ref()
 const isTravellingForWorkError = ref(false)
@@ -36,15 +37,78 @@ const emailError = ref(false)
 const confirmEmail = ref()
 const confirmEmailError = ref(false)
 
-const bookingFor = ref()
+const setNameAsProfileName = ref(false)
+const showSetNameAsProfileName = ref(false)
 
-const fullGuestName = ref()
-const fullGuestNameError = ref(false)
+// const bookingFor = ref()
 
 const arrivalTime = ref()
 
-const handleNext = () => {
-    router.push({path: '/booking/final'})
+function setDefaults() {
+  firstName.value = user.value?.firstName ? user.value?.firstName : ''
+  lastName.value = user.value?.lastName ? user.value?.lastName: ''
+  email.value = user.value?.email
+  confirmEmail.value = user.value?.email
+
+  if(!user.value.firstName) {
+    setNameAsProfileName.value = true
+    showSetNameAsProfileName.value = true
+  }
+}
+
+onMounted(async () => {
+    bookingStore.setHotel(baseUrl)
+    setDefaults()
+})
+
+const fullGuestName = computed(() => {
+    return `${firstName.value} ${lastName.value}`
+})
+const fullGuestNameError = ref(false)
+
+
+
+const handleNext = async () => {
+
+    setTimeout(() => {
+        firstNameError.value = false
+        emailError.value = false
+    }, 5000)
+
+    if(!firstName.value) return firstNameError.value = true
+    if(!lastName.value) return firstNameError.value = true
+    if(!email.value) return emailError.value = true
+
+    const isTravellingForWorkVal = isTravellingForWork.value === 'yes' ? true : false
+
+    try {
+        bookingStore.setBookingInfoFirstPage(
+            isTravellingForWorkVal, 
+            fullGuestName, 
+            email.value, 
+            arrivalTime.value
+        )
+
+        if(setNameAsProfileName) {
+            const data = await $fetch(`${baseUrl}/api/user/${user.value?._id}`, {
+                method: 'PATCH',
+                body: {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                },
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
+
+            authStore.setUser(data)
+        }
+
+        router.push({path: '/booking/final'})
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 </script>
@@ -79,13 +143,11 @@ const handleNext = () => {
                 <ListingFormCard label="Enter your details">
 
                     <div class="grid grid-cols-2 gap-x-16 gap-y-6 px-4">
-
                         <SharedRadioGroup 
                         title="Are you traveling for work?"
                         class="col-span-2" 
                         v-model="isTravellingForWork" 
                         :options="[{data: 'yes', label: 'yes'}, {data: 'no', label: 'no'}]"
-                        :error="isTravellingForWorkError"
                         name="group1"
                         errorMessage="Please select an option"
                         />
@@ -104,7 +166,7 @@ const handleNext = () => {
                         
                         <SharedTextInput label="Confirm Email Address" v-model="confirmEmail" :error="confirmEmailError" errorMessage="Email Address cannot be empty" placeholder="Regina@fun.com" class="col-start-1" />
 
-                        <SharedRadioGroup 
+                        <!-- <SharedRadioGroup 
                         title="Who are you booking for?"
                         class="col-start-1" 
                         v-model="bookingFor" 
@@ -115,13 +177,14 @@ const handleNext = () => {
                         name="group1"
                         errorMessage="Please select an option"
                         vertical
-                        />
+                        /> -->
 
                     </div>
 
                 </ListingFormCard>
 
-                <ListingFormCard label="Standard Double City View with Early Check-in at 11 AM & Late Check-out at 3 PM (on Availability)">
+                <!-- <ListingFormCard label="Standard Double City View with Early Check-in at 11 AM & Late Check-out at 3 PM (on Availability)"> -->
+                <ListingFormCard>
 
                     <div class="flex flex-col gap-8 px-4">
 
@@ -150,7 +213,7 @@ const handleNext = () => {
                             <HotelFacility class="!p-0 !w-max" icon="cleaning" label="Cleaning Service"/>
                         </div>
 
-                        <div class="flex flex-col gap-4">
+                        <!-- <div class="flex flex-col gap-4">
                             <h4 class="text-sm font-semibold text-gray-600">
                                 Your Genius benefits
                             </h4>
@@ -162,14 +225,29 @@ const handleNext = () => {
                                     You're getting a 10% discount on the price of this option before taxes and fees apply.
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
 
                         <p class="text-sm font-semibold text-gray-600">
-                            Guests: 2 adults
+                            Total Guests: {{ getTotalGuests }}
                         </p>
 
                         <div class="grid grid-cols-2 gap-x-16">
-                            <SharedTextInput label="Full guest name" v-model="fullGuestName" :error="fullGuestNameError" errorMessage="Full guest name cannot be empty" placeholder="Regina George" />
+                            <SharedTextInput label="Full guest name" v-model="fullGuestName" :error="fullGuestNameError" errorMessage="Full guest name cannot be empty" placeholder="Regina George"/>
+                        </div>
+
+                        <div 
+                        v-if="showSetNameAsProfileName"
+                        class="flex item-center gap-3 -mt-4">
+                            <input 
+                            type="checkbox" 
+                            id="checkbox-confirm" value="" 
+                            v-model="setNameAsProfileName"
+                            class="w-5 h-5 text-blue-600">
+
+                            <label for="checkbox-confirm" 
+                                class="text-sm font-semibold text-gray-700">
+                                Set this name as my profile name 
+                            </label>
                         </div>
                         
                     </div>

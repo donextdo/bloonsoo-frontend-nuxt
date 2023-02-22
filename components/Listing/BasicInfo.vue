@@ -9,6 +9,8 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
+const token = localStorage.getItem('token')
+
 const router = useRouter()
 
 const hotelId = useHotelId()
@@ -46,6 +48,8 @@ const postalCodeError = ref(false)
 const about = ref('')
 const aboutError = ref(false)
 
+const loading = ref(false)
+
 
 const createHotel = async () => {
 
@@ -70,6 +74,7 @@ const createHotel = async () => {
     // if(!postalCode.value) return postalCodeError.value = true
     if(!about.value.length > 1200) return aboutError.value = true
 
+    loading.value = true
 
     const hotelDto = {
         property_name: propertyName.value,
@@ -89,12 +94,17 @@ const createHotel = async () => {
 
     const hotel = await $fetch(`${baseUrl}/api/hotel/create`, {
         method: 'POST',
-        body: hotelDto
+        body: hotelDto,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     })
 
     hotelId.value = hotel._id
 
     console.log(hotel)
+
+    loading.value = false
 
     router.push({path: '/listing/hotel/pricing'})
 
@@ -300,7 +310,8 @@ const createHotel = async () => {
         </ListingFormCard>
 
         <button @click="createHotel" class="w-full py-4 btn-accent">
-            Next
+            <SharedButtonSpinner v-if="loading"/>
+            <span v-else>Next</span>   
         </button>
 
     </section>

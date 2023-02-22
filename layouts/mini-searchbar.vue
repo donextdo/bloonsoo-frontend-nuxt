@@ -2,6 +2,7 @@
     
     <div>
         <Navbar short>
+            <NavbarSearch />
         </Navbar>
 
         <div>
