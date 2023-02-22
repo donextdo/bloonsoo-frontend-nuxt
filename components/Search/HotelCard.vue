@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
     
-    <div class="bg-white shadow-md w-full grid grid-cols-5 mb-10">
+    <div class="bg-white shadow-md w-full grid grid-cols-5 mb-10 ">
 
         <img :src="coverImg" 
             class="w-full aspect-square object-cover col-span-2"
@@ -33,7 +33,7 @@ const props = defineProps({
                     </h3>    
 
                     <p class="text-sm font-medium text-gray-600">
-                        <!-- {{ address?.street_address }}, {{ address?.country }} --> 100 Smart Street, LA, USA . Show on map
+                        <!-- {{ address?.street_address }}, {{ address?.country }} --> 100 Smart Street, LA, USA .
                     </p>
                 </div>
 
