@@ -29,11 +29,12 @@ onMounted( async () => {
             {{ title }}
         </h1>
 
-        <div class="w-full px-20 grid grid-cols-2 gap-4 justify-items-center lg:grid-cols-4 md:gap-8">
+        <div class="w-full md:px-20 grid md:grid-cols-2 gap-4 justify-items-center lg:grid-cols-4 md:gap-8">
 
             <HotelsCard v-for="hotel in hotels" :key="hotel.id" :hotel="hotel">
                 <!-- <img src="@/assets/hotel_images/hotel1.jpg" loading="lazy" class="w-full h-full object-cover" alt=""> -->
             </HotelsCard>
+
 
             <!-- <HotelsCard>
                 <img src="@/assets/hotel_images/hotel2.jpg" loading="lazy" class="w-full h-full object-cover" alt="">

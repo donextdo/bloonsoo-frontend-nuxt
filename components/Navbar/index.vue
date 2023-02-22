@@ -127,7 +127,7 @@ const logout = () => {
 
         </div>
 
-        <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start md:px-2 md:container md:mx-auto">
+        <!-- <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto">
             <NuxtLink to="/" class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
                 <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
                 <span class="text-sm">Hotels</span>
@@ -153,9 +153,9 @@ const logout = () => {
                 <span class="text-sm">Villas</span>
             </NuxtLink>
 
-        </div>
+        </div> -->
 
-        <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center md:container px-20">
+        <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center sm:container px-20">
             <h1 class=" text-3xl font-bold">
                 Find your next stay
             </h1>
