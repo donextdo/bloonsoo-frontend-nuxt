@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         cryptoScrete: process.env.CRYPTO_SCRETE,
         
         public: {
-            baseUrl: development ? 'http://localhost:9000' : process.env.API_BASE_URL
+            baseUrl: development ? process.env.API_BASE_URL : process.env.API_BASE_URL
         }
     },
 

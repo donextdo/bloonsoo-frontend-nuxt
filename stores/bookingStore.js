@@ -3,7 +3,8 @@ import { useLocalStorage } from "@vueuse/core";
 
 let development = process.env.NODE_ENV !== 'production'
 
-const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+// const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+const baseUrl = 'http://api.bloonsoo.com'
 
 export const useBookingStore = defineStore('booking', {
     state: () => ({ 
@@ -103,7 +104,7 @@ export const useBookingStore = defineStore('booking', {
                 hotel_id: this.hotelId,
                 full_name: this.fullName,
                 email: this.email,
-                coutry: this.country,
+                country: this.country,
                 mobile: this.mobile,
                 arrival_time: this.arrival_time,
                 total: this.totalPrice,

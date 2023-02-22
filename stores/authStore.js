@@ -3,8 +3,9 @@ import { useLocalStorage } from "@vueuse/core";
 
 let development = process.env.NODE_ENV !== 'production'
 
-const baseUrl = development ? 'http://localhost:9000' :' http://localhost:9000'
+// const baseUrl = development ? 'http://localhost:9000' :' http://localhost:9000'
 // const baseUrl = development ? 'http://localhost:9000' :' http://api.marriextransfer.com'
+const baseUrl = 'http://api.bloonsoo.com'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({  
