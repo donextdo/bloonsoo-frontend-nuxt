@@ -3,7 +3,7 @@
     <div class="w-full h-72 rounded-lg p-6 flex flex-col bg-white shadow-lg">
 
         <div class="flex items-end gap-4">
-            <div class="h-20 w-20 rounded-full overflow-hidden">
+            <div class="md:h-20 md:w-20 rounded-full overflow-hidden">
                 <img src="@/assets/avatar/avatar_2.png" loading="lazy" class="w-full h-full object-cover" alt="">
             </div>
 

@@ -17,7 +17,7 @@ defineProps({
 
 <template>
     
-    <nuxt-link :to="`/hotels/${hotel._id}`" class="group relative w-full h-80 shadow-lg text-white rounded-lg overflow-hidden hover:scale-105 transition">
+    <nuxt-link :to="`/hotels/${hotel._id}`" class="group relative w-80 md:w-full  h-80 md:h-80 shadow-lg text-white rounded-lg overflow-hidden hover:scale-105 transition">
 
         <!-- <slot></slot> -->
         <img :src="hotel.cover_image" loading="lazy" class="w-full h-full object-cover" alt="">

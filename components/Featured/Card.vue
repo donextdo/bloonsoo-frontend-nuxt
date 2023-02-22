@@ -6,7 +6,7 @@ const isFav = ref(false)
 
 <template>
     
-    <div class="w-full flex flex-col gap-4 text-white select-none xl:gap-6">
+    <div class="w-80 md:w-full flex flex-col gap-4 text-white select-none xl:gap-6">
 
         <div class="w-full h-60 rounded-lg shadow-lg xl:h-80 relative overflow-hidden">
 

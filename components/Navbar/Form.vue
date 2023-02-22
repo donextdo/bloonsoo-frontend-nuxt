@@ -63,7 +63,7 @@
 </script>
 
 <template>
-    <div class="relative mx-auto md:container px-20 -mt-14 z-20">
+    <div class="relative mx-auto md:container px-10 md:px-20 -mt-14 z-20">
     
         <form class="relative w-full h-full border-4 rounded-lg px-8 py-4 bg-white border-blue-500 flex flex-col gap-4 md:px-24" action="">
             

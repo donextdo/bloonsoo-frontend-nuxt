@@ -18,7 +18,7 @@ const handleClick = () => {
 
 <template>
     
-    <div class="w-full h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
+    <div class="w-full h-28 md:h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
         
         <div class="w-full h-full row-span-2 col-span-2 relative">
             <img :src="images[0]" alt="" class="w-full h-full object-cover">
@@ -37,8 +37,8 @@ const handleClick = () => {
 
             <button @click="handleClick()" class="absolute inset-0 bg-black bg-opacity-30 grid place-items-center hover:bg-opacity-50">
 
-                <h4 class="text-white font-extrabold text-base">
-                    <span class="text-4xl">+</span><span class="text-6xl">{{ images.length - 2 }}</span> 
+                <h4 class="text-white font-extrabold text-sm md:text-base">
+                    <span class="text-base md:text-4xl">+</span><span class="text-lg md:text-6xl">{{ images.length - 2 }}</span> 
                     photos
                 </h4>
 

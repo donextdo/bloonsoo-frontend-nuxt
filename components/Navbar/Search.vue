@@ -43,29 +43,29 @@ const handleCalendar = () => {
 
 <template>
     
-    <div class="relative mx-auto md:container px-20 -mt-8 z-20 font-montserrat">
+    <div class="relative mx-auto md:container px-6 md:px-20 -mt-4 md:-mt-8 z-20 font-montserrat">
 
         <div 
-        class="relative w-full h-16 border-2 rounded-lg bg-white 
+        class="relative w-full h-10 md:h-16 border-2 rounded-lg bg-white 
         border-blue-500 grid grid-cols-4">
 
             <div class="relative w-full h-full">
 
                 <input 
                     type="text" 
-                    class="w-full h-full pl-12 pr-6 py-2 text-slate-700 text-sm font-semibold focus:outline-none rounded-l-lg border-r-2 border-blue-500" 
+                    class="w-full md:h-full pl-12 pr-6 py-2 text-slate-700 text-sm font-semibold focus:outline-none rounded-l-lg border-r-2 border-blue-500" 
                     placeholder="Location" value="Location">
 
-                <font-awesome-icon icon="fa-solid fa-location-dot" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-xl" />
+                <font-awesome-icon icon="fa-solid fa-location-dot" class="absolute left-4 top-2 md:top-0 bottom-0 md:my-auto text-slate-700 text-xl" />
 
             </div>
 
             <div class="w-full h-full relative">
                 <button 
                 @click="handleCalendar"
-                class="px-4 py-2 flex items-center gap-4 w-full h-full border-r-2 border-blue-500">
+                class="px-2 md:px-4 md:py-2 flex md:items-center gap-4 w-full h-full border-r-2 border-blue-500">
                 
-                    <font-awesome-icon icon="fa-solid fa-calendar" class="text-slate-700 text-lg" />
+                    <font-awesome-icon icon="fa-solid fa-calendar" class="text-slate-700 text-lg mt-2 md:mt-0" />
 
                     <span class="font-semibold text-sm text-slate-700">
                         Check In - Check Out
@@ -99,9 +99,9 @@ const handleCalendar = () => {
             <div class="w-full h-full relative">
                 <button 
                 @click="handleGuestClick"
-                class="px-4 py-2 flex items-center gap-4 w-full h-full">
+                class="px-2 md:px-4 py-2 flex md:items-center gap-4 w-full h-full">
                 
-                    <font-awesome-icon icon="fa-solid fa-user" class="text-slate-700 text-lg" />
+                    <font-awesome-icon icon="fa-solid fa-user" class="text-slate-700 text-lg  md:mt-0" />
 
                     <span class="font-semibold text-sm text-slate-700">
                         Guests 
@@ -200,7 +200,7 @@ const handleCalendar = () => {
             
 
             <button 
-            class="gradient-btn w-full h-full rounded-0 rounded-r-lg">
+            class="gradient-btn w-full h-9 md:h-full rounded-0 rounded-r-lg">
                 Search
             </button>
 
