@@ -188,15 +188,15 @@ const toggleAuthPopup = () => {
 
                 <HotelMap />
 
-                <!-- <HotelRatings />
+                <HotelRatings  :hotel="hotel"/>
 
-                <HotelBlog /> -->
+                <HotelBlog />
 
             </aside>
 
         </main>
 
-        <!-- <section class="md:container mx-auto px-12 flex flex-col gap-6">
+        <section class="md:container mx-auto px-12 flex flex-col gap-6">
 
             <h4 class="text-xl font-bold">
                 Facilities
@@ -246,7 +246,7 @@ const toggleAuthPopup = () => {
             <SharedTable :headers="[
                 'Room Type',
                 'Sleeps',
-                'Price for 10 nights',
+                'Price for 1 nights',
                 'Your Choices',
                 'Rooms'
             ]"
@@ -256,6 +256,7 @@ const toggleAuthPopup = () => {
             >
             
             <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal">
+                
             
                 <template v-slot:rooms>
                     <h4 class="text-base text-gray-800 font-semibold">
@@ -293,9 +294,6 @@ const toggleAuthPopup = () => {
                             }}
                         </h4>
 
-                        <p class="text-sm text-gray-600">
-                            +LKR 179,407 taxes and charges
-                        </p>
                     </div>
 
                     <button
@@ -415,7 +413,7 @@ const toggleAuthPopup = () => {
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
             :policies="hotel.policies"
-        /> -->
+        />
 
         <AuthLoginPopup 
             v-if="showAuthPopup"

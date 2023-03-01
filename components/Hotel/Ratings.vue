@@ -1,3 +1,16 @@
+<script setup>
+
+defineProps({
+  hotel: {
+    type: Object
+  }
+})
+
+
+
+const isFav = ref(false)
+
+</script>
 <template>
     
     <div class="w-full bg-gray-200 flex flex-col gap-4 rounded-lg shadow-md p-6 font-montserrat text-black">
@@ -9,9 +22,12 @@
             </h2>
             
             <div class="flex items-center gap-2">
-                <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-base"/>
 
-                <p>4.0</p>
+              <div v-if="hotel.star_rating != 'N/A'">
+                <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-base"/>
+              </div>
+                <p>{{ hotel.star_rating }}</p>
+                
             </div>
 
             
@@ -20,11 +36,11 @@
 
           <div class="w-full flex flex-col">
 
-            <HotelRatingBar label="Facilities" rating="5.0"/>
+            <!-- <HotelRatingBar label="Facilities" rating="5.0"/>
             <HotelRatingBar label="Communication" rating="4.0"/>
             <HotelRatingBar label="Hygiene" rating="5.0"/>
             <HotelRatingBar label="Location of Property" rating="4.5"/>
-            <HotelRatingBar label="Value for Money" rating="4.0"/>
+            <HotelRatingBar label="Value for Money" rating="4.0"/> -->
 
           </div>
         

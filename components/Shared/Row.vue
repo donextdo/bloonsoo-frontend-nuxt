@@ -70,17 +70,17 @@ const handleClick = () => {
 
     <div class="w-full bg-gray-200 col-span-2 p-6 h-full flex flex-col justify-center gap-4">
         
-        <h4 class="text-base text-gray-800 font-semibold">
+        <h4 class="text-base text-gray-800 font-semibold text-center">
            {{ dto.price_for_one_night }}
         </h4>
 
-        <p class="text-sm text-gray-600">
-            +LKR 179,407 taxes and charges
+        <!-- <p class="text-sm text-gray-600">
+            
         </p>
 
         <p class="text-sm font-semibold text-green-500">
             Limited-time Deal
-        </p>
+        </p> -->
 
     </div>
 
@@ -102,7 +102,7 @@ const handleClick = () => {
             <font-awesome-icon icon="fa-solid fa-check" class="text-green-500 text-lg"/>
 
             <h4 class="text-xs text-green-500 font-semibold">
-                Free cancellation until 23:59 on 25 November 2022
+                Free cancellation within 24 hours
             </h4>
 
         </div>
