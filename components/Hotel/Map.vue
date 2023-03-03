@@ -5,7 +5,7 @@
 
     <div class="absolute inset-0 grid place-items-center">
         <nuxt-link to="#" 
-            class="py-3 px-10 rounded-full 
+            class="py-2 md:py-3 px-5 md:px-10 rounded-full 
             w-max gradient-btn">
             Show on map
         </nuxt-link>

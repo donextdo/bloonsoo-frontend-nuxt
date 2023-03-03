@@ -36,11 +36,11 @@ const cta2 = {
 
             <template v-slot:button>
                 <nuxt-link to="/listing/"
-                class="py-4 px-10 inline-block rounded-full 
+                class="py-3 px-5 md:py-4 md:px-10 inline-block rounded-full 
                 w-max text-sm text-black 
-                font-bold bg-gradient-to-b
-                from-darkyellow to-semidarkyellow
-                hover:from-semidarkyellow
+                font-bold bg-gradient-to-b 
+                from-darkyellow to-semidarkyellow 
+                hover:from-semidarkyellow 
                 hover:to-darkyellow">
                     Become A Host
                 </nuxt-link>
@@ -61,7 +61,7 @@ const cta2 = {
 
             <template v-slot:button>
                 <nuxt-link to="#" 
-                class="py-4 px-10 inline-block rounded-full 
+                class="py-3 px-5 md:py-4 md:px-10 inline-block rounded-full 
                 w-max text-sm text-black 
                 font-bold bg-gradient-to-b 
                 from-darkyellow to-semidarkyellow 

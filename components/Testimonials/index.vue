@@ -1,6 +1,6 @@
 <template>
     
-    <section class="px-20 mb-16 md:container md:mx-auto flex flex-col items-center font-montserrat">
+    <section class="px-10 md:px-20 mb-16 md:container md:mx-auto flex flex-col items-center font-montserrat">
 
         <div class="w-full bg-gray-200 border-4 p-10 pb-16 border-gray-300">
             

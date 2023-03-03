@@ -2,10 +2,10 @@
     
     <section class="w-full py-10 bg-lightblue font-montserrat">
    
-        <div class="md:container md:mx-auto px-32 ">
+        <div class="md:container md:mx-auto px-8 md:px-32 ">
             
-            <div class="flex items-center gap-16">
-                <div>
+            <div class="md:flex items-center gap-16">
+                <div class="text-center">
                     <h3 class="text-xl text-black font-bold">
                         NEWSLETTER
                     </h3>

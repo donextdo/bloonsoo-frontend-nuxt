@@ -44,17 +44,17 @@ const pagination = ref({
 
         </swiper-slide>
 
-        <swiper-slide>
+        <!-- <swiper-slide>
 
         <div class="w-full h-72 bg-red-200"></div>
 
-        </swiper-slide>
+        </swiper-slide> -->
 
-        <swiper-slide>
+        <!-- <swiper-slide>
 
         <div class="w-full h-72 bg-red-800"></div>
 
-        </swiper-slide>
+        </swiper-slide> -->
 
     </swiper>
 

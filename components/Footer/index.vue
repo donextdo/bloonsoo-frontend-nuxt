@@ -95,7 +95,7 @@ const blogs = ref([
 
         <div class="md:container mx-auto px-10 lg:px-32 py-20 w-full flex flex-col gap-12">
 
-            <div class="grid grid-cols-4 justify-items-center">
+            <div class="grid grid-cols-2 gap-y-10 gap-x-10 md:gap-0 md:grid-cols-4 justify-items-center">
 
                 <div class="w-full flex flex-col lg:pl-16">
                     <h3 class="text-lg font-bold mb-6">
@@ -165,13 +165,13 @@ const blogs = ref([
 
         </div>
 
-        <div class="md:container mx-auto px-4 md:px-1 py-8 flex items-center justify-between border-t-2 border-gray-400">
+        <div class="md:container mx-auto px-4 md:px-1 py-8 md:flex items-center justify-between border-t-2 border-gray-400">
 
-            <h4 class="text-base font-semibold">
+            <h4 class="text-base text-center font-semibold mb-3 md:mb-0">
                 &copy; 2022 Bloonsoo | All rights raserved
             </h4>
             
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center justify-center">
 
                 <a href="#">
                     <font-awesome-icon icon="fa-brands fa-square-facebook" class="text-blue-700 text-2xl"/>

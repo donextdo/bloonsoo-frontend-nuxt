@@ -5,7 +5,7 @@
             Why Choose Us
         </h1>
 
-        <div class="md:container md:mx-auto px-20 grid grid-cols-2 gap-4 justify-items-center lg:grid-cols-4 md:gap-8">
+        <div class="md:container md:mx-auto px-20 grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center lg:grid-cols-4 md:gap-8">
             
             <WhyChooseUsCard title="Hottest Deal Finder">
                 <img src="../../assets/features/feature_1.png" loading="lazy" class="w-full h-full object-contain" alt="">

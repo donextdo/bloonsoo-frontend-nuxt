@@ -176,7 +176,7 @@ const toggleAuthPopup = () => {
    <section class="flex flex-col gap-14 bg-gray-50 text-black font-montserrat">
         <main class="md:container mx-auto px-2 pt-16 pb-6 grid grid-cols-3 gap-4 w-full">
 
-            <section class="w-full col-span-2 grid grid-col gap-4">
+            <section class="w-52 md:w-full col-span-2 grid grid-col gap-4">
 
                 <HotelGallery :images="hotel.gallery_images" @onClick="toggleGallery" />
 
@@ -184,7 +184,7 @@ const toggleAuthPopup = () => {
 
             </section>
 
-            <aside class="w-full col-span-1 h-full flex flex-col gap-4">
+            <aside class="w-24 md:w-full col-span-1 h-full flex md:flex-col gap-4">
 
                 <HotelMap />
 
