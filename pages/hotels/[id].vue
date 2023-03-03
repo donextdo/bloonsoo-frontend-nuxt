@@ -188,6 +188,7 @@ const toggleAuthPopup = () => {
 
                 <HotelMap />
 
+
                 <HotelRatings  :hotel="hotel"/>
 
                 <HotelBlog />
