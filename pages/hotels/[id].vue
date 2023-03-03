@@ -188,15 +188,15 @@ const toggleAuthPopup = () => {
 
                 <HotelMap />
 
-                <!-- <HotelRatings />
+                <HotelRatings />
 
-                <HotelBlog /> -->
+                <HotelBlog />
 
             </aside>
 
         </main>
 
-        <!-- <section class="md:container mx-auto px-12 flex flex-col gap-6">
+        <section class="md:container mx-auto px-12 flex flex-col gap-6">
 
             <h4 class="text-xl font-bold">
                 Facilities
@@ -415,7 +415,7 @@ const toggleAuthPopup = () => {
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
             :policies="hotel.policies"
-        /> -->
+        />
 
         <AuthLoginPopup 
             v-if="showAuthPopup"
