@@ -38,7 +38,7 @@ const logout = () => {
                 <!-- <h1 class="text-3xl font-bold">
                     LOGO
                 </h1> -->
-                <img src="../../assets/logo.png" alt="" class="w-44">
+                <img src="../../assets/logo.png" alt="" class="w-64">
             </NuxtLink>
 
             <div class="flex gap-5">
@@ -128,7 +128,7 @@ const logout = () => {
 
         </div>
 
-        <!-- <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto">
+        <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto">
             <NuxtLink to="/" class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
                 <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
                 <span class="text-sm">Hotels</span>
@@ -154,7 +154,7 @@ const logout = () => {
                 <span class="text-sm">Villas</span>
             </NuxtLink>
 
-        </div> -->
+        </div>
 
         <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center sm:container px-20">
             <h1 class=" text-3xl font-bold">

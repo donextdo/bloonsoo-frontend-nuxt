@@ -10,6 +10,8 @@ const isFav = ref(false)
 
 
 
+
+
 </script>
 
 
@@ -46,13 +48,15 @@ const isFav = ref(false)
 
         <div class="flex flex-col gap-2">
 
-          <p class="text-sm md:text-xl font-bold">$ 1000 - $ 2000</p>
+          <!-- NEED TO FIX -->
+
+          <!-- <p class="text-sm md:text-xl font-bold">$ 1000 - $ 2000</p>
 
           <div class="flex items-center text-sm text-gray-600 gap-6 md:gap-10">
             <p>Short Period: $ 1000</p>
             <p>Medium Period: $ 2000</p>
             <p>Long Period: $ 2000</p>
-          </div>
+          </div> -->
 
           <div class="mt-2 flex items-center gap-10 text-blue-700">
             

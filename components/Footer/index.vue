@@ -167,9 +167,15 @@ const blogs = ref([
 
         <div class="md:container mx-auto px-4 md:px-1 py-8 md:flex items-center justify-between border-t-2 border-gray-400">
 
-            <h4 class="text-base text-center font-semibold mb-3 md:mb-0">
-                &copy; 2022 Bloonsoo | All rights raserved
+            <div class="flex flex-col md:flex-row">
+                <h4 class="text-base text-center font-semibold mb-2 md:mb-0">
+                &copy; 2022 Bloonsoo | All rights reserved  
             </h4>
+            <h4 class="text-base text-center font-semibold mb-5 md:mb-0 mx-1 text-blue-700">
+                powered by Marriextransfer private limited
+            </h4>
+            </div>
+
             
             <div class="flex gap-4 items-center justify-center">
 

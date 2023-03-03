@@ -26,17 +26,18 @@ defineProps({
 
           <h4 class="text-md font-bold"> {{ hotel.property_name }}</h4>
 
-          <p class="text-xs font-semibold">100 Whatever Street, USA</p>
+          <p class="text-xs font-semibold">{{hotel.property_address.street_address }}</p>
 
-          <p class="text-sm font-bold mb-1">$1000 Night</p>
+          <!-- NEED TO FIX  -->
+          <!-- <p class="text-sm font-bold mb-1">$1000 Night</p> -->
 
-          <div class="flex gap-1 w-max self-end -mt-1 lg:-mt-2">
+          <!-- <div class="flex gap-1 w-max self-end -mt-1 lg:-mt-2">
             <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-xs"/>
             <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-xs"/>
             <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-xs"/>
             <font-awesome-icon icon="fa-solid fa-star" class="text-semidarkyellow text-xs"/>
             <font-awesome-icon icon="fa-regular fa-star" class="text-semidarkyellow text-xs"/>
-          </div>
+          </div> -->
         </div>
 
         <div class="absolute top-2 right-2">
