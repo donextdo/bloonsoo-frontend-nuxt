@@ -33,13 +33,19 @@ const showBookingDetails = ref(false)
 const { bookings, totalPrice } = storeToRefs(bookingStore)
 
 onMounted(async () => {
-    const { id } = useRoute().params
+    try {
+        bookingStore.$reset()
+        const { id } = useRoute().params
 
-    const hotelData = await $fetch(`${baseUrl}/api/hotel/${id}`)
-    console.log(hotelData)
+        const hotelData = await $fetch(`${baseUrl}/api/hotel/${id}`)
+        console.log(hotelData)
 
-    hotel.value = hotelData
-    console.log(hotelData)
+        hotel.value = hotelData
+    }
+    catch (error) {
+        console.log(error)
+    }
+    
 })
 
 /**
