@@ -125,9 +125,9 @@ const onSubmit = () => {
 
 <template>
   
-    <div class="fixed inset-0 bg-black bg-opacity-40 grid place-items-center z-40 py-20">
+    <div class="fixed inset-0 bg-black bg-opacity-40 grid md:place-items-center z-40 py-20">
 
-        <div class="w-[60vw] h-max bg-white rounded-lg relative shadow-md overflow-visible flex flex-col gap-4 px-24 py-10">
+        <div class="w-[80vw] md:w-[60vw] h-max bg-white rounded-lg relative shadow-md overflow-visible flex flex-col gap-4 px-5 md:px-24 py-10 mx-auto md:mx-0">
 
             <div class="w-full grid grid-cols-2 gap-6">
                 <SharedDateInput

@@ -10,10 +10,10 @@ const props = defineProps({
 
 <template>
     
-    <div class="bg-white shadow-md w-full grid grid-cols-5 mb-10 ">
+    <div class="bg-white shadow-md w-full grid  md:grid-cols-5 mb-10 ">
 
         <img :src="hotel.cover_image" 
-            class="w-full aspect-square object-cover col-span-2"
+            class="w-full aspect-square object-cover col-span-3 md:col-span-2"
             alt=""
         >
 
@@ -26,7 +26,7 @@ const props = defineProps({
                         {{ hotel.property_name }}
                     </h3>    
 
-                    <p class="text-base font-medium text-gray-600">
+                    <p class="text-sm md:text-base font-medium text-gray-600">
                         {{ hotel.property_address.street_address }}, {{ hotel.property_address.country }}
                     </p>
                 </div>
@@ -79,7 +79,7 @@ const props = defineProps({
                 </p>
 
                 <NuxtLink :to="`/hotels/${hotel._id}`"
-                class=" flex items-center justify-center py-3 px-6  w-1/2 rounded-full ml-auto mt-10 text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">
+                class=" flex items-center justify-center py-3 md:px-6  w-1/2 rounded-full mx-auto md:ml-auto mt-10 text-sm text-black font-semibold bg-gradient-to-b from-darkyellow to-semidarkyellow hover:from-semidarkyellow hover:to-darkyellow">
                   See Availability
                 </NuxtLink>
               </div>

@@ -13,9 +13,9 @@ const isFav = ref(false)
 </script>
 <template>
     
-    <div class="w-full bg-gray-200 flex flex-col gap-4 rounded-lg shadow-md p-6 font-montserrat text-black">
+    <div class="w-full  bg-gray-200 flex flex-col gap-4 rounded-lg shadow-md p-6 font-montserrat text-black">
 
-          <div class="text-lg font-bold flex justify-between items-center gap-4">
+          <div class="text-base md:text-lg font-bold flex justify-between items-center gap-4">
             
             <h2>
                 Ratings
