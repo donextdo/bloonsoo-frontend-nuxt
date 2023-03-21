@@ -238,7 +238,7 @@ const toggleAuthPopup = () => {
 
         </section>
 
-         <section id="rooms-area" class="md:container mx-auto pt-4 px-12 flex flex-col gap-6 ">
+         <section id="rooms-area" class="md:container md:mx-auto pt-4 px-5 md:px-12 flex flex-col gap-6 ">
 
             <h4 class="text-xl font-bold">
                 Availability
@@ -255,7 +255,7 @@ const toggleAuthPopup = () => {
             :bookings="bookedRooms.length > 0"
             :total="totalPrice"
             @onResAllClick="toggleBookingDetails"
-            class="invisible md:visible"
+            class="hidden md:block"
             >
             
             <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal">
@@ -313,7 +313,56 @@ const toggleAuthPopup = () => {
 
             </SharedTable> 
 
-            <!-- <HotelRooms v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal" class="visible md:invisible"/> -->
+            <HotelRooms v-for="room in hotel.rooms" :key="room._id" :dto="room" :bookedRooms="bookedRooms" @onClick="toggleRoomModal" class="block md:hidden">
+            
+                <template v-slot:rooms>
+                    <h4 class="text-base text-gray-800 font-semibold">
+                        {{ room.nbr_of_rooms }}
+                    </h4>
+                </template>
+
+                <template v-slot:actions>
+
+                    <button
+                    v-if="!bookedRooms.includes(room._id)"
+                    @click="handleReserve(room._id)" 
+                    class="px-10 py-2 gradient-outline-btn" to="#">
+                        Reserve
+                    </button>
+
+                    <div 
+                    v-if="bookedRooms.includes(room._id)"
+                    class="self-start">
+                        <p 
+                        class="text-sm text-left text-gray-800 font-medium">
+                            {{  
+                            bookedRooms.includes(room._id) ? 
+                            `${checkForBookings(room._id).rooms} room(s) for`
+                            : '' 
+                            }}
+                        </p>
+
+                        <h4 
+                        class="text-base text-gray-800 font-semibold">
+                            {{  
+                            bookedRooms.includes(room._id) ? 
+                            `${checkForBookings(room._id).price}`
+                            : '' 
+                            }}
+                        </h4>
+
+                    </div>
+
+                    <button
+                    v-if="bookedRooms.includes(room._id)"
+                    @click="removeFromBookings(room._id)"
+                    class="px-10 py-2 gradient-outline-btn">
+                        Cancel
+                    </button>
+                    
+
+                </template>
+            </HotelRooms>
 
             
 
