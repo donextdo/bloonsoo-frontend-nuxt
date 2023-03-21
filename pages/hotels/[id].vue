@@ -174,9 +174,9 @@ const toggleAuthPopup = () => {
 <template>
     
    <section class="flex flex-col gap-14 bg-gray-50 text-black font-montserrat">
-        <main class="md:container mx-auto px-2 pt-16 pb-6 grid grid-cols-3 gap-4 w-full">
+        <main class="md:container md:mx-auto pl-5 md:px-2 pt-16 pb-6 grid md:grid-cols-3 gap-4 w-full">
 
-            <section class="w-52 md:w-full col-span-2 grid grid-col gap-4">
+            <section class="w-56 md:w-full md:col-span-2 grid grid-col gap-4">
 
                 <HotelGallery :images="hotel.gallery_images" @onClick="toggleGallery" />
 
@@ -184,7 +184,7 @@ const toggleAuthPopup = () => {
 
             </section>
 
-            <aside class="w-24 md:w-full col-span-1 h-full flex md:flex-col gap-4">
+            <aside class="w-96 md:w-full md:col-span-1 h-full flex flex-col gap-4">
 
                 <HotelMap />
 
@@ -197,13 +197,13 @@ const toggleAuthPopup = () => {
 
         </main>
 
-        <section class="md:container mx-auto px-12 flex flex-col gap-6">
+        <section class="md:container mx-auto px-5 md:px-12 flex flex-col gap-6">
 
             <h4 class="text-xl font-bold">
                 Facilities
             </h4>
 
-            <div class="px-20 grid grid-cols-3">
+            <div class="md:px-20 grid md:grid-cols-3 grid-cols-2">
 
                 <HotelFacility icon="kitchen" label="Kitchen"/>
                 <HotelFacility icon="television" label="Television with Netflix"/>
@@ -220,13 +220,13 @@ const toggleAuthPopup = () => {
 
         </section>
 
-        <section class="md:container mx-auto px-12 flex flex-col gap-6">
+         <section class="md:container mx-auto px-5 md:px-12 flex flex-col gap-6">
 
             <h4 class="text-xl font-bold">
                 Safety and Hygiene
             </h4>
 
-            <div class="px-20 grid grid-cols-3">
+            <div class="md:px-20 grid md:grid-cols-3 grid-cols-2">
 
                 <HotelFacility icon="dailycleaning" label="Daily Cleaning"/>
                 <HotelFacility icon="fireext" label="Fire Extinguishers"/>
@@ -238,13 +238,14 @@ const toggleAuthPopup = () => {
 
         </section>
 
-        <section id="rooms-area" class="md:container mx-auto pt-4 px-12 flex flex-col gap-6">
+         <section id="rooms-area" class="md:container mx-auto pt-4 px-12 flex flex-col gap-6 ">
 
             <h4 class="text-xl font-bold">
                 Availability
             </h4>
+            
 
-            <SharedTable :headers="[
+             <SharedTable :headers="[
                 'Room Type',
                 'Sleeps',
                 'Price for 1 nights',
@@ -254,6 +255,7 @@ const toggleAuthPopup = () => {
             :bookings="bookedRooms.length > 0"
             :total="totalPrice"
             @onResAllClick="toggleBookingDetails"
+            class="invisible md:visible"
             >
             
             <SharedRow v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal">
@@ -309,102 +311,104 @@ const toggleAuthPopup = () => {
 
             </SharedRow>
 
-            </SharedTable>
+            </SharedTable> 
+
+            <!-- <HotelRooms v-for="room in hotel.rooms" :key="room._id" :dto="room" @onClick="toggleRoomModal" class="visible md:invisible"/> -->
 
             
 
-        </section>
+        </section>  
 
-        <section class="md:container mx-auto px-12 flex flex-col gap-6 mb-14">
+        <section class="md:container mx-auto px-6 md:px-12 flex flex-col gap-6 mb-14">
             <h4 class="text-xl font-bold">
                 House Rules
             </h4>
 
-            <div class="bg-gray-200 p-10 flex flex-col gap-10">
-                <div class="grid grid-cols-4">
+            <div class="bg-gray-200 p-5 md:p-10 flex flex-col gap-10">
+                <div class="grid md:grid-cols-4 grid-cols-2">
 
                     <div class="flex items-center gap-3">
                         <font-awesome-icon icon="fa-solid fa-calendar" class="text-lg text-blue-700" />
                         <span class="text-sm font-semibold">Check In</span>
                     </div>
 
-                    <p class="col-span-3 text-sm font-normal">
+                    <p class="md:col-span-3 col-span-1 text-sm font-normal">
                         Check in from {{ hotel.policies?.check_in_form }} until {{ hotel.policies?.check_in_untill }}
                     </p>
 
                 </div>
 
-                <div class="grid grid-cols-4">
+                <div class="grid md:grid-cols-4 grid-cols-2">
 
                     <div class="flex items-center gap-3">
                         <font-awesome-icon icon="fa-solid fa-calendar" class="text-lg text-blue-700" />
                         <span class="text-sm font-semibold">Check Out</span>
                     </div>
 
-                    <p class="col-span-3 text-sm font-normal">
+                    <p class="md:col-span-3 col-span-1 text-sm font-normal">
                         Check out from {{ hotel.policies?.check_out_form }} until {{ hotel.policies?.check_out_untill }}
                     </p>
                 </div>
 
-                <div class="grid grid-cols-4">
+                <div class="grid md:grid-cols-4 grid-cols-2">
 
                     <div class="flex items-center gap-3">
                         <SharedLogosCancel />
                         <span class="text-sm font-semibold">Cancellation/ <br> prepayment</span>
                     </div>
 
-                    <p class="col-span-3 text-sm font-normal">
+                    <p class="md:col-span-3 col-span-1 text-sm font-normal">
                         Advance can guests cancel free of charge within {{ hotel.policies?.cancellation_duration }} days.
                     </p>
                 </div>
 
-                <div class="grid grid-cols-4">
+                <div class="grid md:grid-cols-4 grid-cols-2">
 
                     <div class="flex items-center gap-3">
                         <font-awesome-icon icon="fa-solid fa-paw" class="text-lg text-blue-700" />
                         <span class="text-sm font-semibold">Pets</span>
                     </div>
 
-                    <p class="col-span-3 text-sm font-normal">
+                    <p class="md:col-span-3 col-span-1 text-sm font-normal">
                         {{ hotel.policies?.pets ? 'Pets are allowed' : 'Not allowed' }}
                     </p>
                 </div>
 
-                <div class="grid grid-cols-4">
+                <div class="grid md:grid-cols-4 grid-cols-2">
 
                     <div class="flex items-center gap-3">
                         <font-awesome-icon icon="fa-solid fa-credit-card-alt" class="text-lg text-blue-700" />
                         <span class="text-sm font-semibold">Card <br> Payments</span>
                     </div>
 
-                    <p class="col-span-3 text-sm font-normal">
+                    <p class="md:col-span-3 col-span-1 text-sm font-normal">
                         {{ hotel.credit_card_options ? 'Available' : 'Not available' }}
                     </p>
                 </div>
 
             </div>
 
-        </section>
+        </section> 
 
         <GalleryModal 
             v-if="showGallery" 
             @onClose="toggleGallery" 
             :images="hotel.gallery_images"
-        />
+        /> 
 
         <RoomModal 
             v-if="showRoomModal" 
             @onClose="closeRoomModal" 
             :room="currentRoom" 
             :address="hotel.property_address" 
-        />
+        /> 
 
         <BookingPopup 
             v-if="showBookingPopup" 
             @onClose="closeBookingPopup" 
             @onSubmit="onPopupSubmit" 
             :roomId="roomIdOnBooking" 
-        />
+        /> 
 
         <BookingDetails 
             v-if="showBookingDetails" 
@@ -414,12 +418,12 @@ const toggleAuthPopup = () => {
             :propertyAddress="hotel.property_address"
             :bookings="bookings"
             :policies="hotel.policies"
-        />
+        /> 
 
         <AuthLoginPopup 
             v-if="showAuthPopup"
             @onClose="toggleAuthPopup"
-        />
+        />   
 
    </section>
 

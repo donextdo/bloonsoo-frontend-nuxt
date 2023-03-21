@@ -18,7 +18,7 @@ const handleClick = () => {
 
 <template>
     
-    <div class="w-full h-28 md:h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
+    <div class="w-full h-48 md:h-70vh grid grid-cols-3 grid-rows-2 gap-4 relative">
         
         <div class="w-full h-full row-span-2 col-span-2 relative">
             <img :src="images[0]" alt="" class="w-full h-full object-cover">

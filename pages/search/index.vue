@@ -50,7 +50,7 @@ async function serachHotels() {
 
   <section class="md:container mx-auto px-10 py-12 flex flex-col items-center gap-10 text-black font-montserrat">
 
-    <main class=" w-full px-32">
+    <main class=" w-full md:px-32">
 
       <section class="flex flex-col gap-6 relative">
 
@@ -58,7 +58,7 @@ async function serachHotels() {
 
           <!-- <div class="w-full col-span-3 h-full"> -->
 
-            <h1 class="font-bold text-3xl mb-10">{{ hotels.length }} Results Found for "{{ route.query.query }}"</h1>
+            <h1 class="font-bold text-lg md:text-3xl mb-10">{{ hotels.length }} Results Found for "{{ route.query.query }}"</h1>
 
             <!-- <SharedDropDown 
                     label="" 

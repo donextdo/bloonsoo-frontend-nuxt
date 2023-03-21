@@ -154,7 +154,7 @@ const logout = () => {
                 <span class="text-sm">Villas</span>
             </NuxtLink>
 
-        </div>
+        </div> 
 
         <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center sm:container px-20">
             <h1 class=" text-3xl font-bold">
