@@ -97,6 +97,7 @@ const handleClick = () => {
 
                                 <h4 class="text-xs text-green-500 font-semibold">
                                     Free cancellation within 24 hours
+                                    
                                 </h4>
                             </div>
 
