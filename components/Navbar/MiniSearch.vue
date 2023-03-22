@@ -20,17 +20,6 @@
     const rooms = ref(1)
     const setGuests = ref(false)
 
-    // onMounted(() => {
-    //     const today = new Date()
-    //     const month = String(today.getMonth() + 1).padStart(2, '0')
-    //     const day = String(today.getDate()).padStart(2, '0')
-    //     const tomorrow = String(today.getDate() + 1).padStart(2, '0')
-    //     const year = today.getFullYear()
-
-    //     checkIn.value = `${year}-${month}-${day}`
-    //     checkOut.value = `${year}-${month}-${tomorrow}`
-    // })
-
     const handleGuestClick = () => {
         guestPanel.value = !guestPanel.value
         setGuests.value = true
@@ -67,9 +56,9 @@
 </script>
 
 <template>
-    <div class="relative mx-auto md:container px-10 md:px-20 -mt-14 z-20">
+    <div class="relative mx-auto md:container px-10 md:px-20 -mt-8 z-20">
     
-        <form class="relative w-full h-full border-4 rounded-lg px-8 py-4 bg-white border-blue-500 flex flex-col gap-4 md:px-24" action="">
+        <form class="relative w-full h-full border-2 rounded-lg px-8 py-4 bg-white border-blue-500 flex flex-col gap-4 md:px-24" action="">
             
             <!-- LOCATION  -->
             <div>
@@ -90,41 +79,11 @@
 
             </div>
 
+          <!-- CHECK IN DATE -->
             <div class="grid gird-rows-2 lg:grid-cols-2 gap-4">
 
-                <!-- CHECK IN DATE -->
-                <!-- <div class="w-full">
-
-                    <label class="font-montserrat text-sm font-bold text-slate-700" for="">Check in</label>
-                    
-                    <div class="relative w-full mt-2">
-
-                        <input type="date" class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 text-sm font-semibold focus:border-blue-500 focus:border focus:outline-none" placeholder="Add dates">
-
-                        <font-awesome-icon icon="fa-solid fa-calendar" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-xl" />
-
-                    </div>
-
-                    <small v-show="error" class="text-red-900 font-semibold">Please provide a location</small>
-
-                </div> -->
                 
-                <!-- CHECK OUT DATE -->
-                <!-- <div class="w-full">
 
-                    <label class="font-montserrat text-sm font-bold text-slate-700" for="">Check out</label>
-
-                    <div class="relative w-full mt-2">
-
-                        <input type="date" class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 font-semibold text-sm focus:border-blue-500 focus:border focus:outline-none appearance-none" placeholder="Add dates">
-
-                        <font-awesome-icon icon="fa-solid fa-calendar" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-xl" />
-
-                    </div>
-
-                    <small v-show="error" class="text-red-900 font-semibold">Please provide a location</small>
-
-                </div>  -->
                 <SharedDateInput
                     label="Check In"
                     v-model="checkIn"
@@ -136,22 +95,7 @@
             </div>
             
             <!-- GUESTS  -->
-            <!-- <div>
-
-                <label class="font-montserrat text-sm font-bold text-slate-700" for="">Guests</label>
-
-                <div class="relative w-full mt-2">
-
-                    <input type="text" class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 font-semibold text-sm focus:border-blue-500 focus:border focus:outline-none" placeholder="Add Guests">
-
-                    <font-awesome-icon icon="fa-solid fa-user" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-2xl" />
-
-                </div>
-
-                <small v-show="error" class="text-red-900 font-semibold">Please provide a location</small>
-
-            </div> -->
-
+       
             <div class="flex flex-col gap-2 items-start w-full relative">
                 <label class="text-gray-600 text-sm font-bold" >Guests</label>
 
