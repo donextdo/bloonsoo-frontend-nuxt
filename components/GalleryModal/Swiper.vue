@@ -38,12 +38,12 @@ const setThumbsSwiper = (swiper) => {
 
 <template>
 
-    <div class="w-full h-[90vh] grid grid-rows-5 gap-4">
+    <div class="w-full h-[45vh] md:h-[90vh] grid grid-rows-5 gap-4">
         <swiper
             :navigation="true"
             :thumbs="{ swiper: thumbsSwiper }"
             :modules="modules"
-            class="w-full h-full row-span-4 z-10"
+            class="w-full md:h-full row-span-4 z-10"
         >
 
             
