@@ -180,9 +180,9 @@ const toggleAuthPopup = () => {
 <template>
     
    <section class="flex flex-col gap-14 bg-gray-50 text-black font-montserrat">
-        <main class="md:container md:mx-auto pl-5 md:px-2 pt-16 pb-6 grid md:grid-cols-3 gap-4 w-full">
+        <main class="md:container md:mx-auto  md:px-2 pt-16 pb-6 grid  md:grid-cols-3 gap-5 md:w-full">
 
-            <section class="w-56 md:w-full md:col-span-2 grid grid-col gap-4">
+            <section class="w-96 px-5  mb-5 md:mb-0 md:w-full md:col-span-2 ">
 
                 <HotelGallery :images="hotel.gallery_images" @onClick="toggleGallery" />
 
@@ -190,7 +190,7 @@ const toggleAuthPopup = () => {
 
             </section>
 
-            <aside class="w-96 md:w-full md:col-span-1 h-full flex flex-col gap-4">
+            <aside class="w-96 px-5 md:w-full md:col-span-1 h-full flex flex-col gap-4">
 
                 <HotelMap />
 
@@ -369,6 +369,12 @@ const toggleAuthPopup = () => {
 
                 </template>
             </HotelRooms>
+
+            <HotelReserveAll 
+            :bookings="bookedRooms.length > 0"
+            :total="totalPrice"
+            @onResAllClick="toggleBookingDetails"
+            class="block md:hidden"/>
 
             
 

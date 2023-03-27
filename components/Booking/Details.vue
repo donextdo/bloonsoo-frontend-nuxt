@@ -35,13 +35,13 @@ const onSubmit = () => {
 
 <template>
   
-    <div class="fixed inset-0 bg-black bg-opacity-40 grid place-items-center z-40 py-20">
+    <div class="fixed inset-0 bg-black bg-opacity-40 grid place-items-center z-40 py-10 md:py-20">
 
-        <div class="w-[70vw] max-h-full bg-white rounded-lg relative shadow-md overflow-visible flex flex-col gap-6 px-8 py-10 overflow-y-scroll !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-gray-500">
+        <div class="w-[90vw] md:w-[70vw] max-h-full bg-white rounded-lg relative shadow-md overflow-visible flex flex-col gap-6 px-8 py-10 overflow-y-scroll !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-gray-500">
 
             <div class="flex flex-col pb-5 gap-2 border-b border-gray-400">
 
-                <h3 class="text-xl font-bold"> 
+                <h3 class="text-base md:text-xl font-bold"> 
                     {{ propertyName }}
                 </h3>    
 
@@ -62,14 +62,14 @@ const onSubmit = () => {
             <section v-for="(book, index) in bookings" :key="index" class="flex flex-col gap-6">
                 <div class="flex flex-col pb-5 gap-4 border-b border-gray-400">
 
-                <h4 class="text-base font-semibold text-gray-900">
+                <h4 class="text-sm md:text-base font-semibold text-gray-900">
                     Total length of stay: 
                     <span class="font-medium"> 
                         {{ `${book.nights} nights` }} {{ `${book.adults} adults` }} {{ book.children > 0 ? `${book.children} children` : '' }}
                     </span> 
                 </h4>
 
-                <div class="w-2/5 grid grid-cols-2 gap-4 text-sm text-gray-900">
+                <div class="md:w-2/5 grid grid-cols-2 gap-4 text-sm text-gray-900">
                     <div class="flex flex-col gap-2">
                         <span class="font-medium">
                             Check In
@@ -99,7 +99,7 @@ const onSubmit = () => {
 
                 <div class="flex flex-col pb-5 gap-2 border-b border-gray-400">
 
-                    <h4 class="text-base font-semibold">
+                    <h4 class="text-sm md:text-base font-semibold">
                         {{ book.rooms }} x {{ book.roomType }} {{ book.roomName }} 
                     </h4>
                     <!-- <h4 class="text-base font-semibold">
@@ -109,11 +109,11 @@ const onSubmit = () => {
                 </div>
 
                 <div class="flex items-center justify-between pb-5 gap-2 border-b border-gray-400">
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-base md:text-lg font-bold">
                         Price
                     </h3>
 
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-base md:text-lg font-bold">
                         {{ book.totalPrice }}
                     </h3>
                 </div>
@@ -123,11 +123,11 @@ const onSubmit = () => {
             <div class="flex flex-col gap-2">
 
                 <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-base md:text-lg font-bold">
                         Total Price
                     </h3>
 
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-base md:text-lg font-bold">
                         {{ totalPrice }}
                     </h3>
                 </div>

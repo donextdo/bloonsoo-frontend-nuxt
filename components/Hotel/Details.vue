@@ -17,7 +17,7 @@ const isFav = ref(false)
 
 <template>
     
-      <div class="w-96 md:w-full px-5 md:px-8 py-8 bg-white rounded-lg shadow-lg flex flex-col gap-6">
+      <div class=" md:w-full px-4 md:px-8 py-8 bg-white rounded-lg shadow-lg flex flex-col gap-6">
 
         <div class="md:flex md:items-center md:justify-between">
 
@@ -36,7 +36,7 @@ const isFav = ref(false)
                 <font-awesome-icon class="text-xl md:text-3xl mx-5 md:mx-0" icon="fa-solid fa-share-alt"/>
             </button>
 
-            <a href="#rooms-area" 
+            sssssssssssssssssssssssssssssssssssssssssssss<a href="#rooms-area" 
                 class="py-2 md:py-3 px-7 md:px-10 rounded-full 
                 w-max gradient-btn mx-5 md:mx-0">
 
