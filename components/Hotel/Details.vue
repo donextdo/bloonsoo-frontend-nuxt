@@ -45,6 +45,7 @@ const isFav = ref(false)
                 w-max gradient-btn"> -->
 
                 Reserve Now
+            </a>
             <!-- </NuxtLink> -->
 
             <!-- <button to="#rooms-area" 
