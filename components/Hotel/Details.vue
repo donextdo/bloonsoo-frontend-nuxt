@@ -36,7 +36,7 @@ const isFav = ref(false)
                 <font-awesome-icon class="text-xl md:text-3xl mx-5 md:mx-0" icon="fa-solid fa-share-alt"/>
             </button>
 
-            sssssssssssssssssssssssssssssssssssssssssssss<a href="#rooms-area" 
+            <a href="#rooms-area" 
                 class="py-2 md:py-3 px-7 md:px-10 rounded-full 
                 w-max gradient-btn mx-5 md:mx-0">
 
