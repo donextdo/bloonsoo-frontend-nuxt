@@ -170,7 +170,7 @@
 
                 <div 
                 :class="guestPanel ? 'scale-y-100' : 'scale-y-0'" 
-                class="w-1/3 p-4 flex flex-col gap-4 absolute -top-24 left-0 right-0 z-10 bg-white shadow-md mx-auto transition-all overflow-hidden border border-slate-400 rounded-md origin-center">
+                class="w-3/4 md:w-1/3 p-4 flex flex-col gap-4 absolute -top-24 left-0 right-0 z-10 bg-white shadow-md mx-auto transition-all overflow-hidden border border-slate-400 rounded-md origin-center">
 
                     <h4 class="text-sm font-bold text-gray-600">
                         Guests

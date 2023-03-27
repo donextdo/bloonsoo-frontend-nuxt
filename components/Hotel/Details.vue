@@ -17,36 +17,42 @@ const isFav = ref(false)
 
 <template>
     
-      <div class="px-8 py-8 bg-white rounded-lg shadow-lg flex flex-col gap-6">
+      <div class="w-96 md:w-full px-5 md:px-8 py-8 bg-white rounded-lg shadow-lg flex flex-col gap-6">
 
-        <div class="flex md:items-center md:justify-between ">
+        <div class="md:flex md:items-center md:justify-between">
 
-            <div class="flex flex-col gap-10">
-                <h2 class="text-base md:text-2xl font-bold">{{ hotel.property_name ? hotel.property_name : '' }}</h2>
+            <div class="flex flex-col gap-5 md:gap-10 mb-12 md:mb-0">
+                <h2 class="text-lg md:text-2xl font-bold">{{ hotel.property_name ? hotel.property_name : '' }}</h2>
                 <p class="text-sm text-gray-600">{{ hotel.property_address ? hotel.property_address.street_address : ''  }}, {{ hotel.property_address ? hotel.property_address.country : ''  }}</p>
             </div>
 
-          <div class="flex items-center justify-center gap-6">
+          <div class="md:flex items-center justify-center gap-6 ">
             
             <button @click="() => isFav = !isFav">
-                <font-awesome-icon class="text-red-500 md:text-3xl" :icon="isFav ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"/>
+                <font-awesome-icon class="text-red-500 text-xl md:text-3xl mx-5 md:mx-0" :icon="isFav ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"/>
             </button>
 
             <button>
-                <font-awesome-icon class="md:text-3xl" icon="fa-solid fa-share-alt"/>
+                <font-awesome-icon class="text-xl md:text-3xl mx-5 md:mx-0" icon="fa-solid fa-share-alt"/>
             </button>
+
+            <a href="#rooms-area" 
+                class="py-2 md:py-3 px-7 md:px-10 rounded-full 
+                w-max gradient-btn mx-5 md:mx-0">
 
             <!-- <NuxtLink to="#rooms-area" 
                 class="py-2 md:py-3 px-5 md:px-10 rounded-full 
-                w-max gradient-btn">
-                Reserve Now
-            </NuxtLink> -->
+                w-max gradient-btn"> -->
 
-            <button to="#rooms-area" 
+                Reserve Now
+            </a>
+            <!-- </NuxtLink> -->
+
+            <!-- <button to="#rooms-area" 
                 class="py-2 md:py-3 px-5 md:px-10 rounded-full 
                 w-max gradient-btn">
                 Reserve Now
-            </button>
+            </button> -->
 
           </div>
         </div>
