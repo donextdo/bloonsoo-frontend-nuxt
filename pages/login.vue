@@ -139,7 +139,7 @@ const handleClick = async () => {
             Login
             </button>
 
-            <NuxtLink to="#" class="ml-auto text-sm font-semibold">
+            <NuxtLink to="/forgetPassword" class="ml-auto text-sm font-semibold">
                 Forgot Password ?
             </NuxtLink>
 

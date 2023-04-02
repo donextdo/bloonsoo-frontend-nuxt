@@ -17,7 +17,7 @@
                 1
             </span>
 
-            <span class="text-base font-semibold">
+            <span class="text-sm md:text-base font-semibold">
                 Booking Details
             </span>
         </div>
@@ -27,7 +27,7 @@
                 2
             </span>
 
-            <span class="text-base font-semibold">
+            <span class="text-sm md:text-base font-semibold">
                 Your Details
             </span>
         </div>
@@ -37,7 +37,7 @@
                 3
             </span>
 
-            <span class="text-base font-semibold">
+            <span class="text-sm md:text-base font-semibold">
                 Final Setup
             </span>
         </div>
