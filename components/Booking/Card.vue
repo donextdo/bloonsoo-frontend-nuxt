@@ -38,7 +38,7 @@ const toggleExpand = () => {
         <div class="grid grid-cols-3 pb-5 border-b border-gray-400">
 
             <div class="flex flex-col">
-                <h3 class="text-lg font-bold"> 
+                <h3 class="text-sm md:text-lg font-bold"> 
                     {{ booking.hotel_id.property_name }}
                 </h3>    
 
@@ -54,7 +54,7 @@ const toggleExpand = () => {
                     {{ BookingStatus[booking?.status] }}
             </span>
             
-            <h3 class="text-lg font-bold ml-auto"> 
+            <h3 class="text-sm md:text-lg font-bold ml-auto"> 
                 Total Price: {{ booking.total }}
             </h3>
 
@@ -63,14 +63,14 @@ const toggleExpand = () => {
         <section v-for="(room, index) in booking.booked_rooms" :key="index" class="flex flex-col gap-6">
                 <div class="flex flex-col pb-5 gap-4 border-b border-gray-400">
 
-                <h4 class="text-base font-semibold text-gray-900">
+                <h4 class="text-sm md:text-base font-semibold text-gray-900">
                     Total length of stay: 
                     <span class="font-medium"> 
                         {{ `${room.nights} nights` }} {{ `${room.adults} adults` }} {{ room.children > 0 ? `${room.children} children` : '' }}
                     </span> 
                 </h4>
 
-                <div class="w-2/5 grid grid-cols-2 gap-4 text-sm text-gray-900">
+                <div class="md:w-2/5 grid grid-cols-2 gap-4 text-sm text-gray-900">
                     <div class="flex flex-col gap-2">
                         <span class="font-medium">
                             Check In
@@ -94,18 +94,18 @@ const toggleExpand = () => {
 
                 <div class="flex flex-col pb-5 gap-2 border-b border-gray-400">
 
-                    <h4 class="text-base font-semibold">
+                    <h4 class="text-sm md:text-base font-semibold">
                         {{ room.rooms }} x {{ room.room_type }} {{ room.room_name }} 
                     </h4>
 
                 </div>
 
                 <div class="flex items-center justify-between pb-5 gap-2 border-b border-gray-400">
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-sm md:text-lg font-bold">
                         Price
                     </h3>
 
-                    <h3 class="text-lg font-bold">
+                    <h3 class="text-sm md:text-lg font-bold">
                         {{ room.total }}
                     </h3>
                 </div>
