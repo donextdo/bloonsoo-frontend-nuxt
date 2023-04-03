@@ -60,13 +60,13 @@ const goBack = () => {
 
                 <div class="mb-5 pb-5 border-b border-gray-400">
                     <p class="font-semibold mb-3">You selected: </p>
-                    <p class="text-gray-600 text-base">
+                    <p class="text-gray-600 text-sm md:text-base">
                         {{ booking.rooms }} x {{ booking.roomType }} {{ booking.roomName }}
                     </p>
                 </div>
         </div>
 
-        <button @click="goBack" class="font-semibold text-base text-blue-600">Change your selection</button>
+        <button @click="goBack" class="font-semibold text-sm md:text-base text-blue-600">Change your selection</button>
 
     </div>
 

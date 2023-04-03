@@ -98,7 +98,7 @@ const blogs = ref([
             <div class="grid grid-cols-2 gap-y-10 gap-x-10 md:gap-0 md:grid-cols-4 justify-items-center">
 
                 <div class="w-full flex flex-col lg:pl-16">
-                    <h3 class="text-lg font-bold mb-6">
+                    <h3 class="text-base md:text-lg font-bold mb-6">
                         FIND
                     </h3>
 
@@ -107,7 +107,7 @@ const blogs = ref([
                 </div>
 
                 <div class="w-full flex flex-col lg:pl-16">
-                    <h3 class="text-lg font-bold mb-6">
+                    <h3 class="text-base md:text-lg font-bold mb-6">
                         COMPANY
                     </h3>
 
@@ -116,7 +116,7 @@ const blogs = ref([
                 </div>
 
                 <div class="w-full flex flex-col lg:pl-16">
-                    <h3 class="text-lg font-bold mb-6">
+                    <h3 class="text-base md:text-lg font-bold mb-6">
                         HELP CENTER
                     </h3>
 
@@ -125,7 +125,7 @@ const blogs = ref([
                 </div>
 
                 <div class="w-full flex flex-col lg:pl-16">
-                    <h3 class="text-lg font-bold mb-6">
+                    <h3 class="text-base md:text-lg font-bold mb-6">
                         BLOGS
                     </h3>
 
@@ -168,11 +168,11 @@ const blogs = ref([
         <div class="md:container mx-auto px-4 md:px-1 py-8 md:flex items-center justify-between border-t-2 border-gray-400">
 
             <div class="flex flex-col md:flex-row">
-                <h4 class="text-base text-center font-semibold mb-2 md:mb-0">
-                &copy; 2022 Bloonsoo | All rights reserved  
+                <h4 class="text-sm md:text-base text-center font-semibold mb-2 md:mb-0">
+                &copy; 2023 Bloonsoo | All rights reserved  
             </h4>
-            <h4 class="text-base text-center font-semibold mb-5 md:mb-0 mx-1 text-blue-700">
-                powered by Marriextransfer private limited
+            <h4 class="text-sm md:text-base text-center font-semibold mb-5 md:mb-0 mx-1 text-blue-700">
+                Powered by Marriextransfer Private Limited
             </h4>
             </div>
 
@@ -180,19 +180,19 @@ const blogs = ref([
             <div class="flex gap-4 items-center justify-center">
 
                 <a href="#">
-                    <font-awesome-icon icon="fa-brands fa-square-facebook" class="text-blue-700 text-2xl"/>
+                    <font-awesome-icon icon="fa-brands fa-square-facebook" class="text-blue-700 text-lg md:text-2xl"/>
                 </a>
 
                 <a href="#">
-                    <font-awesome-icon icon="fa-brands fa-twitter" class="text-blue-700 text-2xl"/>
+                    <font-awesome-icon icon="fa-brands fa-twitter" class="text-blue-700 text-lg md:text-2xl"/>
                 </a>
 
                 <a href="#">
-                    <font-awesome-icon icon="fa-brands fa-instagram" class="text-blue-700 text-2xl"/>
+                    <font-awesome-icon icon="fa-brands fa-instagram" class="text-blue-700 text-lg md:text-2xl"/>
                 </a>
 
                 <a href="#">
-                    <font-awesome-icon icon="fa-brands fa-linkedin" class="text-blue-700 text-2xl"/>
+                    <font-awesome-icon icon="fa-brands fa-linkedin" class="text-blue-700 text-lg md:text-2xl"/>
                 </a>
 
             </div>

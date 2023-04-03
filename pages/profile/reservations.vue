@@ -54,12 +54,12 @@ const logout = () => {
 
 <template>
     
-   <section class="text-black font-montserrat md:container mx-auto px-2 flex flex-col gap-14 py-10">
+   <section class="text-black font-montserrat md:container mx-auto px-5 md:px-2 flex flex-col gap-14 py-10">
 
 
-        <main class="grid grid-cols-4 items-start gap-12 w-full">
+        <main class="md:grid grid-cols-4 items-start gap-12 w-full">
 
-          <aside class="w-full col-span-1 h-full">
+          <aside class="w-full col-span-1 h-full mb-10 md:mb-0">
 
             <ProfileCard />
 
@@ -68,7 +68,7 @@ const logout = () => {
           <section class="w-full col-span-3 flex flex-col relative">
 
             <div class="w-full pb-6 border-b border-gray-300">
-              <h4 class="text-lg font-bold">Resarvations</h4>
+              <h4 class="text-lg font-bold">Reservations</h4>
             </div>
 
 
@@ -86,8 +86,8 @@ const logout = () => {
             <button 
             @click="toggleMenu"
             class="absolute top-0 right-10">
-              <font-awesome-icon v-if="!menu" icon="fa-solid fa-bars" class="text-4xl text-blue-700" />
-              <font-awesome-icon v-if="menu" icon="fa-solid fa-times" class="text-4xl text-blue-700" />
+              <font-awesome-icon v-if="!menu" icon="fa-solid fa-bars" class="text-2xl md:text-4xl text-blue-700" />
+              <font-awesome-icon v-if="menu" icon="fa-solid fa-times" class="text-2xl md:text-4xl text-blue-700" />
             </button>
 
             <div 

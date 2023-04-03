@@ -43,7 +43,7 @@ const logout = () => {
                 <!-- <h1 class="text-3xl font-bold">
                     LOGO
                 </h1> -->
-                <img src="../../assets/logo.png" alt="" class="w-24 md:w-64">
+                <img src="../../assets/logo.png" alt="" class="w-36 md:w-64">
             </NuxtLink>
 
             <div class="flex gap-5">
