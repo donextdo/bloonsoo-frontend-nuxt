@@ -17,7 +17,9 @@ const config = useRuntimeConfig()
 
 const baseUrl = config.public.baseUrl
 
-
+const email = ref()
+const userNotFoundError = ref(false)
+const invalidEmailError = ref(false)
 
 
 
