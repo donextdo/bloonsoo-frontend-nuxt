@@ -2,7 +2,8 @@
     
     <div>
         <Navbar short>
-            <NavbarSearch />
+            <NavbarSearch class="hidden md:block" />
+            <NavbarMiniSearch class="block md:hidden" />
         </Navbar>
 
         <div>

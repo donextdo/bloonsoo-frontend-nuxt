@@ -15,9 +15,14 @@ onMounted(() => {
 
 const { user, getFullName, getInitials } = storeToRefs(authStore)
 const menu = ref(false)
+const nav = ref(false)
 
 const toggleMenu = () => {
     menu.value = !menu.value
+}
+
+const toggleNav = () => {
+    nav.value = !nav.value
 }
 
 const logout = () => {
@@ -38,13 +43,13 @@ const logout = () => {
                 <!-- <h1 class="text-3xl font-bold">
                     LOGO
                 </h1> -->
-                <img src="../../assets/logo.png" alt="" class="w-64">
+                <img src="../../assets/logo.png" alt="" class="w-36 md:w-64">
             </NuxtLink>
 
             <div class="flex gap-5">
 
                 <div class="flex gap-2">
-                    <NuxtLink v-if="user" to="/listing/" class="py-2 px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
+                    <NuxtLink v-if="user" to="/listing/" class="py-2 px-3 md:py-2 md:px-6 rounded-full gradient-btn">Become A Host</NuxtLink>
 
                     <button 
                     @click="toggleMenu"
@@ -128,36 +133,92 @@ const logout = () => {
 
         </div>
 
-        <div class="px-4 mt-6 font-normal flex space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto">
-            <NuxtLink to="/" class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
-                <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
-                <span class="text-sm">Hotels</span>
-            </NuxtLink>
+        <div class="hidden md:block">
+            <div class="px-4 mt-6 font-normal md:flex space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto">
+                <NuxtLink to="/" class="flex py-2 px-4 rounded-full border-2 border-white gap-2 items-center justify-center">
+                    <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
+                    <span class="text-sm">Hotels</span>
+                </NuxtLink>
 
-            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <NavbarIconsFlight />
-                <span class="text-sm">Flights</span>
-            </NuxtLink>
-            
-            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <NavbarIconsRoom />
-                <span class="text-sm">Rooms</span>
-            </NuxtLink>
+                <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+                    <NavbarIconsFlight />
+                    <span class="text-sm">Flights</span>
+                </NuxtLink>
+                
+                <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+                    <NavbarIconsRoom />
+                    <span class="text-sm">Rooms</span>
+                </NuxtLink>
 
-            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <NavbarIconsFlats />
-                <span class="text-sm">Flats</span>
-            </NuxtLink>
+                <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+                    <NavbarIconsFlats />
+                    <span class="text-sm">Flats</span>
+                </NuxtLink>
 
-            <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
-                <font-awesome-icon icon="fa-solid fa-house-chimney" class="w-4 h-4" />
-                <span class="text-sm">Villas</span>
-            </NuxtLink>
+                <NuxtLink to="/coming_soon" class="flex py-2 px-4 rounded-full border-white gap-2 items-center justify-center">
+                    <font-awesome-icon icon="fa-solid fa-house-chimney" class="w-4 h-4" />
+                    <span class="text-sm">Villas</span>
+                </NuxtLink>
 
-        </div> 
+            </div> 
+        </div>
+
+        <div class="">
+            <div @click="toggleNav" class="px-4 mt-6 mb-2 font-normal  space-x-2 items-center justify-start sm:px-2 sm:container sm:mx-auto block md:hidden">
+
+                <NuxtLink   
+                   
+                    class="py-2 px-4 space-x-3 rounded-full border-2 border-white items-center justify-between ">
+
+                        <font-awesome-icon icon="fa-solid fa-hotel" class="w-4 h-4" />
+                        <span class="text-sm">Hotels</span>
+
+                        <font-awesome-icon v-if="!nav" icon="fa-solid fa-caret-down" class="text-white text-lg cursor-pointer pointer-events-none"/>
+
+                        <font-awesome-icon v-if="nav" icon="fa-solid fa-times" 
+                        class="text-white text-xl ml-5"/>
+
+                    </NuxtLink>
+             
+            </div>
+        </div>
+
+        <div 
+            :class="nav ? 'scale-y-100' : 'scale-y-0'"
+            class="bg-white px-6 py-4 rounded-md w-56 absolute left-5 top-32 z-30 
+            shadow-md transition-all duration-300 origin-top">
+                <ul class="w-full flex flex-col gap-2 text-sm font-semibold text-gray-600">
+                    <li 
+                    class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="/coming_soon">
+                            <span class="text-sm">Flights</span>
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="/coming_soon">
+                            <span class="text-sm">Rooms</span>
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="/coming_soon">
+                            <span class="text-sm">Flats</span>
+                        </NuxtLink>
+                    </li>
+
+                    <li class="w-full border-b border-gray-300 py-1">
+                        <NuxtLink to="/coming_soon">
+                            <span class="text-sm">Villas</span>
+                        </NuxtLink>
+                    </li>
+                    
+                </ul>
+            </div>
+ 
 
         <div :class="short ? 'h-32' : 'h-44'" class="relative mx-auto flex flex-col justify-center sm:container px-20">
-            <h1 class=" text-3xl font-bold">
+            <h1 class="text-2xl md:text-3xl font-bold">
                 Find your next stay
             </h1>
 

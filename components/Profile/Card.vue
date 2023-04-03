@@ -63,13 +63,16 @@ const toggleProfileForm = () => {
     <div class="w-full pb-6 border-b border-gray-300">
       <div
         class="
-          w-2/3
+          w-3/5
+          md:w-2/3
           aspect-square
           rounded-full
           mx-auto
           overflow-hidden
           relative
           group
+          mb-4
+          md:mb-0
         "
       >
         <img v-if="user.profilePic"

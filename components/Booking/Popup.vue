@@ -150,18 +150,18 @@ const onSubmit = () => {
                         <button
                         @click="handleGuestClick"
                         type="button"
-                        class="w-full px-12 py-2 border border-slate-400 rounded-lg text-slate-700 font-semibold text-sm focus:border-blue-500 focus:border focus:outline-none flex items-center justify-start"
+                        class="w-full px-6 md:px-12 py-2 border border-slate-400 rounded-lg text-slate-700 font-semibold text-sm focus:border-blue-500 focus:border focus:outline-none flex items-center justify-start"
                         >
                             {{setGuests ? `${adults} Adults &bullet; ${children} Children &bullet; ${rooms} Room` : 'Add Guests'}}  
                         </button>
 
-                        <font-awesome-icon icon="fa-solid fa-user" class="absolute left-4 top-0 bottom-0 my-auto text-slate-700 text-lg" />
+                        <font-awesome-icon icon="fa-solid fa-user" class="absolute left-2 md:left-4 top-0 bottom-0 my-auto text-slate-700 text-sm md:text-lg" />
 
                     </div>
 
                     <div 
                     :class="guestPanel ? 'scale-y-100' : 'scale-y-0'" 
-                    class="w-1/2 p-4 flex flex-col gap-4 absolute -top-14 left-0 right-0 z-10 bg-white shadow-md mx-auto transition-all overflow-hidden border border-slate-400 rounded-md origin-center">
+                    class="md:w-1/2 p-4 flex flex-col gap-4 absolute -top-14 left-0 right-0 z-10 bg-white shadow-md mx-auto transition-all overflow-hidden border border-slate-400 rounded-md origin-center">
 
                         <h4 class="text-sm font-bold text-gray-600">
                             Guests
@@ -256,7 +256,7 @@ const onSubmit = () => {
 
                 <button 
                 @click="onSubmit"
-                class="rounded-full py-3 gradient-btn col-span-2 mt-6">
+                class="rounded-full py-2 md:py-3 gradient-btn col-span-2 mt-3 md:mt-6">
                     Done
                 </button>
 
