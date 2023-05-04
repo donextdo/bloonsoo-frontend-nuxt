@@ -74,6 +74,9 @@ const handleClick = async () => {
 
 
 <template>
+
+    <NavbarLoginNav/>
+    
     <section class="login-section">
 
         <div class="w-full h-full px-12 text-gray-700 bg-white bg-opacity-60 backdrop-blur-sm flex flex-col justify-center gap-6">

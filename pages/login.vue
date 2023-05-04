@@ -78,7 +78,11 @@ const handleClick = async () => {
 
 
 <template>
+    
+    <NavbarLoginNav/>
     <section class="login-section">
+
+        
 
         <div class="w-full h-full px-12 col-start-2 bg-white bg-opacity-60 backdrop-blur-sm flex flex-col justify-center gap-6">
 
@@ -156,7 +160,7 @@ const handleClick = async () => {
 <style scoped>
 
     .login-section {
-        @apply h-screen grid grid-cols-2 font-montserrat;
+        @apply h-screen md:grid grid-cols-2 font-montserrat;
         background-image: url('../assets/login/hero.png');
         background-size: cover;
         background-repeat: no-repeat;
